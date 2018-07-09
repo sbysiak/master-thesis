@@ -1,0 +1,61 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{polski}
+\usepackage[T1]{fontenc}
+\usepackage{helvet}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{hyperref}	
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{lineno}
+\usepackage{siunitx}
+\usepackage{xr} %\externaldocument{volume1}
+\usepackage[backend=bibtex, sorting=none]{biblatex}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{placeins}
+\usepackage{titlesec}
+\usepackage[titletoc,toc,title]{appendix}
+
+
+
+\newcommand{\subf}[2]{%
+  {\small\begin{tabular}[t]{@{}c@{}}
+  #1\\#2
+  \end{tabular}}%
+}
+
+\addbibresource{bibliografia.bib}
+
+%\linenumbers
+
+
+
+\graphicspath{ {graphics/} }
+\geometry{hmargin={2cm, 2cm}, height=10.0in}
+
+\externaldocument{alice}
+
+
+
+\begin{document}
+
+\include{strona_tytulowa}
+\tableofcontents
+
+\include{wprowadzenie}
+\include{wyniki}
+\include{podsumowanie}
+
+
+\printbibliography
+
+
+
+
+\end{document}
