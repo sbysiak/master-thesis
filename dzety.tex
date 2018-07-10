@@ -1,0 +1,31 @@
+\subsection{Dżety}
+\label{subsec:dzet-def}
+
+\paragraph{Definicja dżetu}
+Przedstawiona powyżej definicja dżetu nie jest precyzyjna z punktu widzenia pracy eksperymentalnej. W detektorze obserwuje się tylko cząstki w stanie końcowym, nie jest znana natomiast ich historia (tj. parton, z którego powstały), nie jest zatem możliwe przyporządkowanie cząstki według jej pochodzenia. W związku z tym, konieczne jest użycie algorytmu klasteryzującego, dostającego na wejściu tylko obserwowalne eksperymentalnie cząstki. 
+To jakie dżety obserwowane są w danym zdarzeniu zależy oczywiście od użytego algorytmu. Oznacza to, że precyzyjną definicję dżetu stanowi algorytm klasteryzujący wraz z użytym zestawem parametrów. Obecnie najpowszechniej stosowanym algorytmem jest algorytm \textit{anti-kt}.
+
+Dżety stanowią ważny element w badaniach plazmy kwarkowo-gluonowej.
+Dają one pośredni wgląd we właściwości \textit{QGP} na podstawie jej wpływu na oddziałujące z nią partony. Przykładową obserwablą mierzoną w zderzeniach ciężkich jonów jest czynnik modyfikacji jądrowej \angterm{nuclear modification factor}, który jest miarą strat energii przez parton przechodzący przez medium.
+
+Oprócz globalnego wpływu medium na dżety, analizuje się także różnice między dżetami pochodzącymi z gluonów oraz kwarków o różnych zapachach \angterm{flavours}. Modele teoretyczne przewidują między innymi większe straty energii w wyniku interakcji z \textit{QGP} dla dżetów gluonowych niż kwarkowych -- w tym przypadku precyzyjne pomiary rozróżniające typy dżetów pozwalają lepiej zrozumieć mechanizm odpowiadający za straty energii przez partony.
+
+Jak zostało to już wcześniej zasygnalizowane, w eksperymencie nie ma się bezpośredniego dostępu do informacji na temat partonów, dlatego również klasyfikowanie (nazywane także identyfikacją) dżetów może odbywać się wyłącznie na podstawie cząstek mierzonych w detektorze -- zwykle obecności hadronu zawierającego odpowiedni kwark w zadanej odległości od osi dżetu (przykładowo obecność hadronu \textit{B} oznacza, że dżet będzie zaklasyfikowany jako dżet \textit{b}).
+
+
+
+Eksperymentalne ograniczenia związane z obserwacją tylko końcowego stanu oddziaływań nie występują w analizie danych z symulacji Monte Carlo, gdzie  ma się dostęp do pełnej informacji na temat historii każdej cząstki. Można pomyśleć, że daje to możliwość "lepszej" klasteryzacji i identyfikowania dżetów. 
+Rekonstrukcja przy użyciu informacji o partonach - matkach sprawia, że definicja dżetu wykorzystana w badaniach danych symulacyjnych jest inna od tej wykorzystywanej w eksperymencie. Tracona jest przez to cecha odpowiedniości między obiektami nazywanymi dżetami w symulacji  i w eksperymencie, która to cecha jest niewątpliwie jedną z podstawowych wymagań stawianych przed dobrą symulacją.
+%Z kolei identyfikacja dżetów na podstawie zapachu partonu, z którego naprawdę pochodzą posiada dwie podstawowe wady. Po pierwsze, przyjmując za definicję dżetu algorytm działający na podstawie stanu końcowego, cząstki tworzące jeden dżet mogą pochodzić od kilku partonów, istnieje wtedy kilka sprzecznych możliwości zaklasyfikowania dżetu (np. zapach partonu z którego pochodzi większość cząstek składowych albo większość cząstek ważona pędami lub też cząstka o największym pędzie~etc). Po drugie, symulatory MC bazują w dużej mierze na parametryzowanych rozkładach partonowych, które są dopasowywane do danych, natomiast wczesne procesy QCD są słabo poznane.
+
+%PYTHIA6 manual:
+%"Parton distributions are most familiar for hadrons, such as the proton, which are
+%inherently composite objects, made up of quarks and gluons. Since we do not understand
+%QCD, a derivation from first principles of hadron parton distributions does not yet exist,
+%although some progress is being made in lattice QCD studies. It is therefore necessary
+%to rely on parameterizations, where experimental data are used in conjunction with the
+%evolution equations for the Q2 dependence, to pin down the parton distributions. Several
+%different groups have therefore produced their own fits, based on slightly different sets of
+%data, and with some variation in the theoretical assumptions"
+
+Tag \& Reco w MC

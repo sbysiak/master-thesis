@@ -1,0 +1,12 @@
+\subsection{Wzmacniane drzewa decyzyjne}
+\label{subsec:drzewa}
+
+Wzmacniane drzewa decyzyjne są jednym z rozwinięć klasycznego algorytmu drzewa decyzyjnego. 
+Pojedyncze drzewo decyzyjne dzieli przestrzeń cech uczących przy pomocy prostopadłych cięć, na mniejsze/większe niż zadana wartość w przypadku zmiennej ciągłej lub na należące/nie należące do danej klasy w przypadku zmiennej kategorycznej. Każdy podział, nazywany węzłem, daje dwie gałęzie, które można dalej niezależnie dzielić aż do ostatniego poziomu (liści). Kolejne podziały wybierane są tak, aby zbiory przykładów wpadające do poszczególnych gałęzi były jak najbardziej jednorodne. Stosuje się różne miary jednorodności takie tak: \textit{indeks Gini}
+
+Drzewa decyzyjne są często łączone w komitety klasyfikatorów \angterm{ensemble methods}. Wiele "słabych" klasyfikatorów jest łączonych w jeden "silny" na dwa sposoby: \textit{bagging} oraz \textit{boosting} (wzmacnianie), które są często ze sobą porównywane.
+
+\textit{Bagging} - w zastosowaniu dla drzew decyzyjnych nazywany algorytmem lasów losowych \angterm{random forest} - polega na wytrenowaniu wielu drzew, każde na podstawie $N$ przykładów losowo wylosowanych z powtórzeniami spośród $N$-licznego zbioru treningowego. Dodatkowo, do uczenia każdego drzewa używa się tylko podzbioru wszystkich cech uczących. Końcową predykcję algorytmu otrzymuje się poprzez "głosowanie" wszystkich drzew z odpowiednimi wagami.
+
+\textit{Boosting} 
+ToDo: Boosting - AdaBoost, porównanie baggVSboost - rownoległyVSsekwencyjny

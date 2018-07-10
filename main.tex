@@ -24,11 +24,11 @@
 
 
 
-\newcommand{\subf}[2]{%
-  {\small\begin{tabular}[t]{@{}c@{}}
-  #1\\#2
-  \end{tabular}}%
-}
+
+\newcommand{\angterm}[1] {
+  (ang.~\textit{#1})}
+
+
 
 \addbibresource{bibliografia.bib}
 
@@ -45,12 +45,15 @@
 
 \begin{document}
 
-\include{strona_tytulowa}
+%\input{strona_tytulowa}
 \tableofcontents
+% input{} / include{} - input nie daje \clearpage
+\input{qgp} 
+\input{dzety}
+\input{ml}
+\input{drzewa}
 
-\include{wprowadzenie}
-\include{wyniki}
-\include{podsumowanie}
+
 
 
 \printbibliography
