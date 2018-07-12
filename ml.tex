@@ -10,17 +10,35 @@ W tej pracy wykorzystywana jest gałąź uczenia maszynowego nazywana uczeniem n
 Problem identyfikacji dżetów jest klasycznym przykładem zagadnienia klasyfikacji, gdzie poprawna odpowiedź jest jedną ze skończonej ilości opcji (klas) w przeciwieństwie do regresji, gdzie szukana odpowiedź algorytmu ma charakter ciągły. 
 
 Występuje wiele algorytmów uczenia maszynowego takich jak regresja liniowa i logistyczna, drzewa decyzyjne i ich wariacje, maszyny wektorów wspierających, sztuczne sieci neuronowe oraz wiele innych. Uczenie polega na znalezieniu pewnej funkcji dopasowującej do przyjmowanego na wejściu zestawu (wektora) cech (zmiennych, kolumn) pewną odpowiedź (predykcję), która minimalizuje zadaną funkcję straty. Jej rolę w przypadku regresji często pełni błąd średniokwadratowy a w przypadku klasyfikacji np. entropia krzyżowa \angterm{cross entropy} [\#PRZYPIS]. 
-Różne algorytmy szukają przy tym funkcji dopasowującej należącej do różnych klas funkcji: przykładowo klasyczne drzewa decyzyjne przeszukują tylko przestrzeń funkcji dających się opisać skończonym zbiorem reguł "jeśli - to" \angterm{if - else}.
+Różne algorytmy szukają przy tym funkcji dopasowującej należącej do różnych klas funkcji: przykładowo klasyczne drzewa decyzyjne przeszukują tylko przestrzeń funkcji dających się opisać skończonym zbiorem reguł "jeśli -- to" \angterm{if -- else}.
+
+W pracy wykorzystane zostały dwa rodzaje algorytmów: wzmacniane drzewa decyzyjne oraz sieci neuronowe.
+
+\input{drzewa}
+\input{sieci_neuronowe}
+
+\subsection{Dyskusja użycia dwóch algorytmów}
+Użycie więcej niż jednego algorytmu ma wiele zalet. 
+Po pierwsze daje możliwość porównania wyników. Pozwala to na pewne oszacowanie błędu \textit{Bayesowskiego} (najniższego możliwego do osiągnięcia przez jakikolwiek algorytm błędu). Jest to bardzo ważne w sytuacji, gdy nie dysponuje się innym oszacowaniem tego błędu (w wielu problemach naturalnych dla człowieka jak rozpoznawanie obiektów na obrazkach jest nim błąd ludzki lub też błąd popełniany przez zespół ekspertów w bardziej zaawansowanych zastosowaniach).
+
+Po drugie, wykorzystane zostały dwa algorytmy mocno różniące się w swojej naturze, co pozwala wykorzystać cechy każdego z nich w analizie: przykładowo sieci neuronowe dobrze radzą sobie z nieustrukturyzowanymi danymi -- potrafią tworzyć wysoko poziomowe cechy na podstawie niskopoziomowego wejścia (np. położenia oka na zdjęciu twarzy na podstawie pixeli). Są natomiast trudne w interpretacji i często traktowane są jako tzw. "czarne skrzynki" \angterm{black box}. Oprócz tego, liczba możliwych konfiguracji sieci jest ogromna i przez to niemożliwe jest stwierdzenie czy wykorzystane zostały pełne ich możliwości.
+
+Z kolei drzewa decyzyjne posiadają stosunkowo niewielką liczbę parametrów, co pozwala na ich ekstensywne przeszukiwanie i otrzymanie wyników, które można uznać za optymalne dla tego algorytmu.
+Ponadto, w przypadku drzew istnieją niewymagające dodatkowych obliczeń miary użyteczności poszczególnych zmiennych, co daje wgląd w działanie algorytmu i poprawia intuicyjne zrozumienie jego predykcji.
 
 \vspace{5em}
-Tabelaryczne dane:
-W pracy zamiennie używanymi terminami są wiersze i przykłady
 
-ToDo: funkcja f(X)=y, funkcja straty, wiele algos - różne klasy funkcji, terminologia: wiersze=przyklady, kolumny = zmienne trenujace/uczace = cechy
-, output = predykcja = odpowiedz algorytmu = tlo/sygnal
-NN: szczegolnie dobre w nieustrukturyzowanych danych
+drzewa - xgb, nn - keras?
+
+drzewa - opis algorytmy wyjasniajace, wplyw zmiennych
+
+partial dependence - chyba mogą być też dla NN - sprawdzić czy liczy się w skonczonym czasie
+
+
 
 procedura-podzial na train/val/test
+parameters tuning, CV
+
 
 
 

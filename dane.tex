@@ -1,0 +1,47 @@
+\section{Dane}
+\label{sec:dane}
+
+%p-p, 13 TeV - Pythia8 - JJ events anchored to LHC16i, ALIROOT-7268
+
+Dane użyte w analizie pochodzą z symulacji Monte Carlo zderzeń proton-proton przy energii w układzie środka masy równej $\sqrt{s} = 13$ TeV. 
+W symulacjach zderzeń użyty był symulator \texttt{Pythia8} (\textit{tune: Pythia8Jets\_Monash2013}), następnie przy pomocy \texttt{Geant3} symulowany został transport cząstek i odpowiedź detektora ALICE. 
+Do rekonstrukcji dżetów wykorzystany został algorytm \textit{anti-kt} z parametrem $R = 0.4$ zaimplementowany w pakiecie \texttt{FASTJET}. Dżetów poszukiwano tylko wyłącznie wśród cząstek naładowanych \angterm{charged jets}.
+%Symulacje prowadzone były w wąskich binach $p_T$, które zostały połączone.
+
+Dla każdego dżetu obliczony został szereg wielkości, które można podzielić na zmienne na poziomie dżetu, związane z wtórnymi wierzchołkami oraz cząstkami tworzącymi dżet, których lista znajduje się poniżej:
+
+
+\begin{itemize}
+	\item Zmienne na poziomie dżetu:
+	\begin{itemize}	
+		\item $\eta$, $\phi$ -- pseudopospieszność \angterm{pseudorapidity} i kąt azymutalny
+		\item $p_T$ -- pęd poprzeczny dżetu
+		\item masa dżetu
+		\item powierzchnia dżetu -- liczona w płaszczyźnie ($\eta$, $\phi$),   do powierzchni dżetu zaliczany jest element w powierzchni w którym dodanie cząstki o nieskończenie małym pędzie poprzecznym sprawi, że zostanie ona zaliczona do tego dżetu  [\#REF https://arxiv.org/pdf/0707.1378.pdf]
+		\item gęstość tła (w danym zdarzeniu)
+		\item $N_{SV}$ -- liczba wtórych wierzchołków
+		\item $N_{Constit}$ -- liczba cząstek tworzących dżet
+	\end{itemize}
+	
+	
+	\item Zmienne opisujące cząstki tworzące dżet:
+	\begin{itemize}	
+		\item $\eta$, $\phi$, $p_T$ -- pseudopospieszność, kąt azymutalny, pęd poprzeczny cząstki
+		\item $IP_D$ -- rzut na kierunek poprzeczny wektora parametru zderzenia
+		\item $IP_Z$ -- rzut na oś $z$ wektora parametru zderzenia
+	\end{itemize}	
+	
+	
+	\item Zmienne opisujące wtórne wierzchołki:
+	\begin{itemize}	
+		\item $L_{xy}$ -- odległość między pierwotnym a wtórnym wierzchołkiem \angterm{decay length}
+		\item $\sigma_{vertex} = \sqrt{d_1^2 + d_2^2 + d_3^2}$ -- rozrzut śladów \angterm{tracks} wokół wtórnego wierzchołka, gdzie $d_i$ to odległość najbliższego zbliżenia śladu / odległość najbliższego przelotu do wtórnego wierzchołka \angterm{distance of closest approach -- DCA} % https://arxiv.org/pdf/1511.04380.pdf (str. 92)
+		\item $M_{inv} = \sqrt{(E_1 + E_2 + E_3)^2 - (\vec{p_1} + \vec{p_2} + \vec{p_3})^2}$ -- masa niezmiennicza wierzchołka
+		\item $\chi^2/Ndf$  dopasowania wtórnego wierzchołka
+	\end{itemize}
+\end{itemize}
+
+
+ToDo: Rys: IP, SV etc
+
+jak się robi SV
