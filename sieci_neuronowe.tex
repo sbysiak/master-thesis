@@ -1,16 +1,180 @@
 \subsection{Sieci neuronowe}
 \label{subsec:nn}
 
-Sieci neuronowe są szczególnym algorytmem uczenia maszynowego. Występują w bardzo wielu odmianach i są wykorzystywane w rozwiązywaniu szerokiej gamy problemów. Nawet bardzo pobieżny opis sieci neuronowych wymaga dużo więcej miejsca niż kilka stron przewidzianych w tej pracy. Zainteresowanego czytelnika odsyłam do: [\#REF]x100. (Klasyfikację i opis typów sieci neuronowych można znaleźć w [\#REF].) Tu przedstawione zostaną wyłącznie wybrane zagadnienia mające ścisły związek z pracą, używane będą terminy, których znaczenie wyjaśniane jest w podanych źródłach.
+Sieci neuronowe \angterm{neural networks -- NN} są szczególnym algorytmem uczenia maszynowego. Występują w bardzo wielu odmianach i są wykorzystywane w rozwiązywaniu szerokiej gamy problemów. Nawet bardzo pobieżny opis sieci neuronowych wymaga dużo więcej miejsca niż może być temu poświęcone w tej pracy. 
 
-W niniejszej pracy, wykorzystane zostały dwa rodzaje sieci neuronowych: w pełni połączone \angterm{fully connected NN -- FC NN} oraz konwolucyjne \angterm{convolutional NN -- ConvNets, CNN}. 
+Wprowadzenia do sieci neuronowych na różnym poziomie zaawansowania można znaleźć min w [\#REF]x100. 
+Tu przedstawione zostaną wyłącznie wybrane zagadnienia mające ściślejszy związek z pracą, używane mogą być terminy, których znaczenie wyjaśniane jest w podanych źródłach.
 
-ToDo: Rys. (własne?) 
+W niniejszej pracy, wykorzystane zostały dwa rodzaje sieci neuronowych: sieci w pełni połączone \angterm{fully connected NN -- FC NN}, nazywane także wielowarstwowymi perceptronami \angterm{multi-layer perceptron -- MLP} oraz sieci konwolucyjne \angterm{convolutional NN -- ConvNets, CNN}. 
 
-opis hiperparametrów (na podstawie obrazka?)
+\subsubsection*{Sieci w pełni połączone (\textit{MLP})}
+W nierekurencyjnych sieciach neuronowych (tylko takie są używane w tej pracy), informacja jest przekazywana kolejno od warstw wejściowych, poprzez warstwy ukryte aż do wyjściowej. 
+W sieciach typu \textit{FC} wszystkie warstwy składają się z identycznych neuronów -- każdy neuron dostaje na wejściu wektor, natomiast zwraca skalar -- wartość pewnej zadanej, nieliniowej funkcji, jako argument podając średnią ważoną z elementów wektora wejściowego. Wartości zwracane przez neurony w danej warstwie składają się na wektor wejściowy dla neuronów kolejnej warstwy. Wejściem dla pierwszej warstwy są natomiast kolejne przykłady ze zbioru uczącego. Trenowanie sieci neuronowych polega na zmienianiu wag (parametrów) w liczonej w każdym neuronie średniej, każdy neuron posiada własny, niezależny zestaw wag.
 
-Conv - opis na 2d, zwykle obrazki, tu: 1D np. szeregi czasowe
-http://www.deeplearningbook.org/contents/convnets.html - str. 329-334
+Istnieje twierdzenie o sieciach neuronowych jako uniwersalnych aproksymatorach funkcji \angterm{Universal approximation theorem}, mówiące, że już sieć neuronowa o jednej warstwie ukrytej jest zdolna do przybliżenia dowolnej funkcji z dowolną dokładnością. Twierdzenie to milczy niestety na temat liczby potrzebnych neuronów a przede wszystkim sposobu ich trenowania. 
+Trenowanie jest prostsze w przypadku zastosowania wielu warstw, które odpowiadają kolejnym poziomą abstrakcji jednak nadal jest dużym wyzwaniem ze względu na fakt, że nawet stosunkowo niewielka sieć może posiadać bardzo dużą liczbę parametrów, przykładowo sieć o czterech warstwach, w każdej po 128 neuronów ma ich ponad 65 tysięcy.
 
-różnice - lokalne połączenia, dzielenie wag, mniejsza liczba wag w Conv
+
+\subsubsection*{Sieci konwolucyjne}
+Jednym ze sposobów na ograniczenie liczby trenowanych parametrów jest użycie konwolucyjnych sieci neuronowych (bardziej poprawną choć rzadko używaną nazwą w języku polskim jest sieć splotowa). Są one inspirowane połączeniami w korze wzrokowej zwierząt i wywodzą się z badań w obszarze wizji komputerowej, gdzie liczby parametrów są szczególnie duże (wektor wejściowy ma wymiar równy liczbie pikseli w obrazku), na takim przykładzie również najłatwiej zrozumieć ich działanie.
+
+Sieci konwolucyjne różnią się od sieci typu \textit{FC}, tym że część wag połączeń między warstwami jest dzielona. Występuje w nich nowy rodzaj warstwy, nazywany warstwą konwolucyjną. Każda jednostka w warstwie konwolucyjnej (filtr) ma pewną stałą (niewielką) liczbę wag. Połączenie z dużym  wejściem realizowane jest przez powielanie tych samych wag w połączeniach z kolejnymi fragmentami wektora wejściowego (por. Rys. \ref{fig:convolution}). Rezultatem działania filtra na macierz jest wynik operacji splotu. Liczba parametrów przypadająca na każdy filtr jest równa jego rozmiarowi i nie zależy od wielkości wektora wejściowego. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{convolution_matrix.png}
+	\caption{Schemat działania pojedynczego filtra z warstwy konwolucyjnej (operacja splotu).}
+	\label{fig:convolution}
+\end{figure}
+
+W przypadku gdy zamiast wejścia dwuwymiarowego (jak np. obraz czarno-biały), mamy do czynienia z wejściem trójwymiarowym (np. trzeci wymiar to kolejne kolory w kodowaniu RGB), filtry również muszą mieć trzy wymiary, przy czym rozmiar w ostatnim wymiarze musi być równy rozmiarowi w tym kierunku wektora wejściowego. Wynik operacji splotu jest ponownie dwuwymiarowy, gdyż filtr przesuwany jest tylko w dwóch pierwszych wymiarach. Trzeci wymiar powstaje przez składanie kolejnych filtrów. Widać zatem, że również w przypadku gdy na wejścia podawany jest obraz czarno-biały, filtry w kolejnych warstwach konwolucyjnych (oprócz pierwszej) mają po trzy wymiary.
+
+\begin{figure}[h]
+	\centering
+	\begin{minipage}[c]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{conv-over-volume.png}
+		\caption{Działanie pojedynczego filtra~(3D) na wejście o trzech wymiarach.}
+		\label{fig:conv-over-vol}
+	\end{minipage}
+	\hspace{3em}
+	\begin{minipage}[c]{0.45\textwidth}
+		\vspace{-0.5em}
+		\includegraphics[width=0.9\textwidth]{max-pool.png}
+		\vspace{1.5em}
+		\caption{Działanie warstwy typu \\ \textit{max-pool}}
+		\label{fig:max-pool}
+	\end{minipage}	
+\end{figure}
+
+
+
+
+%\begin{wrapfigure}[11]{r}{0.5\textwidth}
+%  \begin{center}
+%  	\vspace{-2em}
+%	\includegraphics[width=0.45\textwidth]{conv-over-volume.png}
+%	\begin{minipage}[c]{0.48\textwidth}
+%	\vspace{1em}
+%    \caption{Działanie pojedynczego filtra~(3D) na wejście o trzech wymiarach.}
+%   	\label{fig:conv-over-vol}
+%    \end{minipage}
+%
+%  \end{center}
+%\end{wrapfigure}
+%
+%W przypadku gdy zamiast wejścia dwuwymiarowego (jak np. obraz czarno-biały), mamy do czynienia z wejściem trójwymiarowym (np. trzeci wymiar to kolejne kolory w kodowaniu RGB), filtry również muszą mieć trzy wymiary, przy czym rozmiar w ostatnim wymiarze musi być równy rozmiarowi w tym kierunku wektora wejściowego. Wynik operacji splotu jest ponownie dwuwymiarowy, gdyż filtr przesuwany jest tylko w dwóch pierwszych wymiarach. Trzeci wymiar powstaje przez składanie kolejnych filtrów. Widać zatem, że również w przypadku gdy na wejścia podawany jest obraz czarno-biały, filtry w kolejnych warstwach konwolucyjnych (oprócz pierwszej) mają po trzy wymiary.
+%
+%
+%\begin{wrapfigure}[12]{r}{0.5\textwidth}
+%  \begin{center}
+%  	\vspace{-2em}
+%	\includegraphics[width=0.45\textwidth]{max-pool.png}
+%	\begin{minipage}[c]{0.48\textwidth}
+%	\vspace{1em}
+%    \caption{Działanie warstwy typu \textit{max-pool}.}
+%   	\label{fig:conv-over-vol}
+%    \end{minipage}
+%
+%  \end{center}
+%\end{wrapfigure}
+
+Oprócz warstw konwolucyjnych, w sieciach tego typu stosowane są także tzw. warstwy typu \textit{max-pooling}. Zasada jej działania jest bardzo prosta: wykonuje funkcję \textit{maksimum} na zadanym fragmencie obrazu (por. Rys. \ref{fig:max-pool}). Ich rolą jest zmniejszanie rozmiaru przekazywanej w sieci informacji.
+
+Typowa architektura stosowana w przypadku sieci konwolucyjnych jest następująca: najpierw warstwy konwolucyjne (pomiędzy nimi czasem warstwy typu \textit{max-pool}), następnie wszystkie filtry są rozwijane i składane w długi jednowymiarowy wektor, który przekazywany jest do warstw typu \textit{FC}. W przypadku problemu klasyfikacji, na końcu znajduje się jeszcze warstwa typu \textit{softmax} normalizująca wyjście z sieci do jedynki.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{cnn-typical-architecture.jpeg}
+	\caption{Typowa struktura stosowana w sieciach konwolucyjnych. Warstwy konwolucyjne mają za zadanie wydobywać cechy, na podstawie których późniejsze warstwy dokonują klasyfikacji.
+	Widoczna jest charakterystyczna stopniowa zmiana rozmiaru przekazywanej macierzy: rozmiar poprzeczny maleje kosztem głębokości, co odpowiada rosnącej liczbie filtrów i malejącemu rozmiarowi obszaru po jakim są one przesuwane.}
+	\label{fig:cnn-arch}
+\end{figure}
+
+
+\begin{wrapfigure}[11]{r}{0.3\textwidth}
+  \begin{center}
+  	\vspace{-2em}
+	\includegraphics[width=0.2\textwidth]{translation-inv-non-face.png}
+	\begin{minipage}[c]{0.25\textwidth}
+	\vspace{1em}
+    \caption{Działanie pojedynczego filtra~(3D) na wejście o trzech wymiarach.}
+   	\label{fig:translation-inv-nonface}
+    \end{minipage}
+  \end{center}
+\end{wrapfigure}
+
+
+Sieci konwolucyjne posiadają dwie właściwości odróżniające je od \textit{MLP}:
+\begin{itemize}
+	\item lokalność połączeń -- filtry obejmują tylko kilka sąsiednich pikseli (tam zwykle występują najsilniejsze zależności) nie są w stanie dostrzec cechy rozciągniętej na obszar większy od rozmiaru filtra
+	\item niezmienniczość względem przesunięcia \angterm{translation invariance} -- głównie za sprawą dzielenia wag oraz obecności warstw typu \textit{max-pool}, położenie danej cechy na obrazie jest niemal bez znaczenia (obraz po prawej stronie byłby rozpoznany jako twarz)
+\end{itemize}
+
+\subsubsection*{Hiperparametry i trenowanie sieci neuronowych}
+
+Parametry sieci, których wartości są określane przez projektanta sieci, takie jak liczba warstw ukrytych są nazywane hiperparametrami (dla odróżnienia od parametrów - wag połączeń).
+
+Testowane były trzy architektury: sieci w pełni połączone, sieci konwolucyjne oraz sieć złożona z dwóch gałęzi, osobnych dla wtórnych wierzchołków i cząstek tworzących dżet (por. Rozdz. \ref{sec:dane}) przedstawione schematycznie na Rys. \ref{fig:nets-params}.
+Do trenowania sieci wykorzystano wysokopoziomową bibliotekę \texttt{Keras} korzystającą z silnika obliczeniowego zaimplementowanego w \texttt{TensorFlow}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{networks_params.png}
+	\caption{Schematyczne przedstawienie trzech testowanych architektur sieci. Bloki warstw typu \textit{FC} w sieci złożonej z dwóch gałęzi i opisane jako "kompresja" składały się z kilku neuronów i miały za zadanie zredukować całą informację z danej gałęzi do wektora kilku liczb. Obie gałęzie miały taką samą strukturę.}
+	\label{fig:nets-params}
+\end{figure}
+
+
+Zestaw hiperparametrów definiujący działanie sieci w pełni połączonej: 
+\begin{itemize}
+	\item liczba warstw ukrytych 
+	\item liczba neuronów w każdej warstwie
+	\item funkcja aktywacji -- nieliniowa funkcja aplikowana przed zwróceniem wartości w każdym neuronie, najpopularniejsze to \textit{tanh}, \textit{ReLU} oraz funkcja sigmoidalna
+	\item algorytm optymalizacyjny -- spadek gradientowy lub jego wariacje
+	\item parametr szybkości uczenia i jego modyfikacje w trakcie uczenia
+	\item liczba przykładów trenujących przetwarzanych w jednym kroku uczenia \angterm{batch\_size} -- im większy tym szybsze jest trenowanie sieci (dzięki wydajnym operacjom macierzowym), natomiast może się to odbywać kosztem precyzji
+	\item liczba epok uczenia -- ile razy będzie pokazywany sieci każdy przykład
+	\item opcjonalnie: warunki stopu \angterm{early stopping} w razie osiągnięcia \textit{plateau}
+	\item opcjonalnie: regularyzacja przy pomocy różnych technik (zwykle konieczna)
+	\item ponadto dla sieci konwolucyjnych: 
+	\begin{itemize}
+		\item liczba warstw konwolucyjnych i liczba filtrów w tychże
+		\item obecność lub brak warstw \textit{max-pool} i rozmiar ich okna
+		\item rozmiar filtrów i długość skoku przy przesuwaniu
+	\end{itemize}
+\end{itemize}
+
+Same dwie pierwsze wielkości dają nieograniczoną liczbę konfiguracji. 
+Czas trenowania sieci neuronowych jest rzędy wielkości większy niż drzew decyzyjnych, dlatego przyjęto szereg kroków mających na celu zmniejszenie przeszukiwanej przestrzeni hiperparametrów. Na podstawie wstępnych testów oraz różnych wskazówek dostępnych w literaturze przyjęto:
+\begin{itemize}
+	\item \textit{batch\_size} zawsze równy 64 (inne testowane wartości: 16, 32, 128)
+	\item za algorytm optymalizacyjny przyjęto algorytm o nazwie \textit{Nadam}, tj. rozwinięcie algorytmu \textit{Adam} o parametr Nesterova (inne testowane to zwykły spadek gradientowy oraz \textit{Adam})
+	\item funkcję aktywacji: \textit{ReLU}
+	\item liczba epok równa 100 lub 200 (lub mniej do testów), zrezygnowano z \textit{early stopping}
+	\item stałe w trakcie treningu wartości parametru szybkości uczenia 
+	\item spośród technik regularyzacyjnych testowano wyłącznie \textit{dropout} z parametrami 0.1, 0.2, 0.5
+	\item kilka wybranych kombinacji dla zestawu parametrów: rozmiar filtra, długość skoku i rozmiar okna w warstwach \textit{max-pool} -- takie same w kolejnych warstwach
+	\item liczby neuronów/filtrów w warstwach będące zawsze potęgami dwójki oraz stałą liczbę w kolejnych warstwach lub zmieniającą się o stały czynnik, np. 256-128-64, 128-128-128 lub 16-32-64
+	\item liczba warstw \textit{FC}: 2-8, konwolucyjnych 2-6
+\end{itemize}
+
+Nawet po przyjęciu powyższych uproszczeń nie sposób sprawdzić wszystkich możliwych zestawów hiperparametrów, dlatego sposób ich dobierania w kolejnych testach był mocno empiryczny. 
+Zgodnie z zasadą ortogonalizacji działań, proces doboru hiperparametrów dzielono na dwie części: najpierw starano się uzyskać jak najlepsze wyniki na zbiorze uczącym, a dopiero później starano się zmusić algorytm do lepszej generalizacji na zbiorze testowym przez zwiększoną regularyzację i modyfikację parametru szybkości uczenia. 
+Należy jednak pamiętać, że przedstawione w dalszej części pracy wyniki uzyskane dla sieci neuronowych są jednak jedynie rezultatem skończonej ilości prób i nie należy ich traktować jako ostatecznych.
+
+
+
+%translation-inv-face.png
+
+
+
+%ToDo: Rys. (własne?) 
+%
+%opis hiperparametrów (na podstawie obrazka?)
+%
+%Conv - opis na 2d, zwykle obrazki, tu: 1D np. szeregi czasowe
+%http://www.deeplearningbook.org/contents/convnets.html - str. 329-334
+
+%różnice - lokalne połączenia, dzielenie wag, mniejsza liczba wag w Conv
 

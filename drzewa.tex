@@ -2,7 +2,7 @@
 \label{subsec:drzewa}
 
 Wzmacniane drzewa decyzyjne są jednym z rozwinięć klasycznego algorytmu drzewa decyzyjnego. 
-Pojedyncze drzewo decyzyjne dzieli przestrzeń cech uczących przy pomocy prostopadłych cięć, na mniejsze/większe niż zadana wartość w przypadku zmiennej ciągłej lub na należące/nie należące do danej klasy w przypadku zmiennej kategorycznej. Każdy podział, nazywany węzłem, daje dwie gałęzie, które można dalej niezależnie dzielić aż do ostatniego poziomu (liści). Kolejne podziały wybierane są tak, aby zbiory przykładów wpadające do poszczególnych gałęzi były jak najbardziej jednorodne. Stosuje się różne miary jednorodności takie tak: \textit{indeks Gini}
+Pojedyncze drzewo decyzyjne dzieli przestrzeń cech uczących przy pomocy prostopadłych cięć, na mniejsze/większe niż zadana wartość w przypadku zmiennej ciągłej lub na należące/nie należące do danej klasy w przypadku zmiennej kategorycznej. Każdy podział, nazywany węzłem, daje dwie gałęzie, które można dalej niezależnie dzielić aż do ostatniego poziomu (liści). Kolejne podziały wybierane są tak, aby zbiory przykładów wpadające do poszczególnych gałęzi były jak najbardziej jednorodne. Stosuje się różne miary nieporządku takie tak: \textit{indeks Gini} lub entropia.
 
 Drzewa decyzyjne są często łączone w komitety klasyfikatorów \angterm{ensemble methods}. Wiele "słabych" klasyfikatorów jest łączonych w jeden "silny" na dwa sposoby: \textit{bagging} oraz \textit{boosting} (wzmacnianie), które są często ze sobą porównywane.
 
@@ -10,4 +10,10 @@ Drzewa decyzyjne są często łączone w komitety klasyfikatorów \angterm{ensem
 
 \textit{Boosting} -- wzmacniane drzewa decyzyjne \angterm{boosted decision trees} -- jest metodą podobną do \textit{baggingu}. Główną różnicą jest zwiększanie wag przykładom uczącym, które przez poprzednie drzewo zostały źle zaklasyfikowane -- każde kolejne drzewo koncentruje się bardziej na poprawie błędów poprzednich drzew. Widać tu kolejną ważną cechę odróżniającą obie metody: \textit{boosting} jest algorytmem sekwencyjnym podczas gdy \textit{bagging} daje się trywialnie zrównoleglić (każde drzewo trenowane jest w osobnym wątku).
 
+
+
+\subsubsection*{Parametry i sposób trenowania drzew decyzyjnych}
+
 W niniejszej pracy wykorzystano wzmacniane drzewa decyzyjne zaimplementowane w bibliotece \texttt{XGBoost}.
+
+TBD

@@ -8,9 +8,20 @@ W symulacjach zderzeń użyty był symulator \texttt{Pythia8} (\textit{tune: Pyt
 Do rekonstrukcji dżetów wykorzystany został algorytm \textit{anti-kt} z parametrem $R = 0.4$ zaimplementowany w pakiecie \texttt{FASTJET}. Dżetów poszukiwano tylko wyłącznie wśród cząstek naładowanych \angterm{charged jets}.
 %Symulacje prowadzone były w wąskich binach $p_T$, które zostały połączone.
 
-Dla każdego dżetu obliczony został szereg wielkości, które można podzielić na zmienne na poziomie dżetu, związane z wtórnymi wierzchołkami oraz cząstkami tworzącymi dżet, których lista znajduje się poniżej:
+Do analizy wybrano wyłącznie dżety o $p_T$ większym niż 15 GeV i mieszczących się w całości w akceptancji \textit{TPC}, tj. $|\eta| < 0.9$, co przy użytym parametrze rozmiaru dżetu $R = 0.4$, daje ograniczenie na pseudopospieszność $|\eta| < 0.5$ dla osi dżetu.
+
+Dla każdego dżetu obliczony został szereg wielkości, które można podzielić na zmienne na poziomie dżetu, związane z wtórnymi wierzchołkami oraz cząstkami tworzącymi dżet. 
+Za potencjalne wtórne wierzchołki uznaje się wszystkie kombinacje trzech cząstek spełniających pewne dosyć luźne wymagania jak $p_T > 1 GeV$ (rozważane są wyłącznie trzy-cząstkowe wtórne wierzchołki), stąd ich liczba może być dużo większa od liczby cząstek tworzących dżet.
 
 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\textwidth]{sv-ip-def.png}
+	\caption{Rysunek ilustrujący znaczenie używanych wielkości: $L_{xy}$ oraz parametr zderzenia $IP$.}
+	\label{fig:sv-ip-def}
+\end{figure}
+
+Lista używanych zmiennych:
 \begin{itemize}
 	\item Zmienne na poziomie dżetu:
 	\begin{itemize}	
@@ -26,7 +37,8 @@ Dla każdego dżetu obliczony został szereg wielkości, które można podzieli�
 	
 	\item Zmienne opisujące cząstki tworzące dżet:
 	\begin{itemize}	
-		\item $\eta$, $\phi$, $p_T$ -- pseudopospieszność, kąt azymutalny, pęd poprzeczny cząstki
+		\item $\eta$, $\phi$ -- pseudopospieszność i kąt azymutalny cząstki względem osi dżetu
+		\item $p_T$ -- pęd poprzeczny cząstki
 		\item $IP_D$ -- rzut na kierunek poprzeczny wektora parametru zderzenia
 		\item $IP_Z$ -- rzut na oś $z$ wektora parametru zderzenia
 	\end{itemize}	
@@ -35,13 +47,15 @@ Dla każdego dżetu obliczony został szereg wielkości, które można podzieli�
 	\item Zmienne opisujące wtórne wierzchołki:
 	\begin{itemize}	
 		\item $L_{xy}$ -- odległość między pierwotnym a wtórnym wierzchołkiem \angterm{decay length}
+		\item $\sigma_{Lxy}$ -- niepewność wyznacznenia $L_{xy}$
 		\item $\sigma_{vertex} = \sqrt{d_1^2 + d_2^2 + d_3^2}$ -- rozrzut śladów \angterm{tracks} wokół wtórnego wierzchołka, gdzie $d_i$ to odległość najbliższego zbliżenia śladu / odległość najbliższego przelotu do wtórnego wierzchołka \angterm{distance of closest approach -- DCA} % https://arxiv.org/pdf/1511.04380.pdf (str. 92)
-		\item $M_{inv} = \sqrt{(E_1 + E_2 + E_3)^2 - (\vec{p_1} + \vec{p_2} + \vec{p_3})^2}$ -- masa niezmiennicza wierzchołka
+		\item $M_{inv} = \sqrt{(E_1 + E_2 + E_3)^2 - (\vec{p_1} + \vec{p_2} + \vec{p_3})^2}$ -- masa niezmiennicza wierzchołka, gdzie $E_i, p_i$ to energia i pęd $i$-tej cząstki tworzącej wierzchołek
 		\item $\chi^2/Ndf$  dopasowania wtórnego wierzchołka
 	\end{itemize}
 \end{itemize}
 
 
+
 ToDo: Rys: IP, SV etc
 
-jak się robi SV
+jet mass
