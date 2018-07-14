@@ -1,0 +1,108 @@
+\subsection{Metody identyfikacji dżetów \textit{b}}
+================
+==== ATLAS: ====
+================
+1. 
+https://arxiv.org/pdf/1512.01094.pdf 
+"Performance of b-Jet Identification in the ATLAS Experiment" Apr16
+
+SV0 = flight distance L3D signifiacance
+SV1 = LLR z 2D(vrtx mass, SV energy fraction) +1D(liczba 2czastkowych SV) + 1D(deltaR)
+JetFitter = KalmanFilter
+lifetime-based: IP3D+SV1+JetFitter = MV1 (=2layer NN)  i  muon-based algos
+MV1 mial na we outputy z ^ ^ ^
+
+
+2.
+https://cds.cern.ch/record/2289214/files/ATL-PHYS-PROC-2017-211.pdf?version=1
+"Machine Learning Algorithms for b-Jet Tagging at the ATLAS Experiment" Oct17
+there are five low-level taggers (IP3D, RNNIP, SMT, SV1, and JetFitter) 
+
+IP3D - suma logLL ratios dla wszystkich czastek
+RNNIP - jw tylko smarter bo NN
+
+white paper May18
+"Measurements of b-jet tagging efficiency with the ATLAS detector using tt¯ events at √s = 13 TeV"
+
+MV2 (Jul15): takes in ~21+3 feats from 3 low lvl taggers + their outputs + is extended by outputs from SMT and/or RNNIP
+DL1 (Jul17): <> jw
+
+
+
+https://www.hep.ucl.ac.uk/postgrad/teaching/lhc/bTagging_2017.pdf
+b-jet performance note (2017) - https://cds.cern.ch/record/2273281
+» b-jet performance note (2016) - https://cds.cern.ch/record/2160731
+» b-jet performance note (2015) - https://cds.cern.ch/record/2037697
+» b-jet efficiency measurement (2012) - https://cds.cern.ch/record/1664335
+» ATLAS Flavour Tagging Public Page - https://twiki.cern.ch/twiki/bin/view/
+AtlasPublic/FlavourTaggingPublicResultsCollisionData
+
+
+
+
+
+
+
+================
+===== CMS: =====
+================
+https://indico.in2p3.fr/event/12491/contributions/10040/attachments/8340/10362/kskovpenTopLHCFrance20160519.pdf
+
+1.
+https://arxiv.org/pdf/1211.4462.pdf
+"Identification of b-quark jets with the CMS experiment" May13
+IP:
+-TC, 2nd or 3rd particle sorted by IP significance
+-JP, JPB estimation of likelihood that all particles come from PV
+SV:
+-SSV - significance of Lxy
+-CSV - SSV+tracks (psuedoSV from tracks enables to compute some SV-like quantities)
+
+cMVA = CSV + softLepton
+
+2.
+https://arxiv.org/pdf/1712.07158.pdf
+"Identification of heavy-flavour jets with the CMS detector in pp collisions at 13 TeV" May18
+
+JP
+SV:
+-CSVv2: MLP(chyba 1-2 warstwy) instead od LL ratio, DeepCSV - similar, more layers(4)
+leptons:
+SoftElectron, SoftMuon - BDT
+
+cMVAv2 = 6 above (2xJP+2xCSVv2+SE+SM, no DeepCSV) combined in BDT
+
+
+
+================
+==== ALICE: ====
+================
+
+1.
+https://arxiv.org/pdf/1310.2817.pdf
+"Study of b-jet tagging performance in ALICE" Oct13
+-TC-IP based
+-SV: Lxy signifiacance
+-e identification
+
+2. Rudiger
+
+
+
+================
+==== LHCb: =====
+================
+
+
+https://indico.cern.ch/event/695320/contributions/2924993/attachments/1630804/2599514/LHCb_tagging_v3.pdf
+
+https://arxiv.org/pdf/1504.07670.pdf
+
+2xBDT(light-vs-bc i b-vs-c) z SV-features
+
+
+
+
+
+IP array  <-> TC z różnymi parametrami N-tej cząstki
+SV array <-> Lxy sign, CSV(pseudoSV), 

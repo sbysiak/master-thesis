@@ -3,21 +3,22 @@
 
 %p-p, 13 TeV - Pythia8 - JJ events anchored to LHC16i, ALIROOT-7268
 
-Dane użyte w analizie pochodzą z symulacji Monte Carlo zderzeń proton-proton przy energii w układzie środka masy równej $\sqrt{s} = 13$ TeV. 
-W symulacjach zderzeń użyty był symulator \texttt{Pythia8} (\textit{tune: Pythia8Jets\_Monash2013}), następnie przy pomocy \texttt{Geant3} symulowany został transport cząstek i odpowiedź detektora ALICE. 
+Dane użyte w analizie pochodzą z symulacji Monte Carlo zderzeń proton-proton przy energii w układzie środka masy równej $\sqrt{s} = 13$ TeV dostępnych na serwerach eksperymentu ALICE.
+W symulacjach zderzeń użyty był symulator \texttt{Pythia8} (\textit{tune: Pythia8Jets\_Monash2013}), następnie przy pomocy \texttt{Geant3} symulowany był transport cząstek i odpowiedź detektora ALICE. 
+
 Do rekonstrukcji dżetów wykorzystany został algorytm \textit{anti-kt} z parametrem $R = 0.4$ zaimplementowany w pakiecie \texttt{FASTJET}. Dżetów poszukiwano tylko wyłącznie wśród cząstek naładowanych \angterm{charged jets}.
 %Symulacje prowadzone były w wąskich binach $p_T$, które zostały połączone.
 
-Do analizy wybrano wyłącznie dżety o $p_T$ większym niż 15 GeV i mieszczących się w całości w akceptancji \textit{TPC}, tj. $|\eta| < 0.9$, co przy użytym parametrze rozmiaru dżetu $R = 0.4$, daje ograniczenie na pseudopospieszność $|\eta| < 0.5$ dla osi dżetu.
+Do analizy wybrano dżety o $p_T$ większym niż 15 GeV i mieszczących się w całości w akceptancji detektora \textit{TPC}, tj. $|\eta| < 0.9$, co przy użytym parametrze rozmiaru dżetu $R = 0.4$, daje ograniczenie na pseudopospieszność $|\eta| < 0.5$ dla osi dżetu.
 
 Dla każdego dżetu obliczony został szereg wielkości, które można podzielić na zmienne na poziomie dżetu, związane z wtórnymi wierzchołkami oraz cząstkami tworzącymi dżet. 
 Za potencjalne wtórne wierzchołki uznaje się wszystkie kombinacje trzech cząstek spełniających pewne dosyć luźne wymagania jak $p_T > 1 GeV$ (rozważane są wyłącznie trzy-cząstkowe wtórne wierzchołki), stąd ich liczba może być dużo większa od liczby cząstek tworzących dżet.
 
 
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{sv-ip-def.png}
-	\caption{Rysunek ilustrujący znaczenie używanych wielkości: $L_{xy}$ oraz parametr zderzenia $IP$.}
+	\caption{Rysunek ilustrujący znaczenie używanych wielkości: $L_{xy}$ oraz parametru zderzenia $IP$.}
 	\label{fig:sv-ip-def}
 \end{figure}
 
@@ -47,7 +48,7 @@ Lista używanych zmiennych:
 	\item Zmienne opisujące wtórne wierzchołki:
 	\begin{itemize}	
 		\item $L_{xy}$ -- odległość między pierwotnym a wtórnym wierzchołkiem \angterm{decay length}
-		\item $\sigma_{Lxy}$ -- niepewność wyznacznenia $L_{xy}$
+		\item $\sigma_{Lxy}$ -- niepewność wyznaczenia $L_{xy}$
 		\item $\sigma_{vertex} = \sqrt{d_1^2 + d_2^2 + d_3^2}$ -- rozrzut śladów \angterm{tracks} wokół wtórnego wierzchołka, gdzie $d_i$ to odległość najbliższego zbliżenia śladu / odległość najbliższego przelotu do wtórnego wierzchołka \angterm{distance of closest approach -- DCA} % https://arxiv.org/pdf/1511.04380.pdf (str. 92)
 		\item $M_{inv} = \sqrt{(E_1 + E_2 + E_3)^2 - (\vec{p_1} + \vec{p_2} + \vec{p_3})^2}$ -- masa niezmiennicza wierzchołka, gdzie $E_i, p_i$ to energia i pęd $i$-tej cząstki tworzącej wierzchołek
 		\item $\chi^2/Ndf$  dopasowania wtórnego wierzchołka
@@ -56,6 +57,8 @@ Lista używanych zmiennych:
 
 
 
-ToDo: Rys: IP, SV etc
 
-jet mass
+
+TBD: tabelaryczna postać, liczba SV i Nconstit, jak posortowane, wypleniania zerami
+
+korespondencja miedzy uzytymi danymi a algorytmami z sec. "identyfikacja dżetów b"

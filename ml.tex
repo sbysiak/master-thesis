@@ -9,7 +9,7 @@ W tej pracy wykorzystywana jest gałąź uczenia maszynowego nazywana uczeniem n
 
 Problem identyfikacji dżetów jest klasycznym przykładem zagadnienia klasyfikacji, gdzie poprawna odpowiedź jest jedną ze skończonej ilości opcji (klas) w przeciwieństwie do regresji, gdzie szukana odpowiedź algorytmu ma charakter ciągły. 
 
-Występuje wiele algorytmów uczenia maszynowego takich jak regresja liniowa i logistyczna, drzewa decyzyjne i ich wariacje, maszyny wektorów wspierających, sztuczne sieci neuronowe oraz wiele innych. Uczenie polega na znalezieniu pewnej funkcji dopasowującej do przyjmowanego na wejściu zestawu (wektora) cech (zmiennych, kolumn) pewną odpowiedź (predykcję), która minimalizuje zadaną funkcję straty. Jej rolę w przypadku regresji często pełni błąd średniokwadratowy a w przypadku klasyfikacji np. entropia krzyżowa \angterm{cross entropy} [\#PRZYPIS]. 
+Występuje wiele algorytmów uczenia maszynowego takich jak regresja liniowa i logistyczna, drzewa decyzyjne i ich wariacje, maszyny wektorów wspierających, sztuczne sieci neuronowe oraz wiele innych. Uczenie polega na znalezieniu pewnej funkcji dopasowującej do przyjmowanego na wejściu zestawu (wektora) cech (zmiennych, kolumn) pewną odpowiedź (predykcję), która minimalizuje zadaną funkcję straty. Jej rolę w przypadku regresji często pełni błąd średniokwadratowy a w przypadku klasyfikacji np. entropia krzyżowa \angterm{cross entropy} \footnote{$J = -\frac{1}{N} \sum\limits_{i=1}^N \left[y_i \log\hat{y_i} + (1-y_i)\log(1-\hat{y_i}) \right]$, gdzie $y_i$ to prawidłowa klasa $i$-tego przykładu a $\hat{y_i}$ to predykcja algorytmu}. 
 Różne algorytmy szukają przy tym funkcji dopasowującej należącej do różnych klas funkcji: przykładowo klasyczne drzewa decyzyjne przeszukują tylko przestrzeń funkcji dających się opisać skończonym zbiorem reguł "jeśli -- to" \angterm{if -- else}.
 
 W pracy wykorzystane zostały dwa rodzaje algorytmów: wzmacniane drzewa decyzyjne oraz sieci neuronowe.
@@ -27,18 +27,7 @@ Po drugie, wykorzystane zostały dwa algorytmy mocno różniące się w swojej n
 Z kolei drzewa decyzyjne posiadają stosunkowo niewielką liczbę parametrów, a ich trenowanie jest bardzo szybkie co pozwala na ich ekstensywne przeszukiwanie i otrzymanie wyników, które można uznać za optymalne dla tego algorytmu.
 Ponadto, w przypadku drzew istnieją niewymagające dodatkowych obliczeń miary użyteczności poszczególnych zmiennych, co daje wgląd w działanie algorytmu i poprawia intuicyjne zrozumienie jego predykcji.
 
-\vspace{5em}
 
-drzewa - xgb, nn - keras?
-
-drzewa - opis algorytmy wyjasniajace, wplyw zmiennych
-
-partial dependence - chyba mogą być też dla NN - sprawdzić czy liczy się w skonczonym czasie
-
-
-
-procedura-podzial na train/val/test
-parameters tuning, CV
 
 
 

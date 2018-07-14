@@ -8,11 +8,11 @@ Tu przedstawione zostaną wyłącznie wybrane zagadnienia mające ściślejszy z
 
 W niniejszej pracy, wykorzystane zostały dwa rodzaje sieci neuronowych: sieci w pełni połączone \angterm{fully connected NN -- FC NN}, nazywane także wielowarstwowymi perceptronami \angterm{multi-layer perceptron -- MLP} oraz sieci konwolucyjne \angterm{convolutional NN -- ConvNets, CNN}. 
 
-\subsubsection*{Sieci w pełni połączone (\textit{MLP})}
+\subsubsection*{Sieci w pełni połączone}
 W nierekurencyjnych sieciach neuronowych (tylko takie są używane w tej pracy), informacja jest przekazywana kolejno od warstw wejściowych, poprzez warstwy ukryte aż do wyjściowej. 
 W sieciach typu \textit{FC} wszystkie warstwy składają się z identycznych neuronów -- każdy neuron dostaje na wejściu wektor, natomiast zwraca skalar -- wartość pewnej zadanej, nieliniowej funkcji, jako argument podając średnią ważoną z elementów wektora wejściowego. Wartości zwracane przez neurony w danej warstwie składają się na wektor wejściowy dla neuronów kolejnej warstwy. Wejściem dla pierwszej warstwy są natomiast kolejne przykłady ze zbioru uczącego. Trenowanie sieci neuronowych polega na zmienianiu wag (parametrów) w liczonej w każdym neuronie średniej, każdy neuron posiada własny, niezależny zestaw wag.
 
-Istnieje twierdzenie o sieciach neuronowych jako uniwersalnych aproksymatorach funkcji \angterm{Universal approximation theorem}, mówiące, że już sieć neuronowa o jednej warstwie ukrytej jest zdolna do przybliżenia dowolnej funkcji z dowolną dokładnością. Twierdzenie to milczy niestety na temat liczby potrzebnych neuronów a przede wszystkim sposobu ich trenowania. 
+Istnieje twierdzenie o sieciach neuronowych jako uniwersalnych aproksymatorach funkcji \angterm{Universal approximation theorem} \cite{hornik91}, mówiące, że już sieć neuronowa o jednej warstwie ukrytej jest zdolna do przybliżenia dowolnej funkcji z dowolną dokładnością. Twierdzenie to milczy niestety na temat liczby potrzebnych neuronów a przede wszystkim sposobu ich trenowania. 
 Trenowanie jest prostsze w przypadku zastosowania wielu warstw, które odpowiadają kolejnym poziomą abstrakcji jednak nadal jest dużym wyzwaniem ze względu na fakt, że nawet stosunkowo niewielka sieć może posiadać bardzo dużą liczbę parametrów, przykładowo sieć o czterech warstwach, w każdej po 128 neuronów ma ich ponad 65 tysięcy.
 
 
@@ -92,36 +92,32 @@ Typowa architektura stosowana w przypadku sieci konwolucyjnych jest następując
 \end{figure}
 
 
-\begin{wrapfigure}[11]{r}{0.3\textwidth}
+
+\begin{wrapfigure}[9]{r}{0.25\textwidth}
   \begin{center}
-  	\vspace{-2em}
+  	\vspace{-1em}
 	\includegraphics[width=0.2\textwidth]{translation-inv-non-face.png}
-	\begin{minipage}[c]{0.25\textwidth}
-	\vspace{1em}
-    \caption{Działanie pojedynczego filtra~(3D) na wejście o trzech wymiarach.}
    	\label{fig:translation-inv-nonface}
-    \end{minipage}
   \end{center}
 \end{wrapfigure}
 
-
 Sieci konwolucyjne posiadają dwie właściwości odróżniające je od \textit{MLP}:
 \begin{itemize}
-	\item lokalność połączeń -- filtry obejmują tylko kilka sąsiednich pikseli (tam zwykle występują najsilniejsze zależności) nie są w stanie dostrzec cechy rozciągniętej na obszar większy od rozmiaru filtra
 	\item niezmienniczość względem przesunięcia \angterm{translation invariance} -- głównie za sprawą dzielenia wag oraz obecności warstw typu \textit{max-pool}, położenie danej cechy na obrazie jest niemal bez znaczenia (obraz po prawej stronie byłby rozpoznany jako twarz)
+	\item lokalność połączeń -- filtry obejmują tylko kilka sąsiednich pikseli (tam zwykle występują najsilniejsze zależności) nie są w stanie dostrzec cechy rozciągniętej na obszar większy od rozmiaru filtra
 \end{itemize}
 
-\subsubsection*{Hiperparametry i trenowanie sieci neuronowych}
+\subsubsection*{Hiperparametry i trenowanie sieci neuronowych na analizowanych danych}
 
 Parametry sieci, których wartości są określane przez projektanta sieci, takie jak liczba warstw ukrytych są nazywane hiperparametrami (dla odróżnienia od parametrów - wag połączeń).
 
 Testowane były trzy architektury: sieci w pełni połączone, sieci konwolucyjne oraz sieć złożona z dwóch gałęzi, osobnych dla wtórnych wierzchołków i cząstek tworzących dżet (por. Rozdz. \ref{sec:dane}) przedstawione schematycznie na Rys. \ref{fig:nets-params}.
-Do trenowania sieci wykorzystano wysokopoziomową bibliotekę \texttt{Keras} korzystającą z silnika obliczeniowego zaimplementowanego w \texttt{TensorFlow}.
+Do trenowania sieci wykorzystano wysokopoziomową bibliotekę \texttt{Keras} \cite{chollet15} korzystającą z silnika obliczeniowego zaimplementowanego w \texttt{TensorFlow} \cite{tensorflow15}.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{networks_params.png}
-	\caption{Schematyczne przedstawienie trzech testowanych architektur sieci. Bloki warstw typu \textit{FC} w sieci złożonej z dwóch gałęzi i opisane jako "kompresja" składały się z kilku neuronów i miały za zadanie zredukować całą informację z danej gałęzi do wektora kilku liczb. Obie gałęzie miały taką samą strukturę.}
+	\caption{Schematyczne przedstawienie trzech testowanych rodzin architektur sieci. Każdy blok odpowiada kilku warstwom danego typu. Bloki warstw typu \textit{FC}  i opisane jako "kompresja" składały się z kilku neuronów i miały za zadanie zredukować całą informację z danej gałęzi do wektora kilku liczb. Obie gałęzie miały taką samą strukturę.}
 	\label{fig:nets-params}
 \end{figure}
 
@@ -141,7 +137,7 @@ Zestaw hiperparametrów definiujący działanie sieci w pełni połączonej:
 	\begin{itemize}
 		\item liczba warstw konwolucyjnych i liczba filtrów w tychże
 		\item obecność lub brak warstw \textit{max-pool} i rozmiar ich okna
-		\item rozmiar filtrów i długość skoku przy przesuwaniu
+		\item rozmiar filtrów i długość skoku przy ich przesuwaniu
 	\end{itemize}
 \end{itemize}
 
@@ -153,23 +149,24 @@ Czas trenowania sieci neuronowych jest rzędy wielkości większy niż drzew dec
 	\item funkcję aktywacji: \textit{ReLU}
 	\item liczba epok równa 100 lub 200 (lub mniej do testów), zrezygnowano z \textit{early stopping}
 	\item stałe w trakcie treningu wartości parametru szybkości uczenia 
-	\item spośród technik regularyzacyjnych testowano wyłącznie \textit{dropout} z parametrami 0.1, 0.2, 0.5
+	\item spośród technik regularyzacyjnych testowano wyłącznie \textit{dropout} \cite{srivastava14} z parametrami 0.1, 0.2, 0.5
 	\item kilka wybranych kombinacji dla zestawu parametrów: rozmiar filtra, długość skoku i rozmiar okna w warstwach \textit{max-pool} -- takie same w kolejnych warstwach
 	\item liczby neuronów/filtrów w warstwach będące zawsze potęgami dwójki oraz stałą liczbę w kolejnych warstwach lub zmieniającą się o stały czynnik, np. 256-128-64, 128-128-128 lub 16-32-64
 	\item liczba warstw \textit{FC}: 2-8, konwolucyjnych 2-6
 \end{itemize}
 
 Nawet po przyjęciu powyższych uproszczeń nie sposób sprawdzić wszystkich możliwych zestawów hiperparametrów, dlatego sposób ich dobierania w kolejnych testach był mocno empiryczny. 
-Zgodnie z zasadą ortogonalizacji działań, proces doboru hiperparametrów dzielono na dwie części: najpierw starano się uzyskać jak najlepsze wyniki na zbiorze uczącym, a dopiero później starano się zmusić algorytm do lepszej generalizacji na zbiorze testowym przez zwiększoną regularyzację i modyfikację parametru szybkości uczenia. 
-Należy jednak pamiętać, że przedstawione w dalszej części pracy wyniki uzyskane dla sieci neuronowych są jednak jedynie rezultatem skończonej ilości prób i nie należy ich traktować jako ostatecznych.
+Dostępne dane dzielone były na trzy zbiory: trenujący, walidacyjny i testowy. Wobec braku warunków stopu, zbiór walidacyjny użyty był wyłącznie do porównywania różnych zestawów parametrów, tak aby wynik testowy pozostał nieobciążony.
+
+Zgodnie z zasadą ortogonalizacji działań, proces doboru hiperparametrów dzielono na dwie części: najpierw starano się uzyskać jak najlepsze wyniki na zbiorze uczącym, a dopiero później zmusić algorytm do lepszej generalizacji na zbiorze testowym przez zwiększoną regularyzację i modyfikację parametru szybkości uczenia. 
+
+%Należy jednak pamiętać, że przedstawione w dalszej części pracy wyniki uzyskane dla sieci neuronowych są jedynie rezultatem skończonej ilości prób i nie należy ich traktować jako ostatecznych.
 
 
 
-%translation-inv-face.png
 
 
 
-%ToDo: Rys. (własne?) 
 %
 %opis hiperparametrów (na podstawie obrazka?)
 %

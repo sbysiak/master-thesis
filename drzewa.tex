@@ -12,8 +12,20 @@ Drzewa decyzyjne są często łączone w komitety klasyfikatorów \angterm{ensem
 
 
 
-\subsubsection*{Parametry i sposób trenowania drzew decyzyjnych}
+\subsubsection*{Parametry i sposób trenowania drzew decyzyjnych na analizowanych danych}
 
-W niniejszej pracy wykorzystano wzmacniane drzewa decyzyjne zaimplementowane w bibliotece \texttt{XGBoost}.
+W niniejszej pracy wykorzystano wzmacniane drzewa decyzyjne zaimplementowane w wydajnej bibliotece \texttt{XGBoost} \cite{chen16}. Szybkość obliczeń jest bardzo ważna, gdyż oprócz komfortu pracy z algorytmem, przekłada się
+na jakość otrzymanych wyników -- krótszy czas obliczeń oznacza możliwość przeprowadzenia większej ilości eksperymentów i lepsze dobranie parametrów oraz danych.
+Implementacja wzmacnianych drzew decyzyjnych w \texttt{XGBoost} wykorzystuje wszystkie rdzenie procesora, pomimo że sam algorytm ma charakter sekwencyjny -- jest to możliwe dzięki paralelizacji procesu tworzenia każdego drzewa (przed każdym podziałem konieczne jest sprawdzenie pewnej ilości możliwych zmiennych i wartości progowych i ten proces jest wykonywany równolegle).
 
-TBD
+Dzięki szybkiemu uczeniu się algorytmu, możliwe było użycie kosztownego obliczeniowo automatycznego przeszukiwania przestrzeni parametrów przy pomocy przeszukiwania losowego \angterm{random search}, które jest zwykle preferowane nad przeszukiwanie sieciowe \cite{bergstra12}. W tym celu cały zbiór danych dzielony był na dwie części: trenującą oraz testową (80/20\%). Następnie algorytm był trenowany i oceniany z użyciem trzy- lub pięciokrotnej walidacji krzyżowej \angterm{cross-validation} na zbiorze trenującym dla różnych zestawów parametrów. Model z najlepszym wynikiem uzyskanym w walidacji krzyżowej był sprawdzany na zbiorze testowym.
+
+Parametry optymalizowane w opisanym procesie to:
+\begin{itemize}
+	\item \textit{max\_depth} -- maksymalna głębokość każdego drzewa (niekoniecznie osiągana)
+	\item \textit{n\_estimators} -- liczba drzew
+	\item \textit{learning\_rate} -- parametr szybkości uczenia, komplementarny do \textit{n\_estimators}, w praktyce można ustalić liczbę drzew i szukać optymalnej szybkości uczenia
+	\item \textit{subsample, colsample\_bytree, colsample\_bylevel} -- parametry regularyzacyjne określające ułamek kolejno: danych użytych do trenowania każdego drzewa, kolumn użytych w każdym drzewie (cechy losowane raz dla danego drzewa), kolumn użytych przy każdym podziale (cechy losowane przy każdym podziale)
+	 \item $\gamma$ -- minimalny zysk w postaci zmniejszenia wartości funkcji straty konieczny do wykonania podziału
+\end{itemize}
+
