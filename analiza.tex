@@ -1,10 +1,63 @@
 \section{Analiza}
 \label{sec:analiza}
 
-TBD 
-%\subsection*{Wybór metryki}
+\subsection*{Dobór metryki}
+% RACZEJ TABELKA
+%\textit{Do zdefiniowania metryk użyte będą skróty angielskich terminów TP, TN, FP, FN, oznaczające kolejno liczbę poprawnie zaklasyfikowanych przykładów pozytywnych, liczbę poprawnie zaklasyfikowanych przykładów negatywnych, liczbę błędnie zaklasyfikowanych przykładów negatywnych (zaklasyfikowanych jako pozytywne) i liczbę błędnie zaklasyfikowanych przykładów pozytywnych (zaklasyfikowanych jako negatywne)}
 
-%Niezwykle ważny element, w trakcie prób możliwe jest czasem analizowanie wiekszej liczby metryk jednak jest to niepraktyczne gdy eksperymentow jest wiele i trzeba porownywac kilka liczb. Interesujace z punktu widzenia fizyki punkty pracy - obszar krzywej ROC, hipotetyczna krzywa ROC o duzym polu i malej przydatnosci: 
+Bardzo ważnym elementem w trenowaniu algorytmów uczenia maszynowego jest dobór odpowiedniej metryki -- klasycznym złym przykładem jest używanie dokładności \angterm{accuracy} do oceniania klasyfikacji binarnej w przypadku dużego niezrównoważenia klas -- algorytm przewidujący zawsze klasę większościową może osiągnąć dużą wartość dokładności będąc jednocześnie bardzo słabym modelem.
+
+Kilka najczęściej używanych metryk wymieniono w Tab. \ref{tab:metrics}. Używanie i porównywanie kilku miar efektywności jest często niepraktyczne dlatego dobrze jest wybrać jedną metrykę. Przy jej wyborze należy kierować się potencjalnymi zastosowaniami modelu. W tym przypadku są to analizy fizyczne, które mogą mieć różne wymagania dotyczące czystości i liczebności otrzymywanych próbek a co za tym idzie, preferować inne punkty pracy zdefiniowane jako pary liczb: wydajność poprawnej klasyfikacji dżetów \textit{b} \angterm{tagging efficiency = true positive rate = recall}, i ułamek niepoprawnie zaklasyfikowanych przypadków tła \angterm{mistagging rate = false positive rate}. 
+
+Naturalnym wyborem wydaje się pole pod powierzchnią krzywej ROC \angterm{ROC Area Under Curve -- ROC AUC}. Potencjalną przeszkodą może być zakres rozsądnych wartości prawdopodobieństwa błędnej klasyfikacji przypadków tła: dżety \textit{b} stanowią tylko kilka procent liczby wszystkich dżetów, zatem z punktu widzenia analizy dopuszczalne będą punkty pracy zapewniające wydajność identyfikacji dżetów \textit{b} ok. 10 -- 100 razy większą niż częstość niepoprawnego zaklasyfikowania przypadków tła. Oznacza to, że zdecydowana większość punktów pracy znajdujących się na krzywej ROC jest nie do zaakceptowania -- interesujące są tylko te o najniższych częstościach.
+%[\#REF, znaleźć liczby]
+%https://books.google.pl/books?id=_FkGCwAAQBAJ&pg=
+%PA133&lpg=PA133&dq=b+jets+gluon+abundance&source=bl&ots=
+%rjYwb0Ux1d&sig=sw9aXh6PWRD-7EP8NGSucHFcnso&hl=pl&sa=X&ved=
+%0ahUKEwiZucPzuKPcAhUFUlAKHT8ODa0Q6AEINTAB#v=onepage&q=
+%b%20jets%20gluon%20abundance&f=false]
+
+Aby ilościowo porównywać różne algorytmy wprowadzone zostaną trzy punkty pracy: o prawdopodobieństwie błędnej klasyfikacji tła równej 0.1\%, 1\% oraz 10\%.
+Na Rys. \ref{fig:all-metrics-vs-bEff} przedstawione zostały zależności poszczególnych metryk od wydajności identyfikacji dżetów \textit{b} w tych trzech punktach pracy. Każdy punkt odpowiada jednemu eksperymentowi (dla dowolnego algorytmu) przeprowadzonemu w trakcie przygotowywania analizy. Daje to pogląd, używanie której metryki zapewni jednocześnie wysokie wartości wydajności na identyfikację dżetów \textit{b} w wybranych punktach pracy. Najwyższe korelacje występują dla punktu pracy o najwyższym prawdopodobieństwie błędnej klasyfikacji tła -- jak będzie to pokazane później wyniki dla tego punktu pracy są najbardziej stabilne. Spośród analizowanych metryk najwyższe wartości współczynnika Pearsona otrzymano dla pola pod powierzchnią krzywej ROC, dosyć wysokie również dla dokładności i precyzji. Widać, że wartości czułości są najsłabiej skorelowane z wydajnością identyfikacji dżetów \textit{b} -- jest zrozumiałe, że są one dużo niższe niż dla precyzji: wartości czułości maleją gdy błędnie klasyfikowane są dżety \textit{b} stanowiące sygnał, podczas gdy wartości precyzji maleją, gdy błędnie klasyfikowane są przypadki tła. 
+Z tych dwóch błędów, drugi jest bardziej kosztowny, gdyż błędna klasyfikacja nawet niewielkiej części tła znacznie pogarsza czystość otrzymywanej próbki.
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{all-metrics-vs-bEff.png}
+	\caption{Zależność podstawowych metryk od wydajności identyfikacji dżetów \textit{b} dla punktów pracy o prawdopodobieństwie błędnej klasyfikacji tła równej 0.1\%, 1\% oraz 10\%. Dla każdego wykresu przedstawiono współczynnik korelacji $r$ Pearsona.}
+	\label{fig:all-metrics-vs-bEff}
+\end{figure}
+
+Na Rys. \ref{fig:all-metrics-vs-bEff_perc75} przedstawiono te same wykresy, ale tym razem wybrano tylko 25\% najlepszych wartości dla każdej metryki -- te punkty są bardziej znaczące, gdyż ostatecznie modele z eksperymentów dających najlepsze wyniki będą używane.
+Dla tych wykresów otrzymano zdecydowaną dominację \textit{ROC AUC} -- wybór modeli dających najwyższe pole pod powierzchnią krzywej ROC zapewnia jednocześnie otrzymanie wysokich wartości wydajności identyfikacji dżetów \textit{b} dla wybranych punktów pracy.
+
+\begin{figure}[h]
+	\centering
+%	\vspace{-1em}
+	\includegraphics[width=0.8\textwidth]{roc_auc-vs-bEff_perc75.png} 
+	
+	\vspace{-1.5em}
+	\includegraphics[width=0.8\textwidth]{accuracy-vs-bEff_perc75.png}
+	
+	\vspace{-1.5em}
+	\includegraphics[width=0.8\textwidth]{precision-vs-bEff_perc75.png}
+	
+	\vspace{-1.5em}
+	\includegraphics[width=0.8\textwidth]{recall-vs-bEff_perc75.png}
+	
+	\vspace{-1.2em}
+	\includegraphics[width=0.8\textwidth]{F1-vs-bEff_perc75.png}
+	
+	\caption{Rysunek podobny do Rys. \ref{fig:all-metrics-vs-bEff}, ale przedstawione zostały tylko punkty odpowiadające eksperymentom o wartościach metryki będących w górnym kwartylu wartości danej metryki dla wszystkich eksperymentów.}
+	\label{fig:all-metrics-vs-bEff_perc75}
+\end{figure}
+
+
+
+%Niezwykle ważny element, 
+%w trakcie prób możliwe jest czasem analizowanie wiekszej liczby metryk jednak jest to niepraktyczne gdy eksperymentow jest wiele i trzeba porownywac kilka liczb.
+% Interesujace z punktu widzenia fizyki punkty pracy - obszar krzywej ROC, hipotetyczna krzywa ROC o duzym polu i malej przydatnosci: 
 %
 %rozne analizy = rozne punkty pracy
 
