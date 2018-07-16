@@ -13,15 +13,16 @@
 \usepackage{float}
 \usepackage{lineno}
 \usepackage{siunitx}
-\usepackage{xr} %\externaldocument{volume1}
 \usepackage[backend=bibtex, sorting=none]{biblatex}
+%\usepackage[fixlanguage]{babelbib}
+%\selectbiblanguage{polish}
+\usepackage{xr} %\externaldocument{volume1}
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{placeins}
 \usepackage{titlesec}
 \usepackage[titletoc,toc,title]{appendix}
-
 
 
 
@@ -45,22 +46,23 @@
 
 \begin{document}
 
-%\input{strona_tytulowa}
-\tableofcontents
-\clearpage
 % input{} / include{} - input nie daje \clearpage
+
+%\input{strona_tytulowa}
+
+\tableofcontents
+
+\clearpage
 \input{qgp} 
 \input{dzety}
 %\input{b-tagging}
-\input{ml}
-%\input{drzewa}
-%\input{sieci_neuronowe}
-\clearpage
-\input{dane}
-\clearpage
-\input{analiza}
 
+\include{ml}
 
+\include{dane}
+
+%\include{analiza}
+\clearpage
 
 
 \printbibliography

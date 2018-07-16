@@ -2,9 +2,8 @@
 \label{subsec:nn}
 
 Sieci neuronowe \angterm{neural networks -- NN} są szczególnym algorytmem uczenia maszynowego. Występują w bardzo wielu odmianach i są wykorzystywane w rozwiązywaniu szerokiej gamy problemów. Nawet bardzo pobieżny opis sieci neuronowych wymaga dużo więcej miejsca niż może być temu poświęcone w tej pracy. 
-
-Wprowadzenia do sieci neuronowych na różnym poziomie zaawansowania można znaleźć min w [\#REF]x100. 
-Tu przedstawione zostaną wyłącznie wybrane zagadnienia mające ściślejszy związek z pracą, używane mogą być terminy, których znaczenie wyjaśniane jest w podanych źródłach.
+Wprowadzenia do sieci neuronowych na różnym poziomie zaawansowania można znaleźć m.in. w [\#REF]x100. 
+Tu przedstawione zostaną wyłącznie wybrane zagadnienia mające ściślejszy związek z pracą. Używane mogą być terminy, których znaczenie wyjaśniane jest w podanych źródłach.
 
 W niniejszej pracy, wykorzystane zostały dwa rodzaje sieci neuronowych: sieci w pełni połączone \angterm{fully connected NN -- FC NN}, nazywane także wielowarstwowymi perceptronami \angterm{multi-layer perceptron -- MLP} oraz sieci konwolucyjne \angterm{convolutional NN -- ConvNets, CNN}. 
 
@@ -12,14 +11,14 @@ W niniejszej pracy, wykorzystane zostały dwa rodzaje sieci neuronowych: sieci w
 W nierekurencyjnych sieciach neuronowych (tylko takie są używane w tej pracy), informacja jest przekazywana kolejno od warstw wejściowych, poprzez warstwy ukryte aż do wyjściowej. 
 W sieciach typu \textit{FC} wszystkie warstwy składają się z identycznych neuronów -- każdy neuron dostaje na wejściu wektor, natomiast zwraca skalar -- wartość pewnej zadanej, nieliniowej funkcji, jako argument podając średnią ważoną z elementów wektora wejściowego. Wartości zwracane przez neurony w danej warstwie składają się na wektor wejściowy dla neuronów kolejnej warstwy. Wejściem dla pierwszej warstwy są natomiast kolejne przykłady ze zbioru uczącego. Trenowanie sieci neuronowych polega na zmienianiu wag (parametrów) w liczonej w każdym neuronie średniej, każdy neuron posiada własny, niezależny zestaw wag.
 
-Istnieje twierdzenie o sieciach neuronowych jako uniwersalnych aproksymatorach funkcji \angterm{Universal approximation theorem} \cite{hornik91}, mówiące, że już sieć neuronowa o jednej warstwie ukrytej jest zdolna do przybliżenia dowolnej funkcji z dowolną dokładnością. Twierdzenie to milczy niestety na temat liczby potrzebnych neuronów a przede wszystkim sposobu ich trenowania. 
+Istnieje twierdzenie o sieciach neuronowych jako uniwersalnych aproksymatorach funkcji \angterm{universal approximation theorem} \cite{hornik91}, mówiące, że już sieć neuronowa o jednej warstwie ukrytej jest zdolna do przybliżenia dowolnej funkcji z dowolną dokładnością. Twierdzenie to nie podaje niestety liczby potrzebnych neuronów a przede wszystkim -- sposobu ich trenowania. 
 Trenowanie jest prostsze w przypadku zastosowania wielu warstw, które odpowiadają kolejnym poziomą abstrakcji jednak nadal jest dużym wyzwaniem ze względu na fakt, że nawet stosunkowo niewielka sieć może posiadać bardzo dużą liczbę parametrów, przykładowo sieć o czterech warstwach, w każdej po 128 neuronów ma ich ponad 65 tysięcy.
 
 
 \subsubsection*{Sieci konwolucyjne}
-Jednym ze sposobów na ograniczenie liczby trenowanych parametrów jest użycie konwolucyjnych sieci neuronowych (bardziej poprawną choć rzadko używaną nazwą w języku polskim jest sieć splotowa). Są one inspirowane połączeniami w korze wzrokowej zwierząt i wywodzą się z badań w obszarze wizji komputerowej, gdzie liczby parametrów są szczególnie duże (wektor wejściowy ma wymiar równy liczbie pikseli w obrazku), na takim przykładzie również najłatwiej zrozumieć ich działanie.
+Jednym ze sposobów na ograniczenie liczby trenowanych parametrów jest użycie konwolucyjnych sieci neuronowych (bardziej poprawną choć rzadko używaną nazwą w języku polskim jest sieć splotowa). Są one inspirowane połączeniami w korze wzrokowej zwierząt i wywodzą się z badań w obszarze widzenia komputerowego, gdzie liczby parametrów są szczególnie duże (wektor wejściowy ma wymiar równy liczbie pikseli w obrazie), na takim przykładzie również najłatwiej zrozumieć ich działanie.
 
-Sieci konwolucyjne różnią się od sieci typu \textit{FC}, tym że część wag połączeń między warstwami jest dzielona. Występuje w nich nowy rodzaj warstwy, nazywany warstwą konwolucyjną. Każda jednostka w warstwie konwolucyjnej (filtr) ma pewną stałą (niewielką) liczbę wag. Połączenie z dużym  wejściem realizowane jest przez powielanie tych samych wag w połączeniach z kolejnymi fragmentami wektora wejściowego (por. Rys. \ref{fig:convolution}). Rezultatem działania filtra na macierz jest wynik operacji splotu. Liczba parametrów przypadająca na każdy filtr jest równa jego rozmiarowi i nie zależy od wielkości wektora wejściowego. 
+Sieci konwolucyjne różnią się od sieci typu \textit{FC} tym, że część wag połączeń między warstwami jest dzielona. Występuje w nich nowy rodzaj warstwy, nazywany warstwą konwolucyjną. Każda jednostka w warstwie konwolucyjnej (filtr) ma pewną stałą (niewielką) liczbę wag. Połączenie z dużym  wejściem realizowane jest przez powielanie tych samych wag w połączeniach z kolejnymi fragmentami wektora wejściowego (por. Rys. \ref{fig:convolution}). Rezultatem działania filtra na macierz jest wynik operacji splotu. Liczba parametrów przypadająca na każdy filtr jest równa jego rozmiarowi i nie zależy od wielkości wektora wejściowego. 
 
 \begin{figure}[h]
 	\centering
@@ -81,7 +80,7 @@ W przypadku gdy zamiast wejścia dwuwymiarowego (jak np. obraz czarno-biały), m
 
 Oprócz warstw konwolucyjnych, w sieciach tego typu stosowane są także tzw. warstwy typu \textit{max-pooling}. Zasada jej działania jest bardzo prosta: wykonuje funkcję \textit{maksimum} na zadanym fragmencie obrazu (por. Rys. \ref{fig:max-pool}). Ich rolą jest zmniejszanie rozmiaru przekazywanej w sieci informacji.
 
-Typowa architektura stosowana w przypadku sieci konwolucyjnych jest następująca: najpierw warstwy konwolucyjne (pomiędzy nimi czasem warstwy typu \textit{max-pool}), następnie wszystkie filtry są rozwijane i składane w długi jednowymiarowy wektor, który przekazywany jest do warstw typu \textit{FC}. W przypadku problemu klasyfikacji, na końcu znajduje się jeszcze warstwa typu \textit{softmax} normalizująca wyjście z sieci do jedynki.
+Typowa architektura stosowana w przypadku sieci konwolucyjnych jest następująca: najpierw warstwy konwolucyjne (pomiędzy nimi czasem warstwy typu \textit{max-pool}), następnie wszystkie filtry są rozwijane i składane w długi jednowymiarowy wektor, który przekazywany jest do warstw typu \textit{FC}. W przypadku problemu klasyfikacji, na końcu znajduje się jeszcze warstwa typu \textit{softmax} normalizująca wyjście z sieci do jedynki (por. Rys. \ref{fig:cnn-arch}). 
 
 \begin{figure}[h]
 	\centering
@@ -126,16 +125,16 @@ Zestaw hiperparametrów definiujący działanie sieci w pełni połączonej:
 \begin{itemize}
 	\item liczba warstw ukrytych 
 	\item liczba neuronów w każdej warstwie
-	\item funkcja aktywacji -- nieliniowa funkcja aplikowana przed zwróceniem wartości w każdym neuronie, najpopularniejsze to \textit{tanh}, \textit{ReLU} oraz funkcja sigmoidalna
+	\item funkcja aktywacji -- nieliniowa funkcja aplikowana przed zwróceniem wartości w każdym neuronie, najpopularniejsze to \textit{tanh}, \textit{ReLU} ($f(x) = max(0,x)$) oraz funkcja sigmoidalna ($f(x) = \frac{1}{1+exp(x)}$)
 	\item algorytm optymalizacyjny -- spadek gradientowy lub jego wariacje
 	\item parametr szybkości uczenia i jego modyfikacje w trakcie uczenia
 	\item liczba przykładów trenujących przetwarzanych w jednym kroku uczenia \angterm{batch\_size} -- im większy tym szybsze jest trenowanie sieci (dzięki wydajnym operacjom macierzowym), natomiast może się to odbywać kosztem precyzji
 	\item liczba epok uczenia -- ile razy będzie pokazywany sieci każdy przykład
-	\item opcjonalnie: warunki stopu \angterm{early stopping} w razie osiągnięcia \textit{plateau}
+	\item opcjonalnie: warunki stopu \angterm{early stopping} w razie osiągnięcia \textit{plateau} (wysycenia procesu uczenia)
 	\item opcjonalnie: regularyzacja przy pomocy różnych technik (zwykle konieczna)
 	\item ponadto dla sieci konwolucyjnych: 
 	\begin{itemize}
-		\item liczba warstw konwolucyjnych i liczba filtrów w tychże
+		\item liczba warstw konwolucyjnych i liczba filtrów w każdej warstwie
 		\item obecność lub brak warstw \textit{max-pool} i rozmiar ich okna
 		\item rozmiar filtrów i długość skoku przy ich przesuwaniu
 	\end{itemize}
@@ -145,7 +144,7 @@ Same dwie pierwsze wielkości dają nieograniczoną liczbę konfiguracji.
 Czas trenowania sieci neuronowych jest rzędy wielkości większy niż drzew decyzyjnych, dlatego przyjęto szereg kroków mających na celu zmniejszenie przeszukiwanej przestrzeni hiperparametrów. Na podstawie wstępnych testów oraz różnych wskazówek dostępnych w literaturze przyjęto:
 \begin{itemize}
 	\item \textit{batch\_size} zawsze równy 64 (inne testowane wartości: 16, 32, 128)
-	\item za algorytm optymalizacyjny przyjęto algorytm o nazwie \textit{Nadam}, tj. rozwinięcie algorytmu \textit{Adam} o parametr Nesterova (inne testowane to zwykły spadek gradientowy oraz \textit{Adam})
+	\item za algorytm optymalizacyjny przyjęto algorytm o nazwie \textit{Nadam} \cite{Nadam}, tj. rozwinięcie algorytmu \textit{Adam} \cite{KingmaB14} o parametr Nesterova (inne testowane to zwykły spadek gradientowy oraz \textit{Adam})
 	\item funkcję aktywacji: \textit{ReLU}
 	\item liczba epok równa 100 lub 200 (lub mniej do testów), zrezygnowano z \textit{early stopping}
 	\item stałe w trakcie treningu wartości parametru szybkości uczenia 

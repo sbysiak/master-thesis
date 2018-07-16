@@ -11,6 +11,12 @@
 *.out
 *.toc
 *.run.xml
+*.bak
+*-blx.bib
+*.bbl
+*.blg
+
+graphics/*
 
 *.pdf
 *.png
