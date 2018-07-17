@@ -32,6 +32,22 @@ Rozpoznawanie dżetów \textit{b} bazuje na charakterystycznych właściwościac
 
 \textbf{przegląd algorytmów używanych w identyfikacji b-jetów: TBD} 
 
+Używane w eksperymentach na LHC: ATLAS \cite{Aad:2015ydr}, \cite{Sirunyan:2017ezt}, CMS i ALICE algorytmy można podzielić na trzy kategorie: wykorzystujące wtórne wierzchołki,  informację o odległości najbliższego zbliżenia (parametrach zderzenia) \angterm{Distance of Closest Approach -- DCA, Impact Parameter -- IP} cząstek tworzących dżet oraz identyfikujące produkty półleptonowych rozpadów pięknych lub powabnych hadronów.
+
+Najprostszym algorytmem jest dyskryminacja na podstawie istotności statystycznej odległości wtórnego wierzchołka od pierwotnego $L$ (wynik pomiaru podzielony przez jego niepewność). Jest to metoda wykorzystywana w  każdym z trzech wymienionych eksperymentów (por. ALICE, ATLAS: algorytm SV0, CMS: algorytm SSV). 
+Może być ona rozszerzona poprzez użycie dodatkowych zmiennych opisujących wtórny wierzchołek jak na przykład jego masa lub ułamek niesionej przez wtórny wierzchołek całkowitej energii dżetu (por. ATLAS: SV1) lub użycie "pseudowierzchołków" (kombinacji dwóch cząstek o dużych \textit{DCA}) w celu poprawienia wydajności detekcji o przypadki, w których wtórny wierzchołek nie został zrekonstruowany (por. CMS: CSV).
+
+Algorytmy wykorzystujące informację o poszczególnych cząstkach mogą zasadniczo bazować albo na sumie logarytmów prawdopodobieństw pochodzenia każdej cząstki z pierwotnego wierzchołka (por. ATLAS: IP3D, CMS: JP) lub tym samym prawdopodobieństwie ale dla wybranej, np. drugiej lub trzeciej cząstki na liście posortowanej według malejącego \textit{IP} (por. ALICE i CMS: TC). Bardziej złożonym podejściem, w którym cząstki nie są traktowane jako niezależne, jest użycie rekurencyjnych sieci neuronowych (por. ATLAS: RNNIP).
+
+Do wykorzystania półleptonowego kanału rozpadu ciężkich hadronów do identyfikacji dżetów \textit{b} w eksperymentach ATLAS (SMT) i CMS (SE, SM) użyto wzmacnianych drzew decyzyjnych trenowanych na kilku ręcznie zdefiniowanych w tym celu zmiennych takich jak pęd leptonu transwersalny względem osi dżetu.
+
+Znaczącą poprawę zdolności predykcyjnej można uzyskać łącząc kilka różnych modeli. 
+Algorytm łączący może pobierać na wejściu albo tylko predykcje klasyfikatorów niższego poziomu (CMS: cMVAv2) lub dodatkowo także ich zmienne wejściowe (ATLAS: MV2, DL1). Do scalania używane są zwykle wzmacniane drzewa decyzyjne lub sieci neuronowe.
+
+Przykład innego podejścia zaprezentowała współpraca przy eksperymencie LHCb, gdzie wykorzystano dwa zestawy wzmacnianych drzew decyzyjnych operujących na zmiennych związanych z wtórnymi wierzchołkami. Pierwszy zapewnia separację dżetów lekkich od ciężkich a drugi odróżnia dżety \textit{b} od \textit{c}. 
+Do wyboru punktu pracy, zamiast jednowymiarowego rozkładu predykcji używany jest dwuwymiarowy rozkład wag przypisany przez oba klasyfikatory.
+
+
 \subsection{Eksperyment ALICE}
 
 TBD
