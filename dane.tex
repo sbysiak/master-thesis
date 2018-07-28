@@ -4,15 +4,15 @@
 %p-p, 13 TeV - Pythia8 - JJ events anchored to LHC16i, ALIROOT-7268
 
 Dane użyte w analizie pochodzą z symulacji Monte Carlo zderzeń proton-proton przy energii w układzie środka masy równej $\sqrt{s} = 13$ TeV dostępnych na serwerach eksperymentu ALICE.
-W symulacjach zderzeń użyty był symulator \texttt{Pythia8} (\textit{tune: Pythia8Jets\_Monash2013}), następnie przy pomocy \texttt{Geant3} symulowany był transport cząstek i odpowiedź detektora ALICE. 
+Są to pełne symulacje detektora ALICE, wykorzystujące generator zderzeń \texttt{Pythia8} \cite{Sjostrand:2007gs} (\textit{tune: Pythia8Jets\_Monash2013} \cite{Skands:2014pea}) oraz pakiet \texttt{Geant3} \cite{Brun:1994aa} do transportu cząstek przez detektor.
 
-Do rekonstrukcji dżetów wykorzystany został algorytm \textit{anti-kt} z parametrem $R = 0.4$ zaimplementowany w pakiecie \texttt{FASTJET}. Dżetów poszukiwano tylko wyłącznie wśród cząstek naładowanych \angterm{charged jets}.
+Do rekonstrukcji dżetów wykorzystany został algorytm \textit{anti-kt} z parametrem $R = 0.4$ zaimplementowany w pakiecie \texttt{FASTJET} \cite{Cacciari:2011ma}. Dżetów poszukiwano tylko wyłącznie wśród cząstek naładowanych \angterm{charged jets} ze względu na słabe pokrycie przestrzeni fazowej przez kalorymetry w eksperymencie ALICE.
 %Symulacje prowadzone były w wąskich binach $p_T$, które zostały połączone.
 
 Do analizy wybrano dżety o $p_T$ większym niż 15 GeV i mieszczących się w całości w akceptancji detektora \textit{TPC}, tj. $|\eta| < 0.9$, co przy użytym parametrze rozmiaru dżetu $R = 0.4$, daje ograniczenie na pseudopospieszność $|\eta| < 0.5$ dla osi dżetu.
 
 Dla każdego dżetu obliczony został szereg wielkości, które można podzielić na zmienne na poziomie dżetu, związane z wtórnymi wierzchołkami oraz cząstkami tworzącymi dżet. 
-Za potencjalne wtórne wierzchołki uznaje się wszystkie kombinacje trzech cząstek spełniających pewne dosyć luźne wymagania jak $p_T > 1 GeV$ (rozważane są wyłącznie trzy-cząstkowe wtórne wierzchołki), stąd ich liczba może być dużo większa od liczby cząstek tworzących dżet.
+Za potencjalne wtórne wierzchołki uznaje się wszystkie kombinacje trzech cząstek spełniających pewne dosyć luźne kryteria jak $p_T > 0.15$ GeV (rozważane są wyłącznie trzy-cząstkowe wtórne wierzchołki), stąd ich liczba może być dużo większa od liczby cząstek tworzących dżet.
 
 
 \begin{figure}[h]

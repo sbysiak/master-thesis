@@ -1,7 +1,7 @@
 \section{Analiza}
 \label{sec:analiza}
 
-\subsection*{Dobór metryki}
+\subsection{Dobór metryki}
 % RACZEJ TABELKA
 %\textit{Do zdefiniowania metryk użyte będą skróty angielskich terminów TP, TN, FP, FN, oznaczające kolejno liczbę poprawnie zaklasyfikowanych przykładów pozytywnych, liczbę poprawnie zaklasyfikowanych przykładów negatywnych, liczbę błędnie zaklasyfikowanych przykładów negatywnych (zaklasyfikowanych jako pozytywne) i liczbę błędnie zaklasyfikowanych przykładów pozytywnych (zaklasyfikowanych jako negatywne)}
 
@@ -53,6 +53,42 @@ Dla tych wykresów otrzymano zdecydowaną dominację \textit{ROC AUC} -- wybór 
 	\label{fig:all-metrics-vs-bEff_perc75}
 \end{figure}
 
+\clearpage
+
+\subsection{Wyniki dla zmiennych SV}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.32\textwidth]{plot_mistag_models-subbranch-SV_FC-paramset5_uncert.png}
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.32\textwidth]{plot_mistag_models-subbranch-SV_conv-paramset2_uncert.png}	
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.32\textwidth]{plot_mistag_models-subbranch-SV_xgb-paramset1_uncert.png}
+	\caption{Zależności}
+	\label{fig:all-metrics-vs-bEff}
+\end{figure}
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.49\textwidth]{plot_mistag_models-subbranch-SV_FC-paramset5_uncert.png}
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.49\textwidth]{plot_mistag_models-subbranch-SV_conv-paramset2_uncert.png}	
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.49\textwidth]{plot_mistag_models-subbranch-SV_xgb-paramset1_uncert.png}
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.49\textwidth]{compare_SV.png}
+	\caption{Zależności}
+	\label{fig:all-metrics-vs-bEff}
+\end{figure}
+
+
+\subsection{Wyniki dla zmiennych constit}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.49\textwidth]{plot_mistag_models-subbranch-constit_FC-paramset1_uncert.png}
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.49\textwidth]{plot_mistag_models-subbranch-constit_conv-paramset5_uncert.png}	
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.49\textwidth]{plot_mistag_models-subbranch-constit_xgb-paramset1_uncert.png}
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.49\textwidth]{compare_constit.png}
+	\caption{Zależności}
+	\label{fig:all-metrics-vs-bEff}
+\end{figure}
 
 
 %Niezwykle ważny element, 
@@ -81,5 +117,6 @@ Dla tych wykresów otrzymano zdecydowaną dominację \textit{ROC AUC} -- wybór 
 %
 %\subsection*{Single var tager}
 %\subsection*{Results for SV, Constit, Merged}
+%\subsection*{pT dependence of performance}
 %\subsection*{Corr of algos pred}
 %\subsection*{Feature imp \& partial dependence}
