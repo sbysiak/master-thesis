@@ -32,10 +32,10 @@ Rozpoznawanie dżetów \textit{b} bazuje na charakterystycznych właściwościac
 
 \textbf{przegląd algorytmów używanych w identyfikacji b-jetów: TBD} 
 
-Używane w eksperymentach na LHC: ATLAS \cite{Aad:2015ydr}, \cite{Sirunyan:2017ezt}, CMS i ALICE algorytmy można podzielić na trzy kategorie: wykorzystujące wtórne wierzchołki,  informację o odległości najbliższego zbliżenia (parametrach zderzenia) \angterm{Distance of Closest Approach -- DCA, Impact Parameter -- IP} cząstek tworzących dżet oraz identyfikujące produkty półleptonowych rozpadów pięknych lub powabnych hadronów.
+Używane w eksperymentach na LHC: ATLAS, CMS i ALICE algorytmy można podzielić na trzy kategorie: wykorzystujące wtórne wierzchołki,  informację o odległości najbliższego zbliżenia (parametrach zderzenia) \angterm{Distance of Closest Approach -- DCA, Impact Parameter -- IP} cząstek tworzących dżet oraz identyfikujące produkty półleptonowych rozpadów pięknych lub powabnych hadronów. Dokładne opisy omawianych algorytmów można znaleźć w: \cite{Aad:2015ydr}, \cite{Sirunyan:2017ezt} (ATLAS), ... (CMS), ... (ALICE).
 
-Najprostszym algorytmem jest dyskryminacja na podstawie istotności statystycznej odległości wtórnego wierzchołka od pierwotnego $L$ (wynik pomiaru podzielony przez jego niepewność). Jest to metoda wykorzystywana w  każdym z trzech wymienionych eksperymentów (por. ALICE, ATLAS: algorytm SV0, CMS: algorytm SSV). 
-Może być ona rozszerzona poprzez użycie dodatkowych zmiennych opisujących wtórny wierzchołek jak na przykład jego masa lub ułamek niesionej przez wtórny wierzchołek całkowitej energii dżetu (por. ATLAS: SV1) lub użycie "pseudowierzchołków" (kombinacji dwóch cząstek o dużych \textit{DCA}) w celu poprawienia wydajności detekcji o przypadki, w których wtórny wierzchołek nie został zrekonstruowany (por. CMS: CSV).
+Najprostszym algorytmem jest dyskryminacja na podstawie istotności statystycznej (wynik pomiaru podzielony przez jego niepewność) odległości wtórnego wierzchołka od wierzchołka pierwotnego $L$. Jest to metoda wykorzystywana w  każdym z trzech wymienionych eksperymentów (por. ATLAS: algorytm SV0, CMS: algorytm SSV, ALICE). 
+Może być ona rozszerzona poprzez użycie dodatkowych zmiennych opisujących wtórny wierzchołek jak na przykład jego masa, ułamek niesionej przez niego całkowitej energii dżetu (por. ATLAS: SV1) lub użycie "pseudowierzchołków" (kombinacji dwóch cząstek o dużych \textit{DCA}) w celu poprawienia wydajności detekcji o przypadki, w których wtórny wierzchołek nie został zrekonstruowany (por. CMS: CSV).
 
 Algorytmy wykorzystujące informację o poszczególnych cząstkach mogą zasadniczo bazować albo na sumie logarytmów prawdopodobieństw pochodzenia każdej cząstki z pierwotnego wierzchołka (por. ATLAS: IP3D, CMS: JP) lub tym samym prawdopodobieństwie ale dla wybranej, np. drugiej lub trzeciej cząstki na liście posortowanej według malejącego \textit{IP} (por. ALICE i CMS: TC). Bardziej złożonym podejściem, w którym cząstki nie są traktowane jako niezależne, jest użycie rekurencyjnych sieci neuronowych (por. ATLAS: RNNIP).
 
@@ -47,10 +47,56 @@ Algorytm łączący może pobierać na wejściu albo tylko predykcje klasyfikato
 Przykład innego podejścia zaprezentowała współpraca przy eksperymencie LHCb, gdzie wykorzystano dwa zestawy wzmacnianych drzew decyzyjnych operujących na zmiennych związanych z wtórnymi wierzchołkami. Pierwszy zapewnia separację dżetów lekkich od ciężkich a drugi odróżnia dżety \textit{b} od \textit{c}. 
 Do wyboru punktu pracy, zamiast jednowymiarowego rozkładu predykcji używany jest dwuwymiarowy rozkład wag przypisany przez oba klasyfikatory.
 
+\clearpage
 
 \subsection{Eksperyment ALICE}
 
-TBD
+Eksperyment ALICE jest jednym z czterech największych eksperymentów na LHC. Jest on dedykowany zderzeniom ciężkich jonów (w LHC są to jony ołowiu PbPb), ale mierzone są także mniejsze systemy, tj. proton-proton pp (głównie jako referencję dla pomiarów PbPb) oraz proton-ołów p+Pb, które dostarczają także okazji do badania asymetrycznych zderzeń. Cechą charakterystyczną pomiarów ciężkojonowych jest ich znacznie większa niż w przypadku zderzeń pp krotność, tj. liczba cząstek wyprodukowana w pojedynczym zderzeniu. W przypadku zderzeń PbPb może powstawać nawet do 8000 naładowanych cząstek na jednostkę pseudorapidity. Detektor ALICE został zoptymalizowany do mierzeniach takich przypadków, jak również pod kątem rekonstrukcji i identyfikacji cząstek o szerokim zakresie pędów (100 MeV -- 100 GeV).
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.99\textwidth]{alice-detector.jpg}
+	\caption{Schemat detectora ALICE.}
+	\label{fig:alice-detector}
+\end{figure}
+
+
+Detektor ALICE jest urządzeniem złożonym z wielu subdetektorów, schematycznie przedstawionych na Rys. \ref{fig:alice-detector}. Można je podzielić według pełnionej w pomiarach roli. 
+ITS, TPC, TRD oraz TOF pokrywają pełen kąt azymutalny oraz zakres pseudopospieszności $|\eta| < 0.9$.
+\begin{itemize}
+	\item Detektory śladowe -- mierzące trajektorie cząstek zakrzywiane w polu magnetycznym o wartości $B = 0.5$ T.
+	\begin{itemize}
+		\item Inner Tracking System (ITS) -- zespół krzemowych detektorów śladowych znajdujący się najbliżej miejsca interakcji wiązek. Składa się on z 6 cylindrycznych warstw o promieniach od 4 do 43 cm, wykonanych w trzech różnych technologiach. Jego główną rolą jest rekonstrukcja pierwotnego oraz wtórnych wierzchołków. Bierze także udział w rekonstrukcji trajektorii i strat energetycznych cząstek, szczególnie tych niskopędowych, które nie docierają do dalej położonych detektorów.
+		\item Time Projection Chamber (TPC) -- długa na 5m i o takiej średnicy komora projekcji czasowej. Jest to główny detektor śladowy ALICE, wraz z ITS służy do wyznaczania trajektorii cząstek i na ich podstawie również wierzchołków zderzenia. Elektrony uwolnione ze zjonizowanego przez poruszające się w nim naładowane cząstki gazu dryfują wzdłuż kierunku wiązki w stronę końcowych elektrod. Następnie są tam zbierane dostarczając informacji o dwóch współrzędnych toru cząstki: odległości od wiązki i kącie azymutalnym. Trzecia składowa trajektorii jest otrzymywana na podstawie czasu dotarcia elektronów do elektrod. TPC jest najwolniejszym detektorem ALICE (ze względu na ograniczający czas dryfu elektronów wynoszący $\sim$90 $\mu$s), użycie detektora tego typu podyktowane jest jego zdolnością do rozwikłania śladów tysięcy cząstek spodziewanych w centralnych zderzeniach PbPb.
+		
+		Znajomość toru ruchu cząstki pozwala na wyznaczenie jej pędu. Oprócz dokładnej trajektorii każdej cząstki próbkowanej do 159 razy, TPC mierzy straty energii cząstek $dE/dx$. Pozwala to na ich identyfikacje na podstawie wzoru Bethego-Blocha, najwyższą zdolność rozdzielczą TPC osiąga dla cząstek o $p_T < 1$ GeV.
+	\end{itemize}
+	\item detektory służące identyfikacji cząstek \angterm{particle identification -- PID}
+	\begin{itemize}
+		\item Transition Radiation Detector (TRD) -- detektor wykrywający promieniowanie przejścia, służy głównie do odróżniania wysokopędowych ($p_T > 1$ GeV) elektronów od pionów. Promieniowanie przejścia emitowane jest podczas przechodzenia relatywistycznych cząstek przez granicę ośrodków, jego intensywność jest proporcjonalna do czynnika Lorentza $\gamma$, co pozwala na odróżnienie cząstek o tym samym pędzie na podstawie różnicy mas (elektrony są ponad 250 razy lżejsze od pionów). TRD oprócz identyfikacji elektronów uczestniczy także w rekonstrukcji śladów wysokopędowych cząstek i może być użyty w systemach wyzwalania \angterm{trigger}.
+		\item Time-Of-Flight (TOF) -- detektor czasu przelotu o zdolności rozdzielczej $\sim80$ ps. Pozwala na separację pionów i kaonów o pędach do ok. 2.5 GeV i protonów do 4 GeV.  
+		\item High-Momentum Particle Identification Detector (HMPID) -- detektor typu RICH \angterm{ring-imaging Cherenkov}, wykrywający fotony emitowane podczas przejścia przez ośrodek naładowanej cząstki o prędkości większej od prędkości fazowej światła w tym ośrodku (promieniowanie Cherenkowa). Na podstawie kąta pod jakim emitowane są fotony określana jest prędkość cząstki. HMPID pozwala na identyfikację pionów, kaonów i protonów o $p_T > 1$ GeV. Pokrywa przestrzeń kątów: $\ang{1.2} < \phi < \ang{58.8}$ oraz $|\eta| < 0.6$ (5\% akceptancji TPC).
+	\end{itemize}
+	\item kalorymetry
+	\begin{itemize}
+		\item Photon Spectrometer (PHOS) -- elektromagnetyczny kalorymetr o wysokiej rozdzielczości energetycznej i przestrzennej (podzielony na kryształy o rozmiarze poprzecznym 2.2 x 2.2 cm, co odpowiada rozmiarowi w dziedzinie $\eta,~\phi$ 0.004 x 0.004). Pokrywa zakres pseudopospieszności $|eta| < 0.12$ i kąta azymutalnego równy \ang{100}. PHOS ma za zadanie identyfikację i pomiar czteropędów fotonów, w szczególności tych niepochodzących z rozpadu innych cząstek \angterm{direct photons} oraz lekkich mezonów neutralnych (np. $\pi^0$) przez dwufotonowy kanał rozpadu.
+		\item Electromagnetic Calorimeter (EMCal) -- drugi elektromagnetyczny kalorytmetr ALICE o mniejszej ziarnistości ($\Delta\eta,\Delta~\phi$ = 0.014 x 0.014 ), ale dużo większej akceptancji TBD
+	\end{itemize}
+	\item Muon
+	\item detektory przednie
+	\begin{itemize}
+		\item ZDC
+		\item PMD
+		\item FMD
+		\item V0
+		\item T0
+	\end{itemize}
+\end{itemize}
+
+
+
+
 
 %PYTHIA6 manual:
 %"Parton distributions are most familiar for hadrons, such as the proton, which are
