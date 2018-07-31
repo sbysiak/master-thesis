@@ -22,7 +22,7 @@ Ważną rolę w studiowaniu tego problemu odgrywają symulacje MC, które pozwal
 \subsection{Dżety \textit{b}}
 \label{subsec:b-dzety}
 
-\subsubsection{Właściwości}
+\subsubsection*{Właściwości}
 Poza badaniami właściwości \textit{QGP}, szczególne znaczenie ma identyfikacja dżetów pochodzących z ciężkich kwarków: \textit{b} i \textit{c}.
 Są one ważnym elementem w poszukiwaniu łamania symetrii \textit{CP} w rozpadach hadronów B i D oraz innych sygnatur tzw. \textit{Nowej Fizyki} wykraczającej poza ramy Modelu Standardowego. 
 Kwarki \textit{piękne} pojawiają się także często w kanałach rozpadu cząstek takich jak bozon Higgsa i kwark \textit{t}.
@@ -30,9 +30,9 @@ Kwarki \textit{piękne} pojawiają się także często w kanałach rozpadu cząs
 Identyfikacja dżetów \textit{b} jest sporym wyzwaniem ze względu na zdecydowanie częściej występujące dżety lekkie, tj. powstałe z hadronizacji kwarków \textit{u,d,s} lub gluonów.
 Rozpoznawanie dżetów \textit{b} bazuje na charakterystycznych właściwościach hadronów zawierających kwark piękny: relatywnie długim czasie życia oraz (w mniejszym stopniu) na ich pół-leptonowym rozpadach o względnej częstości rozpadu w tym kanale \angterm{branching ratio} na poziomie 10\%.
 
-\subsubsection{Przegląd algorytmów używanych do identyfikacji dżetów \textit{b} na LHC} 
+\subsubsection*{Przegląd algorytmów używanych do identyfikacji dżetów \textit{b} na LHC} 
 
-Używane w eksperymentach na LHC: ATLAS, CMS i ALICE algorytmy można podzielić na trzy kategorie: wykorzystujące wtórne wierzchołki,  informację o odległości najbliższego zbliżenia (parametrach zderzenia) \angterm{Distance of Closest Approach -- DCA, Impact Parameter -- IP} cząstek tworzących dżet oraz identyfikujące produkty półleptonowych rozpadów pięknych lub powabnych hadronów. Dokładne opisy omawianych algorytmów można znaleźć w: \cite{Aad:2015ydr}, \cite{Sirunyan:2017ezt} (ATLAS), \cite{Chatrchyan:2012jua}, \cite{Sirunyan:2017ezt} (CMS), \cite{Feldkamp:2013cya}, \cite{Haake:2017dpr} (ALICE).
+Używane w eksperymentach na LHC: ATLAS, CMS i ALICE algorytmy można podzielić na trzy kategorie: wykorzystujące wtórne wierzchołki,  informację o odległości najbliższego zbliżenia (parametrze zderzenia) cząstek tworzących dżet \angterm{Distance of Closest Approach -- DCA, Impact Parameter -- IP} oraz identyfikujące produkty półleptonowych rozpadów pięknych lub powabnych hadronów. Dokładne opisy omawianych algorytmów można znaleźć w: \cite{Aad:2015ydr}, \cite{Sirunyan:2017ezt} (ATLAS), \cite{Chatrchyan:2012jua}, \cite{Sirunyan:2017ezt} (CMS), \cite{Feldkamp:2013cya}, \cite{Haake:2017dpr} (ALICE).
 
 Najprostszym algorytmem jest dyskryminacja na podstawie istotności statystycznej (wynik pomiaru podzielony przez jego niepewność) odległości wtórnego wierzchołka od wierzchołka pierwotnego $L$. Jest to metoda wykorzystywana w  każdym z trzech wymienionych eksperymentów (por. ATLAS: algorytm SV0, CMS: algorytm SSV, ALICE). 
 Może być ona rozszerzona poprzez użycie dodatkowych zmiennych opisujących wtórny wierzchołek jak na przykład jego masa, ułamek niesionej przez niego całkowitej energii dżetu (por. ATLAS: SV1) lub użycie "pseudowierzchołków" (kombinacji dwóch cząstek o dużych \textit{DCA}) w celu poprawienia wydajności detekcji o przypadki, w których wtórny wierzchołek nie został zrekonstruowany (por. CMS: CSV).
@@ -50,13 +50,13 @@ Do wyboru punktu pracy, zamiast jednowymiarowego rozkładu predykcji używany je
 
 \subsection{Eksperyment ALICE}
 
-Eksperyment ALICE \cite{Aamodt:2008zz}, \cite{Abelev:2014ffa} jest jednym z czterech największych eksperymentów na LHC. Jest on dedykowany zderzeniom ciężkich jonów (w LHC są to jony ołowiu PbPb), ale mierzone są także mniejsze systemy, tj. proton-proton pp (głównie jako referencję dla pomiarów PbPb) oraz proton-ołów p+Pb, które dostarczają także okazji do badania asymetrycznych zderzeń. Cechą charakterystyczną pomiarów ciężkojonowych jest ich znacznie większa niż w przypadku zderzeń pp krotność, tj. liczba cząstek wyprodukowana w pojedynczym zderzeniu. W przypadku zderzeń PbPb może powstawać nawet do 8000 naładowanych cząstek na jednostkę pseudorapidity. Detektor ALICE został zoptymalizowany do mierzeniach takich przypadków, jak również pod kątem rekonstrukcji i identyfikacji cząstek o szerokim zakresie pędów (100 MeV -- 100 GeV).
+Eksperyment ALICE \cite{Aamodt:2008zz}, \cite{Abelev:2014ffa} jest jednym z czterech największych eksperymentów na LHC. Jest on dedykowany zderzeniom ciężkich jonów (w LHC są to jony ołowiu PbPb), ale mierzone są także mniejsze systemy, tj. proton-proton pp (głównie jako referencję dla pomiarów PbPb) oraz proton-ołów p+Pb, które dostarczają także okazji do badania asymetrycznych zderzeń. Cechą charakterystyczną pomiarów ciężkojonowych jest ich znacznie większa niż w przypadku zderzeń pp krotność, tj. liczba cząstek wyprodukowana w pojedynczym zderzeniu. W przypadku zderzeń PbPb może powstawać nawet do 8000 naładowanych cząstek na jednostkę pseudorapidity $\eta$ \angterm{pseudorapidity} \footnote{$\eta = -\ln[\tg(\frac{\theta}{2})]$, gdzie $\theta$ jest kątem między wektorem pędu cząstki a osią wiązki}. Detektor ALICE został zoptymalizowany do mierzeniach takich przypadków, jak również pod kątem rekonstrukcji i identyfikacji cząstek o szerokim zakresie pędów (100 MeV -- 100 GeV).
 
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.99\textwidth]{alice-detector.jpg}
-	\caption{Schemat detectora ALICE.}
+	\caption{Schemat detectora ALICE. \imgsrc{\cite{alice-det}} }
 	\label{fig:alice-detector}
 \end{figure}
 

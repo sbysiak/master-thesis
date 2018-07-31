@@ -4,9 +4,9 @@
 %p-p, 13 TeV - Pythia8 - JJ events anchored to LHC16i, ALIROOT-7268
 
 Dane użyte w analizie pochodzą z symulacji Monte Carlo zderzeń proton-proton przy energii w układzie środka masy równej $\sqrt{s} = 13$ TeV dostępnych na serwerach eksperymentu ALICE.
-Są to pełne symulacje detektora ALICE, wykorzystujące generator zderzeń \texttt{Pythia8} \cite{Sjostrand:2007gs} (\textit{tune: Pythia8Jets\_Monash2013} \cite{Skands:2014pea}) oraz pakiet \texttt{Geant3} \cite{Brun:1994aa} do transportu cząstek przez detektor.
+Są to pełne symulacje detektora ALICE, wykorzystujące generator zderzeń \texttt{Pythia8} \cite{Sjostrand:2007gs} (\textit{tune: Pythia8Jets\_Monash2013} \cite{Skands:2014pea}) oraz pakiet \texttt{Geant3} \cite{Brun:1994aa} do transportu cząstek przez materiał detektora.
 
-Do rekonstrukcji dżetów wykorzystany został algorytm \textit{anti-kt} z parametrem $R = 0.4$ zaimplementowany w pakiecie \texttt{FASTJET} \cite{Cacciari:2011ma}. Dżetów poszukiwano tylko wyłącznie wśród cząstek naładowanych \angterm{charged jets} ze względu na słabe pokrycie przestrzeni fazowej przez kalorymetry w eksperymencie ALICE.
+Do rekonstrukcji dżetów wykorzystany został algorytm \textit{anti-kt} z parametrem $R = 0.4$ zaimplementowany w pakiecie \texttt{FASTJET} \cite{Cacciari:2011ma}. Dżetów poszukiwano wyłącznie wśród cząstek naładowanych \angterm{charged jets} ze względu na słabe pokrycie przestrzeni fazowej przez kalorymetry w eksperymencie ALICE.
 %Symulacje prowadzone były w wąskich binach $p_T$, które zostały połączone.
 
 Do analizy wybrano dżety o $p_T$ większym niż 15 GeV i mieszczących się w całości w akceptancji detektora \textit{TPC}, tj. $|\eta| < 0.9$, co przy użytym parametrze rozmiaru dżetu $R = 0.4$, daje ograniczenie na pseudopospieszność $|\eta| < 0.5$ dla osi dżetu.
@@ -18,7 +18,7 @@ Za potencjalne wtórne wierzchołki uznaje się wszystkie kombinacje trzech czą
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{sv-ip-def.png}
-	\caption{Rysunek ilustrujący znaczenie używanych wielkości: $L_{xy}$ oraz parametru zderzenia $IP$.}
+	\caption{Rysunek ilustrujący znaczenie używanych wielkości: $L_{xy}$ oraz parametru zderzenia $IP$. \imgsrc{\cite{sv-def-d0exp}}.}
 	\label{fig:sv-ip-def}
 \end{figure}
 
@@ -26,7 +26,7 @@ Lista używanych zmiennych:
 \begin{itemize}
 	\item Zmienne na poziomie dżetu:
 	\begin{itemize}	
-		\item $\eta$, $\phi$ -- pseudopospieszność \angterm{pseudorapidity} i kąt azymutalny
+		\item $\eta$, $\phi$ -- pseudopospieszność i kąt azymutalny
 		\item $p_T$ -- pęd poprzeczny dżetu
 		\item masa dżetu
 		\item powierzchnia dżetu -- liczona w płaszczyźnie ($\eta$, $\phi$),   do powierzchni dżetu zaliczany jest element w powierzchni w którym dodanie cząstki o nieskończenie małym pędzie poprzecznym sprawi, że zostanie ona zaliczona do tego dżetu  [\#REF https://arxiv.org/pdf/0707.1378.pdf]

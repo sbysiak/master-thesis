@@ -2,7 +2,7 @@
 \label{subsec:nn}
 
 Sieci neuronowe \angterm{neural networks -- NN} są szczególnym algorytmem uczenia maszynowego. Występują w bardzo wielu odmianach i są wykorzystywane w rozwiązywaniu szerokiej gamy problemów. Nawet bardzo pobieżny opis sieci neuronowych wymaga dużo więcej miejsca niż może być temu poświęcone w tej pracy. 
-Wprowadzenia do sieci neuronowych na różnym poziomie zaawansowania można znaleźć m.in. w [\#REF]x100. 
+Wprowadzenia do sieci neuronowych od podstaw można znaleźć m.in. w \cite{samarasinghe2016neural} lub \cite{Goodfellow-et-al-2016}. 
 Tu przedstawione zostaną wyłącznie wybrane zagadnienia mające ściślejszy związek z pracą. Używane mogą być terminy, których znaczenie wyjaśniane jest w podanych źródłach.
 
 W niniejszej pracy, wykorzystane zostały dwa rodzaje sieci neuronowych: sieci w pełni połączone \angterm{fully connected NN -- FC NN}, nazywane także wielowarstwowymi perceptronami \angterm{multi-layer perceptron -- MLP} oraz sieci konwolucyjne \angterm{convolutional NN -- ConvNets, CNN}. 
@@ -16,14 +16,14 @@ Trenowanie jest prostsze w przypadku zastosowania wielu warstw, które odpowiada
 
 
 \subsubsection*{Sieci konwolucyjne}
-Jednym ze sposobów na ograniczenie liczby trenowanych parametrów jest użycie konwolucyjnych sieci neuronowych (bardziej poprawną choć rzadko używaną nazwą w języku polskim jest sieć splotowa). Są one inspirowane połączeniami w korze wzrokowej zwierząt i wywodzą się z badań w obszarze widzenia komputerowego, gdzie liczby parametrów są szczególnie duże (wektor wejściowy ma wymiar równy liczbie pikseli w obrazie), na takim przykładzie również najłatwiej zrozumieć ich działanie.
+Jednym ze sposobów na ograniczenie liczby trenowanych parametrów jest użycie konwolucyjnych sieci neuronowych \cite{krizhevsky2012imagenet} (bardziej poprawną choć rzadko używaną nazwą w języku polskim jest sieć splotowa). Są one inspirowane połączeniami w korze wzrokowej zwierząt i wywodzą się z badań w obszarze widzenia komputerowego, gdzie liczby parametrów są szczególnie duże (wektor wejściowy ma wymiar równy liczbie pikseli w obrazie), na takim przykładzie również najłatwiej zrozumieć ich działanie.
 
 Sieci konwolucyjne różnią się od sieci typu \textit{FC} tym, że część wag połączeń między warstwami jest dzielona. Występuje w nich nowy rodzaj warstwy, nazywany warstwą konwolucyjną. Każda jednostka w warstwie konwolucyjnej (filtr) ma pewną stałą (niewielką) liczbę wag. Połączenie z dużym  wejściem realizowane jest przez powielanie tych samych wag w połączeniach z kolejnymi fragmentami wektora wejściowego (por. Rys. \ref{fig:convolution}). Rezultatem działania filtra na macierz jest wynik operacji splotu. Liczba parametrów przypadająca na każdy filtr jest równa jego rozmiarowi i nie zależy od wielkości wektora wejściowego. 
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{convolution_matrix.png}
-	\caption{Schemat działania pojedynczego filtra z warstwy konwolucyjnej (operacja splotu).}
+	\caption{Schemat działania pojedynczego filtra z warstwy konwolucyjnej (operacja splotu). \imgsrc{\cite{Velic17asd}}.}
 	\label{fig:convolution}
 \end{figure}
 
@@ -33,7 +33,7 @@ W przypadku gdy zamiast wejścia dwuwymiarowego (jak np. obraz czarno-biały), m
 	\centering
 	\begin{minipage}[c]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{conv-over-volume.png}
-		\caption{Działanie pojedynczego filtra~(3D) na wejście o trzech wymiarach.}
+		\caption{Działanie pojedynczego filtra~(3D) na wejście o trzech wymiarach. \imgsrc{{\cite{Ng17ert}}}.}
 		\label{fig:conv-over-vol}
 	\end{minipage}
 	\hspace{3em}
@@ -41,7 +41,7 @@ W przypadku gdy zamiast wejścia dwuwymiarowego (jak np. obraz czarno-biały), m
 		\vspace{-0.5em}
 		\includegraphics[width=0.9\textwidth]{max-pool.png}
 		\vspace{1.5em}
-		\caption{Działanie warstwy typu \\ \textit{max-pool}}
+		\caption{Działanie warstwy typu \\ \textit{max-pool}. \imgsrc{\cite{Velic17asd}}.}
 		\label{fig:max-pool}
 	\end{minipage}	
 \end{figure}
@@ -86,16 +86,17 @@ Typowa architektura stosowana w przypadku sieci konwolucyjnych jest następując
 	\centering
 	\includegraphics[width=\textwidth]{cnn-typical-architecture.jpeg}
 	\caption{Typowa struktura stosowana w sieciach konwolucyjnych. Warstwy konwolucyjne mają za zadanie wydobywać cechy, na podstawie których późniejsze warstwy dokonują klasyfikacji.
-	Widoczna jest charakterystyczna stopniowa zmiana rozmiaru przekazywanej macierzy: rozmiar poprzeczny maleje kosztem głębokości, co odpowiada rosnącej liczbie filtrów i malejącemu rozmiarowi obszaru po jakim są one przesuwane.}
+	Widoczna jest charakterystyczna stopniowa zmiana rozmiaru przekazywanej macierzy: rozmiar poprzeczny maleje kosztem głębokości, co odpowiada rosnącej liczbie filtrów i malejącemu rozmiarowi obszaru po jakim są one przesuwane. \imgsrc{\cite{mathworksXXpos}}.}
 	\label{fig:cnn-arch}
 \end{figure}
 
 
 
-\begin{wrapfigure}[9]{r}{0.25\textwidth}
+\begin{wrapfigure}[10]{r}{0.3\textwidth}
   \begin{center}
   	\vspace{-1em}
 	\includegraphics[width=0.2\textwidth]{translation-inv-non-face.png}
+	\caption{\imgsrc{\cite{tan17lkj}}.}
    	\label{fig:translation-inv-nonface}
   \end{center}
 \end{wrapfigure}
@@ -115,8 +116,8 @@ Do trenowania sieci wykorzystano wysokopoziomową bibliotekę \texttt{Keras} \ci
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth]{networks_params.png}
-	\caption{Schematyczne przedstawienie trzech testowanych rodzin architektur sieci. Każdy blok odpowiada kilku warstwom danego typu. Bloki warstw typu \textit{FC}  i opisane jako "kompresja" składały się z kilku neuronów i miały za zadanie zredukować całą informację z danej gałęzi do wektora kilku liczb. Obie gałęzie miały taką samą strukturę.}
+	\includegraphics[width=\textwidth]{networks_params4.png}
+	\caption{Schematyczne przedstawienie trzech testowanych rodzin architektur sieci. Każdy blok odpowiada kilku warstwom danego typu. Bloki warstw typu \textit{FC}  i opisane jako "kompresja" składały się z kilku neuronów i miały za zadanie zredukować całą informację z danej gałęzi do wektora kilku liczb.}
 	\label{fig:nets-params}
 \end{figure}
 
@@ -146,9 +147,9 @@ Czas trenowania sieci neuronowych jest rzędy wielkości większy niż drzew dec
 	\item \textit{batch\_size} zawsze równy 64 (inne testowane wartości: 16, 32, 128)
 	\item za algorytm optymalizacyjny przyjęto algorytm o nazwie \textit{Nadam} \cite{Nadam}, tj. rozwinięcie algorytmu \textit{Adam} \cite{KingmaB14} o parametr Nesterova (inne testowane to zwykły spadek gradientowy oraz \textit{Adam})
 	\item funkcję aktywacji: \textit{ReLU}
-	\item liczba epok równa 100 lub 200 (lub mniej do testów), zrezygnowano z \textit{early stopping}
+	\item liczba epok równa 50, 100 lub 200 (lub mniej do testów), zrezygnowano z \textit{early stopping}
 	\item stałe w trakcie treningu wartości parametru szybkości uczenia 
-	\item spośród technik regularyzacyjnych testowano wyłącznie \textit{dropout} \cite{srivastava14} z parametrami 0.1, 0.2, 0.5
+	\item spośród technik regularyzacyjnych testowano wyłącznie \textit{dropout} \cite{srivastava14} z prawdopodobieństwem odrzucenia równym 0.1, 0.2 lub 0.5
 	\item kilka wybranych kombinacji dla zestawu parametrów: rozmiar filtra, długość skoku i rozmiar okna w warstwach \textit{max-pool} -- takie same w kolejnych warstwach
 	\item liczby neuronów/filtrów w warstwach będące zawsze potęgami dwójki oraz stałą liczbę w kolejnych warstwach lub zmieniającą się o stały czynnik, np. 256-128-64, 128-128-128 lub 16-32-64
 	\item liczba warstw \textit{FC}: 2-8, konwolucyjnych 2-6
