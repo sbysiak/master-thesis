@@ -9,27 +9,27 @@ Są to pełne symulacje detektora ALICE, wykorzystujące generator zderzeń \tex
 Do rekonstrukcji dżetów wykorzystany został algorytm \textit{anti-kt} z parametrem $R = 0.4$ zaimplementowany w pakiecie \texttt{FASTJET} \cite{Cacciari:2011ma}. Dżetów poszukiwano wyłącznie wśród cząstek naładowanych \angterm{charged jets} ze względu na słabe pokrycie przestrzeni fazowej przez kalorymetry w eksperymencie ALICE.
 %Symulacje prowadzone były w wąskich binach $p_T$, które zostały połączone.
 
-Do analizy wybrano dżety o $p_T$ większym niż 15 GeV i mieszczących się w całości w akceptancji detektora \textit{TPC}, tj. $|\eta| < 0.9$, co przy użytym parametrze rozmiaru dżetu $R = 0.4$, daje ograniczenie na pseudopospieszność $|\eta| < 0.5$ dla osi dżetu.
+Do analizy wybrano dżety o $p_T$ większym niż 15 GeV i mieszczące się w całości w akceptancji detektora \textit{TPC}, tj. $|\eta| < 0.9$, co przy użytym parametrze rozmiaru dżetu $R = 0.4$, daje ograniczenie na pseudopospieszność $|\eta| < 0.5$ dla osi dżetu.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{sv-ip-def.png}
+	\caption{Rysunek ilustrujący znaczenie używanych wielkości: $L_{xy}$ oraz parametru zderzenia $IP$. \imgsrc{\cite{sv-def-d0exp}}.}
+	\label{fig:sv-ip-def}
+\end{figure}
 
 Dla każdego dżetu obliczony został szereg wielkości, które można podzielić na zmienne na poziomie dżetu, związane z wtórnymi wierzchołkami oraz cząstkami tworzącymi dżet. 
 Za potencjalne wtórne wierzchołki uznaje się wszystkie kombinacje trzech cząstek spełniających pewne dosyć luźne kryteria jak $p_T > 0.15$ GeV (rozważane są wyłącznie trzy-cząstkowe wtórne wierzchołki), stąd ich liczba może być dużo większa od liczby cząstek tworzących dżet.
 
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.6\textwidth]{sv-ip-def.png}
-	\caption{Rysunek ilustrujący znaczenie używanych wielkości: $L_{xy}$ oraz parametru zderzenia $IP$. \imgsrc{\cite{sv-def-d0exp}}.}
-	\label{fig:sv-ip-def}
-\end{figure}
-
 Lista używanych zmiennych:
 \begin{itemize}
 	\item Zmienne na poziomie dżetu:
 	\begin{itemize}	
-		\item $\eta$, $\phi$ -- pseudopospieszność i kąt azymutalny
+		\item $\eta$, $\phi$ -- pseudopospieszność i kąt azymutalny osi dżetu
 		\item $p_T$ -- pęd poprzeczny dżetu
-		\item masa dżetu
-		\item powierzchnia dżetu -- liczona w płaszczyźnie ($\eta$, $\phi$),   do powierzchni dżetu zaliczany jest element w powierzchni w którym dodanie cząstki o nieskończenie małym pędzie poprzecznym sprawi, że zostanie ona zaliczona do tego dżetu  [\#REF https://arxiv.org/pdf/0707.1378.pdf]
+		\item masa dżetu [\#REF]
+		\item powierzchnia dżetu -- liczona w płaszczyźnie ($\eta$, $\phi$),   do powierzchni dżetu zaliczany jest element w powierzchni w którym dodanie cząstki o nieskończenie małym pędzie poprzecznym sprawi, że zostanie ona zaliczona do tego dżetu \cite{Cacciari:2007fd}
 		\item gęstość tła (w danym zdarzeniu)
 		\item $N_{SV}$ -- liczba wtórych wierzchołków
 		\item $N_{Constit}$ -- liczba cząstek tworzących dżet
@@ -56,9 +56,23 @@ Lista używanych zmiennych:
 \end{itemize}
 
 
+Dżety różnią się liczbą cząstek je tworzących oraz liczbą wtórnych wierzchołków. Większość algorytmów uczenia maszynowego wymaga natomiast dostarczenia danych w postaci tabelarycznej (macierzowej), ze stałą liczbą kolumn. Aby spełnić to wymaganie konieczne jest przyjęcie pewnej ustalonej liczby wtórnych wierzchołków oraz cząstek tworzących dżet -- w przypadku gdy dżet ma więcej elementów tego typu są one odrzucane, natomiast puste pola są wypełniane zerami w przypadku gdy ma ich mniej. 
+Po przeanalizowaniu rozkładów liczby wtórnych wierzchołków i cząstek tworzących dżet (\ref{fig:nsv_nconstit_distr}) oraz wstępnym sprawdzeniu jak dodawanie kolejnych elementów wpływa na otrzymywane wyniki (na podstawie wzmacnianych drzew decyzyjnych ze względu na wspomnianą w \ref{subsec:dyskusja-2algo} szybkość i stabilność) ustalono liczbę cząstek tworzących dżet równą 15 a wtórnych wierzchołków równą 20.
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[trim={0.6cm 0cm 0.2cm 0cm},clip,width=0.49\textwidth]{hist-nconstit-cut.png}
+	\includegraphics[trim={0.6cm 0cm 0.2cm 0cm},clip,width=0.49\textwidth]{hist-nsv-cut.png}
+	\caption{Rozkłady liczby cząstek tworzących dżet i liczby wtórnych wierzchołków (część) wraz wartościami cięć.}
+	\label{fig:nsv_nconstit_distr}
+\end{figure}
 
+Istotnym zagadnieniem jest także kolejność w jakiej ułożone będą zmienne. 
+Dla sieci konwolucyjnych szukających lokalnych zależności rozsądne jest ułożenie obok siebie tych samych zmiennych, np. $L_{xy,1}, L_{xy,2}, L_{xy,3} \dots \sigma_{vertex,1}, \sigma_{vertex,2}, \sigma_{vertex,3} \dots$. 
+Dla sieci w pełni połączonych oraz drzew decyzyjnych kolejność zmiennych nie ma znaczenia, ale ważne jest aby ich położenie było stałe, np. aby $L_{xy}$ i $\sigma{Lxy}$ kolejnego wtórnego wierzchołka były w tych samych miejscach, tak aby możliwe było szukanie zależności między nimi.
 
-TBD: tabelaryczna postać, liczba SV i Nconstit, jak posortowane, wypleniania zerami
+Następną kwestią jest wybór wielkości decydującej o kolejności ułożenia elementów, tj. która cząstka będzie cząstką nr 1 a która nr 5. Losowe ułożenie elementów sprawiłoby, że bezpośrednie porównywanie wielkości w danych kolumnach (co ma miejsce bezpośrednio w drzewach decyzyjnych a pośrednio w sieciach neuronowych) straciłoby sens. Z kolei dobry dobór tej kolejności pozwala na łatwe odtworzenie przez algorytm uczenia maszynowego motywowanych fizycznie algorytmów omówionych w \ref{subsubsec:przeglad-algo}. Przykładowo cięcie na wartość $IP$ drugiej lub trzeciej cząstki (gdy są one posortowane wg malejących wartości $IP$) jest istotą algorytmu nazywanego \textit{Track Counting -- TC} stosowanego w CMS i ALICE.
+Kolejność w jakiej ułożone będą elementy, wpływa także na to, które z nich będą odrzucone w przypadku gdy dżet zawiera więcej niż 15 cząstek i 20 wierzchołków. 
+Ponownie posiłkowano się testami z użyciem drzew decyzyjnych. Ostatecznie wtórne wierzchołki ułożono według malejącego $L_{xy}$ a cząstki -- malejącego $p_T$.
 
-korespondencja miedzy uzytymi danymi a algorytmami z sec. "identyfikacja dżetów b"
+Ostatecznie liczba zmiennych użytych do trenowania algorytmów uczenia maszynowego była równa: 
