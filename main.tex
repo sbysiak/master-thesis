@@ -1,8 +1,13 @@
 \documentclass[a4paper,12pt]{article}
 
+%polska jezyk trudna jezyk
 \usepackage[utf8]{inputenc}
-\usepackage[T1]{polski}
-\usepackage[T1]{fontenc}
+%\usepackage[polish]{babel}
+\usepackage{polski}
+%\usepackage[latin2]{inputenc}
+%\usepackage[T1]{polski}
+%\usepackage[T1]{fontenc}
+
 \usepackage{helvet}
 \usepackage{graphicx}
 \usepackage{color}
@@ -30,7 +35,8 @@
 \newcommand{\angterm}[1] {
   (ang.~\textit{#1})}
 
-
+\newcommand{\imgsrc}[1] {
+  Źródło:~#1.}
 
 \addbibresource{biblio.bib}
 
@@ -51,6 +57,7 @@
 
 %\input{strona_tytulowa}
 
+\setcounter{tocdepth}{2}
 \tableofcontents
 
 \clearpage

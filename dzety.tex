@@ -1,7 +1,7 @@
 \subsection{Dżety}
 \label{subsec:dzet-def}
 
-Przedstawiona powyżej definicja dżetu nie jest precyzyjna z punktu widzenia pracy eksperymentalnej. W detektorze obserwuje się tylko cząstki w stanie końcowym, nie jest znana natomiast ich historia (tj. parton, z którego powstały), nie jest zatem możliwe przyporządkowanie cząstki według jej pochodzenia. W związku z tym, konieczne jest użycie algorytmu klasteryzującego, dostającego na wejściu tylko obserwowalne eksperymentalnie cząstki. 
+Przedstawiona powyżej definicja dżetu nie jest precyzyjna z punktu widzenia pracy eksperymentalnej. W detektorze obserwuje się tylko cząstki w stanie końcowym, nie jest zatem możliwe przyporządkowanie cząstki według jej pochodzenia. W związku z tym, konieczne jest użycie algorytmu klasteryzującego, dostającego na wejściu tylko obserwowalne eksperymentalnie cząstki. 
 To jakie dżety zostaną zaobserwowane w danym zdarzeniu zależy od użytego algorytmu. Oznacza to, że precyzyjną definicję dżetu stanowi algorytm klasteryzujący wraz z zestawem parametrów. Obecnie najpowszechniej stosowanym algorytmem jest algorytm \textit{anti-kt} \cite{Cacciari:2008gp}.
 
 
@@ -9,30 +9,30 @@ To jakie dżety zostaną zaobserwowane w danym zdarzeniu zależy od użytego alg
 %Jak zostało to już wcześniej zasygnalizowane, w eksperymencie nie ma się bezpośredniego dostępu do informacji na temat partonów, dlatego również klasyfikowanie (nazywane także identyfikacją) dżetów może odbywać się wyłącznie na podstawie cząstek mierzonych w detektorze -- zwykle obecności hadronu zawierającego odpowiedni kwark w zadanej odległości od osi dżetu (przykładowo obecność hadronu \textit{B} oznacza, że dżet będzie zaklasyfikowany jako dżet \textit{b}).
 
 
-Eksperymentalne ograniczenia związane z obserwacją tylko końcowego stanu oddziaływań nie występują w analizie danych z symulacji Monte Carlo (MC), gdzie  ma się dostęp do pełnej informacji na temat historii każdej cząstki. 
-Można pomyśleć, że daje to możliwość lepszej klasteryzacji dżetów. 
-Rekonstrukcja przy użyciu informacji o partonach - matkach sprawia jednak, że definicja dżetu wykorzystana w badaniach danych symulacyjnych jest inna od tej wykorzystywanej w eksperymencie. Tracona jest przez to cecha odpowiedniości między obiektami nazywanymi dżetami w symulacji  i w eksperymencie, która to cecha jest niewątpliwie jedną z podstawowych wymagań stawianych przed dobrą symulacją.
+Eksperymentalne ograniczenia związane z obserwacją tylko końcowego stanu oddziaływań nie występują w analizie danych z symulacji Monte Carlo (MC), gdzie ma się dostęp do pełnej informacji na temat historii każdej cząstki. 
+Nie należy jednak używać jej do klasteryzacji dżetów, gdyż utracona zostałaby cecha odpowiedniości między obiektami nazywanymi dżetami w symulacji i w eksperymencie, która to cecha jest niewątpliwie jedną z podstawowych wymagań stawianych przed dobrą symulacją. Właściwym podejściem jest rekonstrukcja dżetów przy pomocy takiego samego algorytmu jak w przypadku danych eksperymentalnych.
 
-Dżety stanowią ważny element w badaniach plazmy kwarkowo-gluonowej.
-Dają one pośredni wgląd we właściwości \textit{QGP} na podstawie jej wpływu na oddziałujące z nią partony. Przykładową obserwablą mierzoną w zderzeniach ciężkich jonów jest czynnik modyfikacji jądrowej \angterm{nuclear modification factor}, który jest miarą strat energii przez parton przechodzący przez medium.
-
+Dżety wykorzystuje się w badaniach plazmy kwarkowo-gluonowej.
+Dają one pośredni wgląd we właściwości \textit{QGP} na podstawie wpływu jaki wywiera na oddziałujące z nią partony. 
+Przykładową obserwablą mierzoną w zderzeniach ciężkich jonów jest czynnik modyfikacji jądrowej $R_{AA}$ \angterm{nuclear modification factor}, który jest miarą strat energii przez parton przechodzący przez medium. Jest to stosunek pędowych rozkładów dżetów cząstek zmierzonych w zderzeniach ciężkich jąder oraz w zderzeniach pp (przemnożonych przez liczbę binarnych zderzeń nukleon-nukleon przewidywanych przez model teoretyczny). Odchylenia od wartości 1 dla wysokich $p_T$ są oznaką modyfikacji pędów dżetów przez gęste medium (w stosunku do zderzeń pp gdzie \textit{QGP} nie powstaje), jest to tzw. tłumienie dżetów \angterm{jet quenching}. Rezultaty pomiarów $R_{AA}$ w CMS: \cite{Khachatryan:2016odn} i ALICE: \cite{Abelev:2012hxa}.
 
 Oprócz globalnego wpływu medium na dżety, analizuje się także różnice między dżetami pochodzącymi z gluonów oraz kwarków o różnych zapachach \angterm{flavours}. Modele teoretyczne przewidują między innymi większe straty energii w wyniku interakcji z \textit{QGP} dla dżetów gluonowych niż kwarkowych \cite{Salgado:2003gb} oraz zależność strat energii od masy partonu \cite{Dokshitzer:2001zm} -- w tym przypadku precyzyjne pomiary rozróżniające typy dżetów pozwalają lepiej zrozumieć mechanizm odpowiadający za straty energii przez partony. Zagadnienie rozpoznania z jakiego rodzaju partonu powstał dany dżet, nazywane jest identyfikacją lub tagowaniem dżetu.
+Ważną rolę w studiowaniu tego problemu odgrywają symulacje MC, które pozwalają określić wydajności poszczególnych technik tagowania dżetów na podstawie znajomości kanału produkcji każdej symulowanej cząstki.
 
-
-\subsection{Identyfikacja dżetów \textit{b}}
+\subsection{Dżety \textit{b}}
 \label{subsec:b-dzety}
 
+\subsubsection{Właściwości}
 Poza badaniami właściwości \textit{QGP}, szczególne znaczenie ma identyfikacja dżetów pochodzących z ciężkich kwarków: \textit{b} i \textit{c}.
 Są one ważnym elementem w poszukiwaniu łamania symetrii \textit{CP} w rozpadach hadronów B i D oraz innych sygnatur tzw. \textit{Nowej Fizyki} wykraczającej poza ramy Modelu Standardowego. 
 Kwarki \textit{piękne} pojawiają się także często w kanałach rozpadu cząstek takich jak bozon Higgsa i kwark \textit{t}.
 
-Identyfikacja dżetów \textit{b} jest sporym wyzwaniem ze względu na zdecydowanie częściej występujące dżety lekkie, tj. powstałe z hadronizacji kwarków \textit{u,d,s} oraz gluonów.
+Identyfikacja dżetów \textit{b} jest sporym wyzwaniem ze względu na zdecydowanie częściej występujące dżety lekkie, tj. powstałe z hadronizacji kwarków \textit{u,d,s} lub gluonów.
 Rozpoznawanie dżetów \textit{b} bazuje na charakterystycznych właściwościach hadronów zawierających kwark piękny: relatywnie długim czasie życia oraz (w mniejszym stopniu) na ich pół-leptonowym rozpadach o względnej częstości rozpadu w tym kanale \angterm{branching ratio} na poziomie 10\%.
 
-\textbf{przegląd algorytmów używanych w identyfikacji b-jetów: TBD} 
+\subsubsection{Przegląd algorytmów używanych do identyfikacji dżetów \textit{b} na LHC} 
 
-Używane w eksperymentach na LHC: ATLAS, CMS i ALICE algorytmy można podzielić na trzy kategorie: wykorzystujące wtórne wierzchołki,  informację o odległości najbliższego zbliżenia (parametrach zderzenia) \angterm{Distance of Closest Approach -- DCA, Impact Parameter -- IP} cząstek tworzących dżet oraz identyfikujące produkty półleptonowych rozpadów pięknych lub powabnych hadronów. Dokładne opisy omawianych algorytmów można znaleźć w: \cite{Aad:2015ydr}, \cite{Sirunyan:2017ezt} (ATLAS), ... (CMS), ... (ALICE).
+Używane w eksperymentach na LHC: ATLAS, CMS i ALICE algorytmy można podzielić na trzy kategorie: wykorzystujące wtórne wierzchołki,  informację o odległości najbliższego zbliżenia (parametrach zderzenia) \angterm{Distance of Closest Approach -- DCA, Impact Parameter -- IP} cząstek tworzących dżet oraz identyfikujące produkty półleptonowych rozpadów pięknych lub powabnych hadronów. Dokładne opisy omawianych algorytmów można znaleźć w: \cite{Aad:2015ydr}, \cite{Sirunyan:2017ezt} (ATLAS), \cite{Chatrchyan:2012jua}, \cite{Sirunyan:2017ezt} (CMS), \cite{Feldkamp:2013cya}, \cite{Haake:2017dpr} (ALICE).
 
 Najprostszym algorytmem jest dyskryminacja na podstawie istotności statystycznej (wynik pomiaru podzielony przez jego niepewność) odległości wtórnego wierzchołka od wierzchołka pierwotnego $L$. Jest to metoda wykorzystywana w  każdym z trzech wymienionych eksperymentów (por. ATLAS: algorytm SV0, CMS: algorytm SSV, ALICE). 
 Może być ona rozszerzona poprzez użycie dodatkowych zmiennych opisujących wtórny wierzchołek jak na przykład jego masa, ułamek niesionej przez niego całkowitej energii dżetu (por. ATLAS: SV1) lub użycie "pseudowierzchołków" (kombinacji dwóch cząstek o dużych \textit{DCA}) w celu poprawienia wydajności detekcji o przypadki, w których wtórny wierzchołek nie został zrekonstruowany (por. CMS: CSV).
@@ -45,13 +45,12 @@ Znaczącą poprawę zdolności predykcyjnej można uzyskać łącząc kilka ró�
 Algorytm łączący może pobierać na wejściu albo tylko predykcje klasyfikatorów niższego poziomu (CMS: cMVAv2) lub dodatkowo także ich zmienne wejściowe (ATLAS: MV2, DL1). Do scalania używane są zwykle wzmacniane drzewa decyzyjne lub sieci neuronowe.
 
 Przykład innego podejścia zaprezentowała współpraca przy eksperymencie LHCb, gdzie wykorzystano dwa zestawy wzmacnianych drzew decyzyjnych operujących na zmiennych związanych z wtórnymi wierzchołkami. Pierwszy zapewnia separację dżetów lekkich od ciężkich a drugi odróżnia dżety \textit{b} od \textit{c}. 
-Do wyboru punktu pracy, zamiast jednowymiarowego rozkładu predykcji używany jest dwuwymiarowy rozkład wag przypisany przez oba klasyfikatory.
+Do wyboru punktu pracy, zamiast jednowymiarowego rozkładu predykcji używany jest dwuwymiarowy rozkład wag przypisany przez oba klasyfikatory \cite{Aaij:2015yqa}.
 
-\clearpage
 
 \subsection{Eksperyment ALICE}
 
-Eksperyment ALICE jest jednym z czterech największych eksperymentów na LHC. Jest on dedykowany zderzeniom ciężkich jonów (w LHC są to jony ołowiu PbPb), ale mierzone są także mniejsze systemy, tj. proton-proton pp (głównie jako referencję dla pomiarów PbPb) oraz proton-ołów p+Pb, które dostarczają także okazji do badania asymetrycznych zderzeń. Cechą charakterystyczną pomiarów ciężkojonowych jest ich znacznie większa niż w przypadku zderzeń pp krotność, tj. liczba cząstek wyprodukowana w pojedynczym zderzeniu. W przypadku zderzeń PbPb może powstawać nawet do 8000 naładowanych cząstek na jednostkę pseudorapidity. Detektor ALICE został zoptymalizowany do mierzeniach takich przypadków, jak również pod kątem rekonstrukcji i identyfikacji cząstek o szerokim zakresie pędów (100 MeV -- 100 GeV).
+Eksperyment ALICE \cite{Aamodt:2008zz}, \cite{Abelev:2014ffa} jest jednym z czterech największych eksperymentów na LHC. Jest on dedykowany zderzeniom ciężkich jonów (w LHC są to jony ołowiu PbPb), ale mierzone są także mniejsze systemy, tj. proton-proton pp (głównie jako referencję dla pomiarów PbPb) oraz proton-ołów p+Pb, które dostarczają także okazji do badania asymetrycznych zderzeń. Cechą charakterystyczną pomiarów ciężkojonowych jest ich znacznie większa niż w przypadku zderzeń pp krotność, tj. liczba cząstek wyprodukowana w pojedynczym zderzeniu. W przypadku zderzeń PbPb może powstawać nawet do 8000 naładowanych cząstek na jednostkę pseudorapidity. Detektor ALICE został zoptymalizowany do mierzeniach takich przypadków, jak również pod kątem rekonstrukcji i identyfikacji cząstek o szerokim zakresie pędów (100 MeV -- 100 GeV).
 
 
 \begin{figure}[h]
@@ -80,17 +79,22 @@ ITS, TPC, TRD oraz TOF pokrywają pełen kąt azymutalny oraz zakres pseudopospi
 	\end{itemize}
 	\item kalorymetry
 	\begin{itemize}
-		\item Photon Spectrometer (PHOS) -- elektromagnetyczny kalorymetr o wysokiej rozdzielczości energetycznej i przestrzennej (podzielony na kryształy o rozmiarze poprzecznym 2.2 x 2.2 cm, co odpowiada rozmiarowi w dziedzinie $\eta,~\phi$ 0.004 x 0.004). Pokrywa zakres pseudopospieszności $|eta| < 0.12$ i kąta azymutalnego równy \ang{100}. PHOS ma za zadanie identyfikację i pomiar czteropędów fotonów, w szczególności tych niepochodzących z rozpadu innych cząstek \angterm{direct photons} oraz lekkich mezonów neutralnych (np. $\pi^0$) przez dwufotonowy kanał rozpadu.
-		\item Electromagnetic Calorimeter (EMCal) -- drugi elektromagnetyczny kalorytmetr ALICE o mniejszej ziarnistości ($\Delta\eta,\Delta~\phi$ = 0.014 x 0.014 ), ale dużo większej akceptancji TBD
+		\item Photon Spectrometer (PHOS) -- elektromagnetyczny kalorymetr o wysokiej rozdzielczości energetycznej i przestrzennej (podzielony na kryształy o rozmiarze poprzecznym 2.2 x 2.2 cm, co odpowiada rozmiarowi w dziedzinie $\eta,~\phi$ 0.004 x 0.004). Pokrywa zakres pseudopospieszności $|\eta| < 0.12$ i kąta azymutalnego równy \ang{100}. PHOS ma za zadanie identyfikację i pomiar czteropędów fotonów, w szczególności tych niepochodzących z rozpadu innych cząstek \angterm{direct photons} oraz lekkich mezonów neutralnych (np. $\pi^0$) przez dwufotonowy kanał rozpadu.
+		\item Electromagnetic Calorimeter (EMCal) -- drugi elektromagnetyczny kalorytmetr ALICE o mniejszej ziarnistości ($\Delta\eta,\Delta~\phi$ = 0.014 x 0.014 ), ale dużo większej akceptancji ($|eta| < 0.7$, $\Delta\phi = \ang{107}$).
+EMCal poprawia możliwości ALICE w zakresie pomiarów tłumienia dżetów, pozwalając na wyznaczanie neutralnej składowej energii dżetów (energii niesionej przez neutralne cząstki). Dzięki innej charakterystyce dla elektronów i hadronów (elektrony typowo deponują niemal całą energię a hadrony tylko niewielką część) pozwala je odróżnić na podstawie stosunku zmierzonej w nim energii do wyznaczonego wcześniej pędu $E/p$.
+EMCal może być użyty także w szybkim systemie wyzwalania, do selekcji przypadków z dżetami oraz wysokoenergetycznymi fotonami i elektronami.
 	\end{itemize}
-	\item Muon
-	\item detektory przednie
+	\item Muon spectrometer -- spektrometr mionowy, złożony z dwóch pasywnych absorberów, znajdujących się między nimi 10 warstw detektora śladowego oraz komór systemu wyzwalającego na końcu. 
+	Przedni absorber, gruby na 4 metry (${\sim}60 X_0$) wykonany z betonu i grafitu, zatrzymuje hadrony oraz miony o niższych energiach (np. z rozpadów pionów i kaonów). Jest on zoptymalizowany aby minimalizować rozpraszanie mionów i zapewnić ochronę pozostałych detektorów ALICE przed wtórnymi cząstkami powstałymi w jego materiale. 
+Komory pozycjoczułe mają zdolność rozdzielczą ok. 100 $\mu$m, co pozwala osiągnąć wysoką rozdzielczość przy wyznaczaniu masy niezmienniczej rzędu 100 MeV/$c^2$.	Spektrometr mionowy służy głównie do mierzenia mezonów wektorowych ($\omega,\;\phi,\;J/\Psi,\;\Upsilon$) rozpadających się w kanale $\mu^+\mu^-$.
+	
+	\item Detektory przednie, wyznaczające min. centralność zderzeń oraz płaszczyznę reakcji.
 	\begin{itemize}
-		\item ZDC
-		\item PMD
-		\item FMD
-		\item V0
-		\item T0
+		\item ZDC -- zespół czterech kalorymetrów (po dwa do pomiaru protonów i neutronów, gdyż ich tory są rozdzielane przez pole magnetyczne) mierzących energię nukleonów nieuczestniczących w zderzeniu tzw. obserwatorów, co pozwala na określenie liczby nukleonów oddziałujących, tzw. uczestników. Znajdują się one 116 m od miejsca interakcji.
+		\item PMD -- detektor mierzący krotności oraz rozkład przestrzenny fotonów
+		\item FMD -- krzemowy detektor paskowy mierzący precyzyjnie liczbę naładowanych cząstek w zakresie pseudopospieszności wykraczającym poza akceptancję detektora ITS.
+		\item V0 -- liczniki scyntylacyjne położone po obu stronach detektora, używane w systemie wyzwalania o minimalnym obciążeniu \angterm{minimum bias trigger} -- wymóg obecności sygnału w obu detektorach pozwala na odrzucenie przypadków tła z oddziaływania wiązki protonów z resztkami gazu obecnymi w rurach próżniowych.
+		\item T0 -- dostarcza dokładny czas interakcji potrzebny dla detektora TOF, pozwala także na śledzenie świetlności w czasie rzeczywistym.
 	\end{itemize}
 \end{itemize}
 
