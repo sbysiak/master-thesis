@@ -49,15 +49,15 @@ Lista używanych zmiennych:
 	\begin{itemize}	
 		\item $L_{xy}$ -- odległość między pierwotnym a wtórnym wierzchołkiem \angterm{decay length}
 		\item $\sigma_{Lxy}$ -- niepewność wyznaczenia $L_{xy}$
-		\item $\sigma_{vertex} = \sqrt{d_1^2 + d_2^2 + d_3^2}$ -- rozrzut śladów \angterm{tracks} wokół wtórnego wierzchołka, gdzie $d_i$ to odległość najbliższego zbliżenia śladu / odległość najbliższego przelotu do wtórnego wierzchołka \angterm{distance of closest approach -- DCA} % https://arxiv.org/pdf/1511.04380.pdf (str. 92)
+		\item $\sigma_{vertex} = \sqrt{d_1^2 + d_2^2 + d_3^2}$ -- rozrzut śladów \angterm{tracks} wokół wtórnego wierzchołka, gdzie $d_i$ to odległość najbliższego zbliżenia śladu do wtórnego wierzchołka (DCA) % https://arxiv.org/pdf/1511.04380.pdf (str. 92)
 		\item $M_{inv} = \sqrt{(E_1 + E_2 + E_3)^2 - (\vec{p_1} + \vec{p_2} + \vec{p_3})^2}$ -- masa niezmiennicza wierzchołka, gdzie $E_i, p_i$ to energia i pęd $i$-tej cząstki tworzącej wierzchołek
 		\item $\chi^2/Ndf$  dopasowania wtórnego wierzchołka
 	\end{itemize}
 \end{itemize}
 
 
-Dżety różnią się liczbą cząstek je tworzących oraz liczbą wtórnych wierzchołków. Większość algorytmów uczenia maszynowego wymaga natomiast dostarczenia danych w postaci tabelarycznej (macierzowej), ze stałą liczbą kolumn. Aby spełnić to wymaganie konieczne jest przyjęcie pewnej ustalonej liczby wtórnych wierzchołków oraz cząstek tworzących dżet -- w przypadku gdy dżet ma więcej elementów tego typu są one odrzucane, natomiast puste pola są wypełniane zerami w przypadku gdy ma ich mniej. 
-Po przeanalizowaniu rozkładów liczby wtórnych wierzchołków i cząstek tworzących dżet (\ref{fig:nsv_nconstit_distr}) oraz wstępnym sprawdzeniu jak dodawanie kolejnych elementów wpływa na otrzymywane wyniki (na podstawie wzmacnianych drzew decyzyjnych ze względu na wspomnianą w \ref{subsec:dyskusja-2algo} szybkość i stabilność) ustalono liczbę cząstek tworzących dżet równą 15 a wtórnych wierzchołków równą 20.
+Dżety różnią się liczbą cząstek je tworzących oraz liczbą wtórnych wierzchołków. Większość algorytmów uczenia maszynowego wymaga natomiast dostarczenia danych w postaci tabelarycznej (macierzowej), ze stałą liczbą kolumn (wiersze stanowią kolejne dżety). Aby spełnić to wymaganie konieczne jest przyjęcie pewnej ustalonej liczby wtórnych wierzchołków oraz cząstek tworzących dżet -- w przypadku gdy dżet ma więcej elementów tego typu są one odrzucane, natomiast puste pola są wypełniane zerami w przypadku gdy ma ich mniej. 
+Po przeanalizowaniu rozkładów liczby wtórnych wierzchołków i cząstek tworzących dżet (Rys. \ref{fig:nsv_nconstit_distr}) oraz wstępnym sprawdzeniu jak dodawanie kolejnych elementów wpływa na otrzymywane wyniki (na podstawie wzmacnianych drzew decyzyjnych ze względu na wspomnianą w \ref{subsec:dyskusja-2algo} szybkość i stabilność) ustalono liczbę cząstek tworzących dżet równą 15 a wtórnych wierzchołków równą 20.
 
 \begin{figure}[h]
 	\centering
@@ -69,10 +69,10 @@ Po przeanalizowaniu rozkładów liczby wtórnych wierzchołków i cząstek tworz
 
 Istotnym zagadnieniem jest także kolejność w jakiej ułożone będą zmienne. 
 Dla sieci konwolucyjnych szukających lokalnych zależności rozsądne jest ułożenie obok siebie tych samych zmiennych, np. $L_{xy,1}, L_{xy,2}, L_{xy,3} \dots \sigma_{vertex,1}, \sigma_{vertex,2}, \sigma_{vertex,3} \dots$. 
-Dla sieci w pełni połączonych oraz drzew decyzyjnych kolejność zmiennych nie ma znaczenia, ale ważne jest aby ich położenie było stałe, np. aby $L_{xy}$ i $\sigma{Lxy}$ kolejnego wtórnego wierzchołka były w tych samych miejscach, tak aby możliwe było szukanie zależności między nimi.
+Dla sieci w pełni połączonych oraz drzew decyzyjnych kolejność zmiennych nie ma znaczenia, ale ważne jest aby ich położenie było stałe, np. aby $L_{xy}$ i $\sigma_{Lxy}$ danego wtórnego wierzchołka były w tych samych miejscach, tak aby możliwe było szukanie zależności między nimi.
 
-Następną kwestią jest wybór wielkości decydującej o kolejności ułożenia elementów, tj. która cząstka będzie cząstką nr 1 a która nr 5. Losowe ułożenie elementów sprawiłoby, że bezpośrednie porównywanie wielkości w danych kolumnach (co ma miejsce bezpośrednio w drzewach decyzyjnych a pośrednio w sieciach neuronowych) straciłoby sens. Z kolei dobry dobór tej kolejności pozwala na łatwe odtworzenie przez algorytm uczenia maszynowego motywowanych fizycznie algorytmów omówionych w \ref{subsubsec:przeglad-algo}. Przykładowo cięcie na wartość $IP$ drugiej lub trzeciej cząstki (gdy są one posortowane wg malejących wartości $IP$) jest istotą algorytmu nazywanego \textit{Track Counting -- TC} stosowanego w CMS i ALICE.
+Następną kwestią jest wybór wielkości decydującej o kolejności ułożenia elementów, tj. która cząstka będzie cząstką nr 1 a która nr 5. Losowe ułożenie elementów sprawiłoby, że bezpośrednie porównywanie wielkości w danych kolumnach (co ma miejsce bezpośrednio w drzewach decyzyjnych a pośrednio w sieciach neuronowych) straciłoby sens. Z kolei dobry dobór tej kolejności pozwala na łatwe odtworzenie przez algorytm uczenia maszynowego motywowanych fizycznie algorytmów omówionych w sekcji \ref{subsubsec:przeglad-algo}. Przykładowo cięcie na wartość $IP$ drugiej lub trzeciej cząstki (gdy są one posortowane wg malejących wartości $IP$) jest istotą algorytmu nazywanego \textit{Track Counting -- TC} stosowanego w CMS i ALICE.
 Kolejność w jakiej ułożone będą elementy, wpływa także na to, które z nich będą odrzucone w przypadku gdy dżet zawiera więcej niż 15 cząstek i 20 wierzchołków. 
 Ponownie posiłkowano się testami z użyciem drzew decyzyjnych. Ostatecznie wtórne wierzchołki ułożono według malejącego $L_{xy}$ a cząstki -- malejącego $p_T$.
 
-Ostatecznie liczba zmiennych użytych do trenowania algorytmów uczenia maszynowego była równa: 
+%Ostatecznie liczba zmiennych użytych do trenowania algorytmów uczenia maszynowego była równa: 

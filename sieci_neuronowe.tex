@@ -121,7 +121,7 @@ Do trenowania sieci wykorzystano wysokopoziomową bibliotekę \texttt{Keras} \ci
 	\label{fig:nets-params}
 \end{figure}
 
-
+\clearpage
 Zestaw hiperparametrów definiujący działanie sieci w pełni połączonej: 
 \begin{itemize}
 	\item liczba warstw ukrytych 
@@ -133,13 +133,14 @@ Zestaw hiperparametrów definiujący działanie sieci w pełni połączonej:
 	\item liczba epok uczenia -- ile razy będzie pokazywany sieci każdy przykład
 	\item opcjonalnie: warunki stopu \angterm{early stopping} w razie osiągnięcia \textit{plateau} (wysycenia procesu uczenia)
 	\item opcjonalnie: regularyzacja przy pomocy różnych technik (zwykle konieczna)
-	\item ponadto dla sieci konwolucyjnych: 
+\end{itemize}
+
+Ponadto dla sieci konwolucyjnych: 
 	\begin{itemize}
 		\item liczba warstw konwolucyjnych i liczba filtrów w każdej warstwie
 		\item obecność lub brak warstw \textit{max-pool} i rozmiar ich okna
 		\item rozmiar filtrów i długość skoku przy ich przesuwaniu
 	\end{itemize}
-\end{itemize}
 
 Same dwie pierwsze wielkości dają nieograniczoną liczbę konfiguracji. 
 Czas trenowania sieci neuronowych jest rzędy wielkości większy niż drzew decyzyjnych, dlatego przyjęto szereg kroków mających na celu zmniejszenie przeszukiwanej przestrzeni hiperparametrów. Na podstawie wstępnych testów oraz różnych wskazówek dostępnych w literaturze przyjęto:
@@ -147,7 +148,7 @@ Czas trenowania sieci neuronowych jest rzędy wielkości większy niż drzew dec
 	\item \textit{batch\_size} zawsze równy 64 (inne testowane wartości: 16, 32, 128)
 	\item za algorytm optymalizacyjny przyjęto algorytm o nazwie \textit{Nadam} \cite{Nadam}, tj. rozwinięcie algorytmu \textit{Adam} \cite{KingmaB14} o parametr Nesterova (inne testowane to zwykły spadek gradientowy oraz \textit{Adam})
 	\item funkcję aktywacji: \textit{ReLU}
-	\item liczba epok równa 50, 100 lub 200 (lub mniej do testów), zrezygnowano z \textit{early stopping}
+	\item liczba epok równa 50, 100 lub 200, zrezygnowano z \textit{early stopping}
 	\item stałe w trakcie treningu wartości parametru szybkości uczenia 
 	\item spośród technik regularyzacyjnych testowano wyłącznie \textit{dropout} \cite{srivastava14} z prawdopodobieństwem odrzucenia równym 0.1, 0.2 lub 0.5
 	\item kilka wybranych kombinacji dla zestawu parametrów: rozmiar filtra, długość skoku i rozmiar okna w warstwach \textit{max-pool} -- takie same w kolejnych warstwach
