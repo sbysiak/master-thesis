@@ -1,6 +1,7 @@
 \section{Analiza}
 \label{sec:analiza}
 
+
 \subsection{Dobór metryki}
 % RACZEJ TABELKA
 %\textit{Do zdefiniowania metryk użyte będą skróty angielskich terminów TP, TN, FP, FN, oznaczające kolejno liczbę poprawnie zaklasyfikowanych przykładów pozytywnych, liczbę poprawnie zaklasyfikowanych przykładów negatywnych, liczbę błędnie zaklasyfikowanych przykładów negatywnych (zaklasyfikowanych jako pozytywne) i liczbę błędnie zaklasyfikowanych przykładów pozytywnych (zaklasyfikowanych jako negatywne)}
@@ -55,40 +56,118 @@ Dla tych wykresów otrzymano zdecydowaną dominację \textit{ROC AUC} -- wybór 
 
 \clearpage
 
-\subsection{Wyniki dla zmiennych SV}
+\subsection{Wyniki dla poszczególnych typów zmiennych}
+
+W poniższych podrozdziałach przedstawione zostały wyniki uzyskane dla poszczególnych zestawów danych.
+
+Każdy rezultat jest wynikiem uśrednienia pięciu powtórzeń wykonania treningu, tj. randomizacji podlegają: podział zbioru danych na danetreningowe, walidacyjne i testowe oraz losowa inicjalizacja wag połączeń w przypadku sieci neuronowych.
+
+Na Rys. \ref{}, \ref{}, \ref{} przedstawiono krzywe ROC -- są to wykresy przedstawiające zależności wydajności identyfikacji dżetów \textit{b} z niepewnościami (na osi poziomej) dla danego prawdopodobieństwa błędnej klasyfikacji dżetów tła (na osi pionowej). 
+
+Trzy krzywe na każdym wykresie odpowiadają separacji dżetów \textit{b} od dżetów: lekkich, \textit{c} oraz mieszanej próbki 90\% lekkich + 10\% \textit{c}.
+Cztery wykresy na każdym rysunku odpowiadają trzem użytym algorytmom (sieci neuronowe typu \textit{FC} (na górze po lewej), konwolucyjne sieci neuronowe (na górze po prawej), wzmacniane drzewa decyzyjne (na dole po lewej) oraz porównanie wszystkich trzech (na dole po prawej) -- tylko średnie wartości dla separacji dżetów \textit{b} od mieszanego tła.
+
+W Tab. \ref{tab:results} przedstawiono podsumowanie wyników.
+
+
+\FloatBarrier
+\subsubsection{Wyniki dla zmiennych związanych z wtórnymi wierzchołkami}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.32\textwidth]{plot_mistag_models-subbranch-SV_FC-paramset5_uncert.png}
-	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.32\textwidth]{plot_mistag_models-subbranch-SV_conv-paramset2_uncert.png}	
-	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.32\textwidth]{plot_mistag_models-subbranch-SV_xgb-paramset1_uncert.png}
-	\caption{Zależności}
-	\label{fig:all-metrics-vs-bEff}
+	
+    \begin{subfigure}[b]{0.49\textwidth}
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=\textwidth]{plot_mistag_models-subbranch-SV_FC-paramset5_uncert.png}
+	\caption{\textit{NN FC}}
+	\end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=\textwidth]{plot_mistag_models-subbranch-SV_conv-paramset5_uncert.png}	
+	\caption{\textit{NN Conv}}
+	\end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=\textwidth]{plot_mistag_models-subbranch-SV_xgb-paramset1_uncert.png}
+	\caption{\textit{BDT}}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=\textwidth]{compare_SV.png}
+	\caption{porównanie}
+	\end{subfigure}
+	
+	\caption{Zależności wydajności identyfikacji dżetów \textit{b} od prawdopodobieństwa błędnej klasyfikacji dżetów tła dla poszczególnych algorytmów oraz porównanie wszystkich dla tła złożonego w 90\% z dżetów lekkich oraz w 10\% z dżetów \textit{c}.}
+	\label{fig:ROC_SV}
 \end{figure}
 
+
+\FloatBarrier
+\subsubsection{Wyniki dla zmiennych związanych z cząstkami tworzącymi dżet}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.49\textwidth]{plot_mistag_models-subbranch-SV_FC-paramset5_uncert.png}
-	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.49\textwidth]{plot_mistag_models-subbranch-SV_conv-paramset2_uncert.png}	
-	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.49\textwidth]{plot_mistag_models-subbranch-SV_xgb-paramset1_uncert.png}
-	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.49\textwidth]{compare_SV.png}
-	\caption{Zależności}
-	\label{fig:all-metrics-vs-bEff}
+	
+    \begin{subfigure}[b]{0.49\textwidth}
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=\textwidth]{plot_mistag_models-subbranch-constit_FC-paramset1_uncert.png}
+	\caption{\textit{NN FC}}
+	\end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=\textwidth]{plot_mistag_models-subbranch-constit_conv-paramset5_uncert.png}	
+	\caption{\textit{NN Conv}}
+	\end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=\textwidth]{plot_mistag_models-subbranch-constit_xgb-paramset1_uncert.png}
+	\caption{\textit{BDT}}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=\textwidth]{compare_constit.png}
+	\caption{porównanie}
+	\end{subfigure}
+	
+	\caption{Zależności wydajności identyfikacji dżetów \textit{b} od prawdopodobieństwa błędnej klasyfikacji dżetów tła dla poszczególnych algorytmów oraz porównanie wszystkich dla tła złożonego w 90\% z dżetów lekkich oraz w 10\% z dżetów \textit{c}.}
+	\label{fig:ROC_constit}
 \end{figure}
 
 
-\subsection{Wyniki dla zmiennych constit}
+\FloatBarrier
+\subsubsection{Wyniki dla wszystkich zmiennych}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.49\textwidth]{plot_mistag_models-subbranch-constit_FC-paramset1_uncert.png}
-	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.49\textwidth]{plot_mistag_models-subbranch-constit_conv-paramset5_uncert.png}	
-	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.49\textwidth]{plot_mistag_models-subbranch-constit_xgb-paramset1_uncert.png}
-	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=0.49\textwidth]{compare_constit.png}
-	\caption{Zależności}
-	\label{fig:all-metrics-vs-bEff}
+	
+    \begin{subfigure}[b]{0.49\textwidth}
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=\textwidth]{plot_mistag_models-merged_FC-paramset105_uncert.png}
+	\caption{\textit{NN FC}}
+	\end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=\textwidth]{plot_mistag_models-merged_conv-paramset104_uncert.png}	
+	\caption{\textit{NN Conv}}
+	\end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=\textwidth]{plot_mistag_models-merged_xgb-paramset1_uncert.png}
+	\caption{\textit{BDT}}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+	\includegraphics[trim={0.5cm 0 1.5cm 1.0cm},clip,width=\textwidth]{compare_merged.png}
+	\caption{porównanie}
+	\end{subfigure}
+	
+	\caption{Zależności wydajności identyfikacji dżetów \textit{b} od prawdopodobieństwa błędnej klasyfikacji dżetów tła dla poszczególnych algorytmów oraz porównanie wszystkich dla tła złożonego w 90\% z dżetów lekkich oraz w 10\% z dżetów \textit{c}.}
+	\label{fig:ROC_merged}
 \end{figure}
+
+\FloatBarrier
+\subsection{Korelacje predykcji modeli}
+
+Na Rys. \ref{fig:models_corr} przedstawiono korelacje pomiędzy poszczególnymi modelami (model jako para: użyte do treningu zmienne i algorytm). Korelacje obliczano pomiędzy wynikami zwracanym bezpośrednio przez algorytmy (liczba rzeczywista $\in [0,1]$), nie na podstawie odpowiadających im klas $\{0,1\}$.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{models_correlation.png}
+	\caption{Średnie współczynniki korelacji Pearsona pomiędzy predykcjami poszczególnych modeli. Odchylenia standardowe wynosiły 0.001 -- 0.009.}
+	\label{fig:models_corr}
+\end{figure}
+
+
+
+
 
 
 %Niezwykle ważny element, 
