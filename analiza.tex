@@ -166,9 +166,89 @@ Na Rys. \ref{fig:models_corr} przedstawiono korelacje pomiędzy poszczególnymi 
 \end{figure}
 
 
+\clearpage
+\i%nput{table1.tex}
+
+\i%nput{table_test.tex}
 
 
 
+\begin{tabular}{l|lll|lll}
+\toprule
+{} & \multicolumn{3}{c|}{trening osobno} & \multicolumn{3}{|c}{trening razem} \\
+%\midrule
+{} & \textit{weight} & \textit{gain} & \textit{cover} & \textit{weight} &   \textit{gain} &  \textit{cover} \\
+\midrule
+$IP_D$ &     22.4 &         60.6 &          47.5 &   11.3 &       12.3 &        16.1 \\
+$IP_Z$ &     18.3 &         16.1 &          23.3 &    9.9 &        7.7 &         9.3 \\
+$p_T$               &     14.0 &          7.1 &          14.1 &    7.0 &        5.7 &         6.2 \\
+$\phi$              &     23.2 &          8.7 &           8.2 &   12.4 &        8.4 &         8.2 \\
+$\eta$              &     21.7 &          7.3 &           6.4 &   13.0 &        8.8 &         8.9 \\
+\cline{1-4}
+$L_{xy}$              &     17.2 &         54.5 &          28.9 &    6.9 &       21.1 &        12.9 \\
+$\sigma_{Lxy}$         &     19.4 &         13.1 &          18.1 &    7.2 &        8.5 &         7.9 \\
+$M_{inv}$             &     18.3 &          8.0 &          14.1 &    7.6 &        6.8 &         6.8 \\
+$\sigma_{vertex}$       &     17.0 &          8.2 &          14.2 &    6.6 &        6.0 &         6.9 \\
+$\chi^2/Ndf$             &     19.3 &         12.8 &          19.5 &    7.1 &        6.6 &         7.9 \\
+\bottomrule
+\end{tabular}
+
+
+
+
+
+
+
+\begin{tabular}{l|llll|llll}
+\toprule
+{} & \multicolumn{4}{c|}{trening osobno} & \multicolumn{4}{|c}{trening razem} \\
+%\midrule
+{} & \textit{weight} & \textit{gain} & \textit{cover} & średnia & \textit{weight} &   \textit{gain} &  \textit{cover} & średnia \\
+\midrule
+$IP_D$ &     22.4 &   45.3 &    32.4 &       33.4 &   11.3 &  7.3 &  11.3 &     10.0 \\
+$IP_Z$ &     18.3 &   17.2 &    21.8 &       19.1 &    9.9 &  6.1 &   9.4 &      8.5 \\
+$p_T$               &     14.0 &   16.9 &    31.1 &       20.7 &    7.0 &  7.0 &   8.0 &      7.4 \\
+$\phi$              &     23.2 &   10.4 &     7.1 &       13.5 &   12.4 &  5.5 &   5.1 &      7.7 \\
+$\eta$              &     21.7 &    9.5 &     6.1 &       12.4 &   13.0 &  5.4 &   5.0 &      7.8 \\
+\cline{1-5}
+$L_{xy}$              &     17.2 &   46.7 &    28.0 &       30.6 &    6.9 & 21.1 &  16.3 &     14.7 \\
+$\sigma_{Lxy} $       &     19.4 &   16.1 &    18.8 &       18.1 &    7.2 & 13.0 &  11.4 &     10.5 \\
+$M_{inv}$             &     18.3 &    9.9 &    15.5 &       14.6 &    7.6 &  9.7 &   9.3 &      8.8 \\
+$\sigma_{vertex}$       &     17.0 &   10.1 &    15.3 &       14.1 &    6.6 &  9.3 &   9.2 &      8.4 \\
+$\chi^2/Ndf$             &     19.3 &   13.9 &    19.3 &       17.5 &    7.1 &  9.7 &  10.1 &      9.0 \\
+\bottomrule
+\end{tabular}
+
+
+
+\begin{tabular}{l|llll|llll}
+\toprule
+{} & \multicolumn{4}{c|}{trening osobno} & \multicolumn{4}{|c}{trening razem} \\
+%\midrule
+{} & weight & gain & cover & średnia & weight &   gain &  cover & średnia \\
+\midrule
+fImpactParameterD &     22.4 &   45.3 &    32.4 &       33.4 &   11.3 &  7.3 &  11.3 &     10.0 \\
+fImpactParameterZ &     18.3 &   17.2 &    21.8 &       19.1 &    9.9 &  6.1 &   9.4 &      8.5 \\
+fpT               &     14.0 &   16.9 &    31.1 &       20.7 &    7.0 &  7.0 &   8.0 &      7.4 \\
+fPhi              &     23.2 &   10.4 &     7.1 &       13.5 &   12.4 &  5.5 &   5.1 &      7.7 \\
+fEta              &     21.7 &    9.5 &     6.1 &       12.4 &   13.0 &  5.4 &   5.0 &      7.8 \\
+\cline{1-5}
+fLxy              &     17.2 &   46.7 &    28.0 &       30.6 &    6.9 & 21.1 &  16.3 &     14.7 \\
+fSigmaLxy         &     19.4 &   16.1 &    18.8 &       18.1 &    7.2 & 13.0 &  11.4 &     10.5 \\
+fMass             &     18.3 &    9.9 &    15.5 &       14.6 &    7.6 &  9.7 &   9.3 &      8.8 \\
+fDispersion       &     17.0 &   10.1 &    15.3 &       14.1 &    6.6 &  9.3 &   9.2 &      8.4 \\
+fChi2             &     19.3 &   13.9 &    19.3 &       17.5 &    7.1 &  9.7 &  10.1 &      9.0 \\
+\bottomrule
+\end{tabular}
+
+
+
+
+
+
+XXX Co warte podkreślenia: spora stabilność -- odchylenia std sporadycznie ponad 10\%, za wyjątkiem zmiennych SV przy treningu tylko na SV: wtedy 10-20\% a nawet więcej
+
+feat imp: frequency dla binarnych
 
 %Niezwykle ważny element, 
 %w trakcie prób możliwe jest czasem analizowanie wiekszej liczby metryk jednak jest to niepraktyczne gdy eksperymentow jest wiele i trzeba porownywac kilka liczb.
@@ -199,3 +279,7 @@ Na Rys. \ref{fig:models_corr} przedstawiono korelacje pomiędzy poszczególnymi 
 %\subsection*{pT dependence of performance}
 %\subsection*{Corr of algos pred}
 %\subsection*{Feature imp \& partial dependence}
+%
+% TODO
+% plot: ROC - all models - lt = features(SV/constit/merged), color=algo(BDT/FC/Conv)
+% tab_most - zdecydowanie osobno trening_osobno i trening_razem
