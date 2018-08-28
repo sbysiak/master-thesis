@@ -20,6 +20,7 @@
 \usepackage{lineno}
 \usepackage{siunitx}
 \usepackage[backend=bibtex, sorting=none]{biblatex}
+\usepackage[polish]{babel}
 %\usepackage[fixlanguage]{babelbib}
 %\selectbiblanguage{polish}
 \usepackage{xr} %\externaldocument{volume1}
@@ -29,14 +30,20 @@
 \usepackage{placeins}
 \usepackage{titlesec}
 \usepackage[titletoc,toc,title]{appendix}
-
-
+\usepackage{booktabs} % for pandas
+\usepackage{multicol}
+\usepackage{pbox}
+\usepackage[titletoc,toc,title]{appendix}
+\usepackage{array}
+\usepackage{tabularx}
 
 \newcommand{\angterm}[1] {
   (ang.~\textit{#1})}
 
 \newcommand{\imgsrc}[1] {
   Źródło:~#1}
+
+\renewcommand{\appendixtocname}{Dodatki} % word for beginning of appendixes
 
 \addbibresource{biblio.bib}
 
@@ -47,11 +54,11 @@
 \graphicspath{ {graphics/}, {graphics/plots/} }
 \geometry{hmargin={2cm, 2cm}, height=10.0in}
 
-\externaldocument{alice}
 
 
 
 \begin{document}
+%\renewcommand\thesection{XD \arabic{section}}
 
 % input{} / include{} - input nie daje \clearpage
 
@@ -74,6 +81,8 @@
 
 
 \printbibliography
-
+%\appendix
+%\renewcommand\thesection{Dodatek \Alph{section}}
+\include{dodatek}
 
 \end{document}

@@ -11,7 +11,7 @@ Do rekonstrukcji dżetów wykorzystany został algorytm \textit{anti-kt} z param
 
 Do analizy wybrano dżety o $p_T$ większym niż 15 GeV i mieszczące się w całości w akceptancji detektora \textit{TPC}, tj. $|\eta| < 0.9$, co przy użytym parametrze rozmiaru dżetu $R = 0.4$, daje ograniczenie na pseudopospieszność $|\eta| < 0.5$ dla osi dżetu.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.5\textwidth]{sv-ip-def.png}
 	\caption{Rysunek ilustrujący znaczenie używanych wielkości: $L_{xy}$ oraz parametru zderzenia $IP$. \imgsrc{\cite{sv-def-d0exp}}.}
@@ -26,15 +26,12 @@ Lista używanych zmiennych:
 \begin{itemize}
 	\item Zmienne na poziomie dżetu:
 	\begin{itemize}	
-		\item $\eta$, $\phi$ -- pseudopospieszność i kąt azymutalny osi dżetu
-		\item $p_T$ -- pęd poprzeczny dżetu
-		\item masa dżetu [\#REF]
-		\item powierzchnia dżetu -- liczona w płaszczyźnie ($\eta$, $\phi$),   do powierzchni dżetu zaliczany jest element w powierzchni w którym dodanie cząstki o nieskończenie małym pędzie poprzecznym sprawi, że zostanie ona zaliczona do tego dżetu \cite{Cacciari:2007fd}
-		\item gęstość tła (w danym zdarzeniu)
-		\item $N_{SV}$ -- liczba wtórych wierzchołków
-		\item $N_{Constit}$ -- liczba cząstek tworzących dżet
+		\item $\eta_{jet}$, $\phi_{jet}$ -- pseudopospieszność i kąt azymutalny osi dżetu
+		\item $p_{T,\;jet}$ -- pęd poprzeczny dżetu
+		\item $M_{jet}$ -- masa dżetu [\#REF]
+		\item $A_{jet}$ -- powierzchnia dżetu -- liczona w płaszczyźnie ($\eta$, $\phi$),   do powierzchni dżetu zaliczany jest element w powierzchni w którym dodanie cząstki o nieskończenie małym pędzie poprzecznym sprawi, że zostanie ona zaliczona do tego dżetu \cite{Cacciari:2007fd}
+		\item $\rho_{\;bckg}$ -- gęstość tła w danym zdarzeniu
 	\end{itemize}
-	
 	
 	\item Zmienne opisujące cząstki tworzące dżet:
 	\begin{itemize}	
@@ -42,6 +39,7 @@ Lista używanych zmiennych:
 		\item $p_T$ -- pęd poprzeczny cząstki
 		\item $IP_D$ -- rzut na kierunek poprzeczny wektora parametru zderzenia
 		\item $IP_Z$ -- rzut na oś $z$ wektora parametru zderzenia
+		\item $N_{Constit}$ -- liczba cząstek tworzących dżet
 	\end{itemize}	
 	
 	
@@ -52,6 +50,8 @@ Lista używanych zmiennych:
 		\item $\sigma_{vertex} = \sqrt{d_1^2 + d_2^2 + d_3^2}$ -- rozrzut śladów \angterm{tracks} wokół wtórnego wierzchołka, gdzie $d_i$ to odległość najbliższego zbliżenia śladu do wtórnego wierzchołka (DCA) % https://arxiv.org/pdf/1511.04380.pdf (str. 92)
 		\item $M_{inv} = \sqrt{(E_1 + E_2 + E_3)^2 - (\vec{p_1} + \vec{p_2} + \vec{p_3})^2}$ -- masa niezmiennicza wierzchołka, gdzie $E_i, p_i$ to energia i pęd $i$-tej cząstki tworzącej wierzchołek
 		\item $\chi^2/Ndf$  dopasowania wtórnego wierzchołka
+		\item $N_{SV}$ -- liczba wtórych wierzchołków
+
 	\end{itemize}
 \end{itemize}
 
@@ -59,7 +59,7 @@ Lista używanych zmiennych:
 Dżety różnią się liczbą cząstek je tworzących oraz liczbą wtórnych wierzchołków. Większość algorytmów uczenia maszynowego wymaga natomiast dostarczenia danych w postaci tabelarycznej (macierzowej), ze stałą liczbą kolumn (wiersze stanowią kolejne dżety). Aby spełnić to wymaganie konieczne jest przyjęcie pewnej ustalonej liczby wtórnych wierzchołków oraz cząstek tworzących dżet -- w przypadku gdy dżet ma więcej elementów tego typu są one odrzucane, natomiast puste pola są wypełniane zerami w przypadku gdy ma ich mniej. 
 Po przeanalizowaniu rozkładów liczby wtórnych wierzchołków i cząstek tworzących dżet (Rys. \ref{fig:nsv_nconstit_distr}) oraz wstępnym sprawdzeniu jak dodawanie kolejnych elementów wpływa na otrzymywane wyniki (na podstawie wzmacnianych drzew decyzyjnych ze względu na wspomnianą w \ref{subsec:dyskusja-2algo} szybkość i stabilność) ustalono liczbę cząstek tworzących dżet równą 15 a wtórnych wierzchołków równą 20.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[trim={0.6cm 0cm 0.2cm 0cm},clip,width=0.49\textwidth]{hist-nconstit-cut.png}
 	\includegraphics[trim={0.6cm 0cm 0.2cm 0cm},clip,width=0.49\textwidth]{hist-nsv-cut.png}

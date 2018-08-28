@@ -10,6 +10,7 @@
 *.log
 *.out
 *.toc
+*.dvi
 *.run.xml
 *.bak
 *-blx.bib

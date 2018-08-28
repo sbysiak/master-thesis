@@ -20,7 +20,7 @@ Jednym ze sposobów na ograniczenie liczby trenowanych parametrów jest użycie 
 
 Sieci konwolucyjne różnią się od sieci typu \textit{FC} tym, że część wag połączeń między warstwami jest dzielona. Występuje w nich nowy rodzaj warstwy, nazywany warstwą konwolucyjną. Każda jednostka w warstwie konwolucyjnej (filtr) ma pewną stałą (niewielką) liczbę wag. Połączenie z dużym  wejściem realizowane jest przez powielanie tych samych wag w połączeniach z kolejnymi fragmentami wektora wejściowego (por. Rys. \ref{fig:convolution}). Rezultatem działania filtra na macierz jest wynik operacji splotu. Liczba parametrów przypadająca na każdy filtr jest równa jego rozmiarowi i nie zależy od wielkości wektora wejściowego. 
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{convolution_matrix.png}
 	\caption{Schemat działania pojedynczego filtra z warstwy konwolucyjnej (operacja splotu). \imgsrc{\cite{Velic17asd}}.}
@@ -29,7 +29,7 @@ Sieci konwolucyjne różnią się od sieci typu \textit{FC} tym, że część wa
 
 W przypadku gdy zamiast wejścia dwuwymiarowego (jak np. obraz czarno-biały), mamy do czynienia z wejściem trójwymiarowym (np. trzeci wymiar to kolejne kolory w kodowaniu RGB), filtry również muszą mieć trzy wymiary, przy czym rozmiar w ostatnim wymiarze musi być równy rozmiarowi w tym kierunku wektora wejściowego. Wynik operacji splotu jest ponownie dwuwymiarowy, gdyż filtr przesuwany jest tylko w dwóch pierwszych wymiarach. Trzeci wymiar powstaje przez składanie kolejnych filtrów. Widać zatem, że również w przypadku gdy na wejścia podawany jest obraz czarno-biały, filtry w kolejnych warstwach konwolucyjnych (oprócz pierwszej) mają po trzy wymiary.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\begin{minipage}[c]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{conv-over-volume.png}
@@ -82,7 +82,7 @@ Oprócz warstw konwolucyjnych, w sieciach tego typu stosowane są także tzw. wa
 
 Typowa architektura stosowana w przypadku sieci konwolucyjnych jest następująca: najpierw warstwy konwolucyjne (pomiędzy nimi czasem warstwy typu \textit{max-pool}), następnie wszystkie filtry są rozwijane i składane w długi jednowymiarowy wektor, który przekazywany jest do warstw typu \textit{FC}. W przypadku problemu klasyfikacji, na końcu znajduje się jeszcze warstwa typu \textit{softmax} normalizująca wyjście z sieci do jedynki (por. Rys. \ref{fig:cnn-arch}). 
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{cnn-typical-architecture.jpeg}
 	\caption{Typowa struktura stosowana w sieciach konwolucyjnych. Warstwy konwolucyjne mają za zadanie wydobywać cechy, na podstawie których późniejsze warstwy dokonują klasyfikacji.
@@ -114,7 +114,7 @@ Parametry sieci, których wartości są określane przez projektanta sieci, taki
 Testowane były trzy architektury: sieci w pełni połączone, sieci konwolucyjne oraz sieć złożona z dwóch gałęzi, osobnych dla wtórnych wierzchołków i cząstek tworzących dżet (por. Rozdz. \ref{sec:dane}) przedstawione schematycznie na Rys. \ref{fig:nets-params}.
 Do trenowania sieci wykorzystano wysokopoziomową bibliotekę \texttt{Keras} \cite{chollet15} korzystającą z silnika obliczeniowego zaimplementowanego w \texttt{TensorFlow} \cite{tensorflow15}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{networks_params4.png}
 	\caption{Schematyczne przedstawienie trzech testowanych rodzin architektur sieci. Każdy blok odpowiada kilku warstwom danego typu. Bloki warstw typu \textit{FC}  i opisane jako "kompresja" składały się z kilku neuronów i miały za zadanie zredukować całą informację z danej gałęzi do wektora kilku liczb.}
@@ -175,4 +175,3 @@ Zgodnie z zasadą ortogonalizacji działań, proces doboru hiperparametrów dzie
 %http://www.deeplearningbook.org/contents/convnets.html - str. 329-334
 
 %różnice - lokalne połączenia, dzielenie wag, mniejsza liczba wag w Conv
-
