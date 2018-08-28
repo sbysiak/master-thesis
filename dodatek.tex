@@ -1,0 +1,59 @@
+\begin{appendices}
+  \renewcommand\thetable{\thesection\arabic{table}}
+  \renewcommand\thefigure{\thesection\arabic{figure}}
+  \setcounter{table}{0}
+
+\section{Metryki}
+\label{sec:app:metryki}
+W poniżej tabeli zebrano stosowane najczęściej miary jakości klasyfikatorów.
+We wzorach definiujących metryki wykorzystano następujące wielkości:\\
+TP \angterm{true positives} -- liczba poprawnie zaklasyfikowanych przypadków klasy pozytywnej\\
+TN \angterm{true negatives} -- liczba poprawnie zaklasyfikowanych przypadków klasy negatywnej\\
+FP \angterm{false positives} -- liczba błednie zaklasyfikowanych przypadków klasy negatywnej\\
+FN \angterm{false negatives} -- liczba błędnie zaklasyfikowanych przypadków klasy pozytywnej\\
+
+%\setlength{\extrarowheight}{20pt}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{llc}
+\toprule
+nazwa metryki		& 	nazwa angielska				& 	wzór \\ 
+\bottomrule
+\toprule
+dokładność			&	accuracy					& (TP+TN) / (TP+TN+FP+FN) \\ 
+\midrule
+precyzja			&	precision					& TP / (TP+FP) \\ 
+\midrule
+\pbox{0.3\textwidth}{czułość,\\ wydajność id. sygnału}				& 	\pbox{0.3\textwidth}{recall,\\ sensitivity,\\ TP Rate}	& TP / (TP+FN) \\ 
+\midrule
+swoistość			& 	\pbox{0.3\textwidth}{specificity,\\ TN Rate}			& TN / (TN+FP) \\ 
+\midrule
+F1					& 	F1							& 2 $\frac{precision\;\cdot\;recall}{precision\;+\;recall}$ \\ 
+\midrule
+prawd. błędnej klas. tła & \pbox{0.3\textwidth}{mistagging rate,\\ FP Rate}		& FP / (FP+TN) \\
+\bottomrule
+\end{tabular}
+\caption{Tabela zawierająca nazwy i definicje popularnych metryk.}
+\label{tab:metryki}
+\end{table}
+
+Podanie tylko jednej metryki jest zwykle niewystarczające i stosuje się pary metryk, np. precyzja - czułość. Jeśli predykcja klasyfikatora ma charakter ciągły, to poprzez zmienianie wartości progowej otrzymuje się różne punkty pracy, scharakteryzowane przez wartości obu metryk. Kolejne punkty pracy wykreślone np. na wykresie $TPR(FPR)$ dają krzywą nazywaną krzywą ROC. Pole pod tą krzywą \angterm{ROC Area Under Curve -- ROC AUC} jest kolejną metryką, bardzo często wykorzystywaną w praktyce, gdyż łączy w sobie wszystkie możliwe punkty pracy.
+
+W literaturze dot. klasyfikacji dżetów wyniki zwykle przedstawia się z użyciem dwóch powszechnie znanych metryk, ale o zmienionych nazwach:
+\textit{True Positive Rate}, nazywanej \textit{b jet tagging efficiency} -- wydajności na identyfikację dżetów \textit{b} oraz \textit{False Positive Rate}, nazywanym \textit{mistagging rate}  -- prawdopodobieństwa błędnej klasyfikacji dżetów tła jako dżety \textit{b}.
+
+\clearpage
+\FloatBarrier
+\section{Skróty i oznaczenia}
+\label{sec:app:skroty}
+W pracy używane są następujące skróty i oznaczenia: 
+\begin{itemize}
+	\item algorytmy: \\ \textit{FC} -- sieci neuronowe w pełni połączone,\\ \textit{Conv} - sieci neuronowe konwolucyjne,\\ \textit{BDT} - wzmacniane drzewa decyzyjne
+	\item zbiory danych: \\ \textit{SV} -- zestaw zawierający tylko zmienne związane z wtórnymi wierzchołkami,\\ \textit{constit} -- zestaw zawierający tylko zmienne związane z cząstkami tworzącymi dżet,\\ \textit{merged} -- zestaw zawierający wszystkie zmienne (tj. \textit{SV}+\textit{Constit}+zmienne na poziomie dżetu)
+	\item modele (zestaw danych + algorytm): nazywane są wg wzoru: \\ (oznaczenie\_zbioru\_danych)-(oznaczenie\_algorytmu), \\np. \textit{SV-Conv} oznacza konwolucyjną sieć neuronową wytrenowaną na zmiennych związanych z wtórnymi wierzchołkami a \textit{merged-BDT} - wzmacniane drzewa decyzyjne, do treningu których użyte zostały wszystkie zmienne
+	\item poszczególne zmienne (kolumny w zbiorze danych) oznaczane są według wzoru: \\ (nazwa\_zmiennej) -- (numer\_obiektu), \\np. $\sigma_{Lxy} - SV2$ oznacza niepewność wyznaczenia $L_{xy}$ dla wtórnego wierzchołka nr 2, a $IP_Z - C5$ -- parametr zderzenia wzdłuż osi wiązki cząstki nr 5 (numery na posortowanych listach, por. Rozdz. \ref{sec:dane}, gdzie znajdują się także opisy wielkości fizycznych)
+\end{itemize} 
+
+
+\end{appendices}
