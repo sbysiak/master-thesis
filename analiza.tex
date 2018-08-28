@@ -236,13 +236,26 @@ Nie obserwuje się natomiast istotnie większych korelacji między modelami wyko
 \FloatBarrier
 \subsection{Analiza istotności cech}
 
+Jedną z zalet drzew decyzyjnych jest możliwość dokładnego prześledzenia procesu decyzyjnego poprzedzającego klasyfikację danego przypadku, co pozwala na lepsze zrozumienie działania modelu. Cecha ta zanika w przypadku stosowania klasyfikatora złożonego z dużej ilości drzew, jak \textit{BDT} jednak nadal istnieją dosyć proste sposoby na zrozumienie, które cechy miały największy wpływ na predykcję.
 
+Wykorzystano trzy miary istotności zmiennych zaimplementowane w bibliotece \texttt{XGBoost}: 
+\footnote{nazwy miar pochodzą z wersji biblioteki dla języka \texttt{Python}, w wersji dla innych języków, np. \texttt{R} nazwy miar oraz ich znaczenie są różne} 
+\textit{weight} informuje ile razy dana zmienna została wykorzystana w podziałach drzew.  
+\textit{total\_gain} jest sumą po spadkach funkcji straty uzyskiwanych dzięki podziałom wykorzystującym daną zmienną, natomiast
+\textit{total\_cover} to suma liczb przykładów trenujących, na które miały wpływ podziały wykorzystujące daną zmienną.
+
+Zasadniczo najważniejszą miarą jest \textit{total\_gain}, gdyż uwzględnia ona zarówno częstość wykorzystania danej zmiennej (\textit{weigth}) jak i średni zysk w postaci spadku funkcji straty uzyskiwany w poszczególnych podziałach. 
+Zmienna binarna wykorzystana już w jednym podziale drzewa, nie może zostać użyta ponownie w żadnej gałęzi będącej kontynuacją danego podziału, stąd zmienne binarne zwykle osiągają mniejsze wartości miary \textit{weight}.
+\textit{total\_cover} jest z kolei związane z głębokościami drzewa na jakiej wykorzystywana była zmienna -- pierwszy podział w danym drzewie wpływa zawsze na wszystkie przykłady trenujące, natomiast kolejne -- na stopniowo coraz mniejszy ułamek. Zatem niskie wartości \textit{total\_cover} sugerują, że dana zmienna wykorzystywana była raczej na dużych głębokościach (na już mocno podzielonym drzewie).
+
+W Tab. \ref{tab:feat_imp_most_sv_constit} przedstawiono wartości miar istotności zmiennych dla 15 najważniejszych cech (wg \textit{total\_gain}) dla modeli \textit{SV-BDT} oraz \textit{constit-BDT}. 
+Z kolei w Tab. \ref{tab:feat_imp_by_name} przedstawiono wartości tych miar pogrupowane wg wielkości fizycznych.
+W każdym przypadku wartości każdej miary zostały znormalizowane do 100 (dla wszystkich elementów, nie tylko tych przedstawionych w tabelach).
 
 \newlength{\everyNthRowSpace}
-\setlength{\everyNthRowSpace}{10pt}
+\setlength{\everyNthRowSpace}{8pt}
 
-
-\begin{table}
+\begin{table}[ht]
 \centering
 \begin{tabular}{lrrr}
 \toprule
@@ -360,9 +373,7 @@ $\phi$ - C0   &         2.31 &             0.98 &              1.27 \\
 %\end{table}
 
 
-
-
-\begin{table}
+\begin{table}[ht]
 \centering
 \begin{tabular}{l|rrr|rrr}
 \toprule
@@ -375,7 +386,8 @@ $\sigma_{Lxy}$         &     19.4 &         13.1 &          18.1 &    7.2 &     
 $M_{inv}$             &     18.3 &          8.0 &          14.1 &    7.6 &        6.8 &         6.8 \\
 $\sigma_{vertex}$       &     17.0 &          8.2 &          14.2 &    6.6 &        6.0 &         6.9 \\
 $\chi^2/Ndf$             &     19.3 &         12.8 &          19.5 &    7.1 &        6.6 &         7.9 \\
-\cline{1-4}
+%\cline{1-4}
+\cmidrule{1-4}
 $IP_D$ &     22.4 &         60.6 &          47.5 &   11.3 &       12.3 &        16.1 \\
 $IP_Z$ &     18.3 &         16.1 &          23.3 &    9.9 &        7.7 &         9.3 \\
 $p_T$               &     14.0 &          7.1 &          14.1 &    7.0 &        5.7 &         6.2 \\
@@ -384,16 +396,20 @@ $\eta$              &     21.7 &          7.3 &           6.4 &   13.0 &        
 \bottomrule
 \end{tabular}
 \caption{Tabela zawierająca wartości miar istotności cech, posumowane według rodzaju zmiennej (sumy po wszystkich wtórnych wierzchołkach / wszystkich cząstkach). 
-Wartości w lewej części odpowiadają wynikom przedstawionym na Rys. \ref{fig:ROC_SV} c) oraz \ref{fig:ROC_constit} c) natomiast z prawej -- na Rys. \ref{fig:ROC_merged} c).
+Wartości w lewej części odpowiadają modelom \textit{SV-BDT} i \textit{constit-BDT} natomiast z prawej -- \textit{merged-BDT}.
 Kolumny nie sumują się do 100, ze względu na pominięcie zmiennych występujących jeden raz dla każdego dżetu, tj. $N_{SV}$ i  $N_{Constit}$ oraz zmiennych na poziomie dżetu.}
 \label{tab:feat_imp_by_name}
 \end{table}
 
 
 
-XXX Co warte podkreślenia: spora stabilność -- odchylenia std sporadycznie ponad 10\%, za wyjątkiem zmiennych SV przy treningu tylko na SV: wtedy 10-20\% a nawet więcej
+%XXX Co warte podkreślenia: spora stabilność -- odchylenia std sporadycznie ponad 10\%, za wyjątkiem zmiennych SV przy treningu tylko na SV: wtedy 10-20\% a nawet więcej
+%
+%feat imp: frequency dla binarnych
 
-feat imp: frequency dla binarnych
+
+
+
 
 %Niezwykle ważny element, 
 %w trakcie prób możliwe jest czasem analizowanie wiekszej liczby metryk jednak jest to niepraktyczne gdy eksperymentow jest wiele i trzeba porownywac kilka liczb.
