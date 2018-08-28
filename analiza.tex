@@ -171,10 +171,11 @@ W porównaniu do poprzednich zbiorów danych wszystkie algorytmy poprawiły swoj
 
 \FloatBarrier
 \subsubsection{Podsumowanie}
+\label{subsubsec:wyniki-modeli-podsum}
 
 Uzyskane wartości \textit{ROC AUC} oraz wydajności identyfikacji dżetów \textit{b} dla trzech punktów pracy zebrano w Tab. \ref{tab:wyniki-modeli}.
 
-Tak jak było to widać na Rys. \ref{fig:all-metrics-vs-bEff_perc75}, z \textit{ROC AUC} najbardziej skorelowane są wydajności dla punktu pracy o najwyższych wydajnościach. Wynika to z faktu, że pierwsze dwa punkty pracy leżą na samym początku krzywej ROC.
+Tak jak było to widać na Rys. \ref{fig:all-metrics-vs-bEff_perc75}, z \textit{ROC AUC} najbardziej skorelowane są wydajności dla punktu pracy o najwyższych wydajnościach. Wynika to z faktu, że pierwsze dwa punkty pracy leżą na samym początku krzywej ROC (dają niewielki wkład do pola pod krzywą).
 
 Algorytm wytrenowany na połączonym zbiorze danych daje trochę lepsze wyniki niż trenowany na zbiorach \textit{SV} i \textit{constit}, co jest oczywiście oczekiwane. Można było natomiast spodziewać się większej poprawy, co pokazuje, że predykcje algorytmów trenowanych na \textit{SV} oraz \textit{constit} muszą być skorelowane (przy założeniu, że model trenowany na dwóch połączonych zbiorach danych daje wyniki niegorsze niż trywialne połączenie dwóch modeli trenowanych na osobnych zbiorach danych).
 
@@ -215,7 +216,15 @@ model                 & \textit{ROC AUC}  & \multicolumn{3}{c}{dla prawd. błęd
 \subsection{Korelacje predykcji modeli}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Na Rys. \ref{fig:models_corr} przedstawiono korelacje pomiędzy poszczególnymi modelami (model jako para: użyte do treningu zmienne i algorytm). Korelacje obliczano pomiędzy wynikami zwracanym bezpośrednio przez algorytmy (liczba rzeczywista $\in [0,1]$), nie na podstawie odpowiadających im klas $\{0,1\}$.
+Na Rys. \ref{fig:models_corr} przedstawiono korelacje pomiędzy poszczególnymi modelami. Korelacje obliczano pomiędzy wynikami zwracanym bezpośrednio przez algorytmy (liczba rzeczywista $\in [0,1]$), nie na podstawie odpowiadających im klas ($\{0,1\}$).
+
+Pierwszy wniosek płynący z wykresu korelacji to fakt, że wszystkie modele są ze sobą silnie skorelowane. Tłumaczy to niewielki zysk płynący z połączenia zestawów danych \textit{SV} i \textit{constit} co wspomniano w podrozdziale \ref{subsubsec:wyniki-modeli-podsum}.
+
+Najmniejszymi korelacjami z innymi wyróżnia się model \textit{constit-FC}, który dawał zdecydowanie najsłabsze wyniki.
+
+Widać wyraźny wzrost korelacji w przypadku modeli trenowanych na tych samych zbiorach danych (szczególnie dla modeli trenowanych na zmiennych związanych z wtórnymi wierzchołkami). 
+Modele trenowane na połączonym zbiorze danych są nieco silniej skorelowane z modelami \textit{SV-X} niż \textit{constit-X}
+Nie obserwuje się natomiast istotnie większych korelacji między modelami wykorzystującymi ten sam algorytm.
 
 \begin{figure}[ht]
 	\centering
