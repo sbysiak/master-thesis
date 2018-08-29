@@ -241,7 +241,8 @@ Nie obserwuje się natomiast istotnie większych korelacji między modelami wyko
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \FloatBarrier
-\subsection{Analiza istotności cech w \textit{BDT}}
+\subsection{Analiza istotności zmiennych w \textit{BDT}}
+\label{subsec:feat-imp}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Jedną z zalet drzew decyzyjnych jest możliwość dokładnego prześledzenia procesu decyzyjnego poprzedzającego klasyfikację danego przypadku, co pozwala na lepsze zrozumienie działania modelu. Cecha ta zanika w przypadku stosowania klasyfikatora złożonego z dużej ilości drzew, jak \textit{BDT} jednak nadal istnieją dosyć proste sposoby na zrozumienie, które cechy miały największy wpływ na predykcję.
@@ -432,6 +433,102 @@ Wartości w lewej części odpowiadają modelom \textit{SV-BDT} i \textit{consti
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\FloatBarrier
+\subsection{Analiza wpływu zmiennych na predykcje modeli}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Dalszą analizę wpływu poszczególnych zmiennych przeprowadzono przy użyciu wykresów zależności cząstkowej \angterm{partial dependence plots}. Ze względu na wysoki koszt obliczeniowy tej metody, przedstawione wyniki wyjątkowo nie były powtarzane i uśredniane.
+
+Jest to metoda polegająca na sprawdzeniu zachowania się predykcji już wytrenowanego modelu na skutek zmiany wartości wybranej zmiennej. W tym celu przeprowadzane są predykcje na normalnym zbiorze danych, ze zmienioną jedną kolumną, zawierającą wartości analizowanej zmiennej. Wszystkie wartości w tej kolumnie ustawiane są na jedną wartość, która jest stopniowo zmieniana od minimum do maksimum wartości przyjmowanych przez daną zmienną, za każdym razem przeprowadzana jest predykcja. Współrzędnymi punktów na wykresie zależności cząstkowej są: kolejne wartości ustawiane w analizowanej kolumnie (oś pozioma) i średnia wartość predykcji modelu (oś pionowa). Im wyższe wartości tej drugiej tym większa część przykładów zostałaby zaliczona przez algorytm do klasy pozytywnej (uznana za dżet \textit{b}).
+
+Taka analiza służy kilku celom. 
+Po pierwsze, pozwala na weryfikację, tego czy modele działają zgodnie z naszą wiedzą, w przypadkach gdy wiadomo jak powinien zachować się algorytm. 
+Odwrotna sytuacja (brak wiedzy na temat pożądanego zachowania) pozwala na wyciągnięcie wniosków na podstawie sposobu działania algorytmu co wzbogaca intuicję i zrozumienie analizowanych danych.
+Po trzecie, jest to jeden ze sposobów na zrozumienie działania algorytmów, w przypadku których w przeciwieństwie do drzew decyzyjnych czy regresji liniowej nie istnieją proste metryki pozwalające na oszacować wpływu poszczególnych zmiennych na predykcję. W przypadku sieci neuronowych często jest to dużym wyzwaniem.
+
+Na Rys. \ref{fig:pdp-sv} i \ref{fig:pdp-constit} przedstawiono wykresy zależności cząstkowej dla wybranych zmiennych. Przy wyborze zmiennych posiłkowano się wartościami miar istotności cech z sekcji \ref{subsec:feat-imp}, kierowano się także wartością ilustracyjną dla omawianych zagadnień.
+Skala osi pionowej jest inna dla każdego wykresu.
+Poniżej każdego wykresu przedstawiono rozkłady prawdopodobieństwa analizowanej zmiennej dla dżetów \textit{b} oraz dżetów tła.
+Warto zaznaczyć na wstępie, że najbardziej istotne są obszary wykresów w okolicach maksimum rozkładów prawdopodobieństwa zmiennych.
+
+\vspace{1em}
+Wykresy na Rys. \ref{fig:pdp-sv} a) i b) oraz \ref{fig:pdp-constit} a), b) i c) pokazują, że znane podstawowe cechy dżetów \textit{b} pozwalające odróżniać je od tła, tj. duże wartości $L_{xy}$ wtórych wierzchołków oraz duże wartości bezwzględne parametrów zderzenia cząstek ($IP_D$, $IP_Z$) są intensywnie wykorzystywane przez wszystkie algorytmy. Także wartości przy jakich najsilniej zmieniają się predykcje modeli znajdują odzwierciedlenie w rozkładach poniżej.
+
+Analiza tych pięciu wykresów pozwala na zaobserwowanie ciekawych różnic między algorytmami.
+Pierwsza z nich: zależności cząstkowe wydają się mieć mniejszą amplitudę w przypadku \textit{BDT} niż w przypadku sieci neuronowych. Może wynikać to z kształtu funkcji -- w przypadku \textit{BDT} jest to złożenie kilku funkcji schodkowych, podczas gdy sieci neuronowe dają bardziej gładkie zależności. Efektem tego jest inne zachowanie w obszarze ekstrapolacji (obszary gdzie rozkłady prawdopodobieństwa mają niską gęstość). Drzewa decyzyjne nie mają potrzeby dalszych podziałów np. w zakresie $L_{xy} - SV0 > 0.3$ lub $|IP_D| > 5$ dlatego ich predykcje są w tych zakresach niemal stałe. Z kolei w przypadku sieci neuronowych, z powodu braku wystarczającej liczby przykładów o takich wartościach zmiennych, wykres jest w przybliżeniu ekstrapolacją zachowania z zagęszczonego zakresu, co jest bardzo wyraźnie w przypadku sieci w pełni połączonych. 
+
+Druga obserwacja to to asymetria w predykcji \textit{BDT} na wykresie $IP_Z - C1$. Pomimo wyjątkowo symetrycznego rozłożenia wartości tej zmiennej wokół zera, predykcje \textit{BDT} są wyraźnie przesunięte, z minimum zlokalizowanym wokół wartości -1.
+Przyczyną takiego zachowania może być specyficzny sposób trenowania drzew decyzyjnych, które w przypadku takiego rozkładu nie mogą podzielić przestrzeni fazowej na 3 części w jednym kroku, co byłoby najbardziej korzystne, ale zmuszone są do dwóch kolejnych podziałów, np. wzdłuż wartości -2 i 2, z czego pierwszy podział musi niejako złamać symetrię rozkładu.
+
+Wykresy takie jak te na Rys. \ref{fig:pdp-sv} c) i f) lub \ref{fig:pdp-constit} c), d) i f) pokazują, że predykcje algorytmów mogą wykazywać nie tylko ilościowe, ale także jakościowe różnice w reakcji na wariacje wartości jednej zmiennej.
+
+Wreszcie wykresy przedstawione na Rys. Rys. \ref{fig:pdp-sv} e) oraz Rys. \ref{fig:pdp-constit} e) pokazują, że nawet w przypadku zmiennych intensywnie wykorzystywane przy podziałach drzewa (o czym świadczy Tab. \ref{tab:feat_imp_most_sv_constit}) zmiana wyłącznie ich wartości ma często znikomy wpływ na predykcje całego modelu. Są to zmienne, których rozkłady dla sygnału i tła prawie się nie różnią. Ich wpływ na predykcje algorytmu ujawnia się dopiero w kombinacji z innymi zmiennymi. Wykorzystanie tych zmiennych jest dużo trudniejsze dla ludzi i między innymi na tym polega przewaga podejścia analizy wielowymiarowej i uczenia maszynowego.
+
+\newcommand{\newWidth}{0.45\textwidth}
+\begin{figure}[ht]
+	\centering
+    \begin{subfigure}[b]{\newWidth}
+	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{fSecondaryVertices-0_fLxy.png}
+	\caption{}
+	\end{subfigure}
+    \begin{subfigure}[b]{\newWidth}
+	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{fSecondaryVertices-2_fLxy.png}
+	\caption{}
+	\end{subfigure}
+    \begin{subfigure}[b]{\newWidth}
+	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{fSecondaryVertices-0_fChi2.png}
+	\caption{}
+	\end{subfigure}
+    \begin{subfigure}[b]{\newWidth}
+	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{fSecondaryVertices-0_fDispersion.png}
+	\caption{}
+	\end{subfigure}
+    \begin{subfigure}[b]{\newWidth}
+	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{fSecondaryVertices-9_fMass.png}
+	\caption{}
+	\end{subfigure}
+    \begin{subfigure}[b]{\newWidth}
+	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{fSecondaryVertices_size.png}
+	\caption{}
+	\end{subfigure}
+	\caption{Zależności cząstkowe dla wybranych cech przedstawione dla modeli: \textit{SV-Conv}, \textit{SV-FC} i \textit{SV-BDT}.}
+	\label{fig:pdp-sv}
+\end{figure}
+
+
+\begin{figure}[ht]
+	\centering
+    \begin{subfigure}[b]{\newWidth}
+	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{fConstituents-0_fImpactParameterD.png}
+	\caption{}
+	\end{subfigure}
+    \begin{subfigure}[b]{\newWidth}
+	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{fConstituents-1_fImpactParameterD.png}
+	\caption{}
+	\end{subfigure}
+    \begin{subfigure}[b]{\newWidth}
+	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{fConstituents-1_fImpactParameterZ.png}
+	\caption{}
+	\end{subfigure}
+    \begin{subfigure}[b]{\newWidth}
+	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{fConstituents-1_fpT.png}
+	\caption{}
+	\end{subfigure}
+    \begin{subfigure}[b]{\newWidth}
+	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{fConstituents-0_fPhi.png}
+	\caption{}
+	\end{subfigure}
+    \begin{subfigure}[b]{\newWidth}
+	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{fConstituents_size.png}
+	\caption{}
+	\end{subfigure}
+	\caption{Zależności cząstkowe dla wybranych cech przedstawione dla modeli: \textit{constit-Conv}, \textit{constit-FC} i \textit{constit-BDT}.}
+	\label{fig:pdp-constit}
+\end{figure}
+
+
 %XXX Co warte podkreślenia: spora stabilność -- odchylenia std sporadycznie ponad 10\%, za wyjątkiem zmiennych SV przy treningu tylko na SV: wtedy 10-20\% a nawet więcej
 %
 %feat imp: frequency dla binarnych
@@ -475,33 +572,3 @@ Wartości w lewej części odpowiadają modelom \textit{SV-BDT} i \textit{consti
 % tab_most - zdecydowanie osobno trening_osobno i trening_razem
 
 
-\newcommand{\newWidth}{0.45\textwidth}
-\begin{figure}[ht]
-	\centering
-    \begin{subfigure}[b]{\newWidth}
-	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{test_plot.png}
-	\caption{}
-	\end{subfigure}
-    \begin{subfigure}[b]{\newWidth}
-	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{test_plot.png}
-	\caption{}
-	\end{subfigure}
-    \begin{subfigure}[b]{\newWidth}
-	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{test_plot.png}
-	\caption{}
-	\end{subfigure}
-    \begin{subfigure}[b]{\newWidth}
-	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{test_plot.png}
-	\caption{}
-	\end{subfigure}
-    \begin{subfigure}[b]{\newWidth}
-	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{test_plot.png}
-	\caption{}
-	\end{subfigure}
-    \begin{subfigure}[b]{\newWidth}
-	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{test_plot.png}
-	\caption{}
-	\end{subfigure}
-	\caption{Zależności}
-	\label{fig:test}
-\end{figure}
