@@ -8,7 +8,7 @@
 
 Bardzo ważnym elementem w trenowaniu algorytmów uczenia maszynowego jest dobór odpowiedniej metryki -- klasycznym złym przykładem jest używanie dokładności \angterm{accuracy} do oceniania klasyfikacji binarnej w przypadku dużego niezrównoważenia klas -- algorytm przewidujący zawsze klasę większościową może osiągnąć dużą wartość dokładności będąc jednocześnie bardzo słabym modelem.
 
-Kilka najczęściej używanych metryk wymieniono w Tab. \ref{tab:metryki}. Używanie i porównywanie kilku miar efektywności jest często niepraktyczne dlatego dobrze jest wybrać jedną metrykę. Przy jej wyborze należy kierować się potencjalnymi zastosowaniami modelu. W tym przypadku są to analizy fizyczne, które mogą mieć różne wymagania dotyczące czystości i liczebności otrzymywanych próbek a co za tym idzie, preferować inne punkty pracy zdefiniowane jako pary liczb: wydajność poprawnej klasyfikacji dżetów \textit{b} \angterm{tagging efficiency = true positive rate = recall}, i ułamek niepoprawnie zaklasyfikowanych przypadków tła \angterm{mistagging rate = false positive rate}. 
+Kilka najczęściej używanych metryk wymieniono w Tab. \ref{tab:metryki}. Używanie i porównywanie kilku miar efektywności jest często niepraktyczne dlatego dobrze jest wybrać jedną metrykę. Przy jej wyborze należy kierować się potencjalnymi zastosowaniami modelu. W tym przypadku są to analizy fizyczne, które mogą mieć różne wymagania dotyczące czystości i liczebności otrzymywanych próbek, a co za tym idzie, preferować inne punkty pracy zdefiniowane jako pary liczb: wydajność poprawnej klasyfikacji dżetów \textit{b} \angterm{tagging efficiency = true positive rate = recall}, i ułamek niepoprawnie zaklasyfikowanych przypadków tła \angterm{mistagging rate = false positive rate}. 
 
 Naturalnym wyborem wydaje się pole pod powierzchnią krzywej ROC \angterm{ROC Area Under Curve -- ROC AUC} \cite{bradley1997use}. Potencjalną przeszkodą może być zakres rozsądnych wartości prawdopodobieństwa błędnej klasyfikacji przypadków tła: dżety \textit{b} stanowią tylko kilka procent liczby wszystkich dżetów, zatem z punktu widzenia analizy dopuszczalne będą punkty pracy zapewniające wydajność identyfikacji dżetów \textit{b} ok. 10 -- 100 razy większą niż częstość niepoprawnego zaklasyfikowania przypadków tła. Oznacza to, że zdecydowana większość punktów pracy znajdujących się na krzywej ROC jest nie do zaakceptowania -- interesujące są tylko te o najniższych częstościach błędnej klasyfikacji.
 %[\#REF, znaleźć liczby]
@@ -184,7 +184,7 @@ Algorytm wytrenowany na połączonym zbiorze danych daje trochę lepsze wyniki n
 
 W każdym przypadku najgorsze wyniki uzyskano dla sieci w pełni połączonych.
 Z tabeli wynika, że duże znaczenie mają zarówno użyty algorytm jak i zestaw danych.
-Wysokie podobieństwo wyników uzyskiwanych dla \textit{BDT} oraz \textit{Conv} pozwala przypuszczać, że uzyskiwane przez nie poziom błędu jest zbliżony do minimum osiągalnego przy tych zestawach danych (błędu \textit{Bayesowskiego}).
+Wysokie podobieństwo wyników uzyskiwanych dla \textit{BDT} oraz \textit{Conv} pozwala przypuszczać, że uzyskiwane przez nie poziom błędu jest zbliżony do minimum osiągalnego przy tych zestawach danych (błędu \textit{bayesowskiego}).
 
 
 
@@ -245,7 +245,7 @@ Nie obserwuje się natomiast istotnie większych korelacji między modelami wyko
 \label{subsec:feat-imp}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Jedną z zalet drzew decyzyjnych jest możliwość dokładnego prześledzenia procesu decyzyjnego poprzedzającego klasyfikację danego przypadku, co pozwala na lepsze zrozumienie działania modelu. Cecha ta zanika w przypadku stosowania klasyfikatora złożonego z dużej ilości drzew, jak \textit{BDT} jednak nadal istnieją dosyć proste sposoby na zrozumienie, które cechy miały największy wpływ na predykcję.
+Jedną z zalet drzew decyzyjnych jest możliwość dokładnego prześledzenia procesu decyzyjnego poprzedzającego klasyfikację danego przypadku, co pozwala na lepsze zrozumienie działania modelu. Cecha ta zanika w przypadku stosowania klasyfikatora złożonego z dużej liczby drzew jak \textit{BDT}, jednak nadal istnieją dosyć proste sposoby na zrozumienie, które cechy miały największy wpływ na predykcję.
 
 Wykorzystano trzy miary istotności zmiennych zaimplementowane w bibliotece \texttt{XGBoost}: 
 \footnote{nazwy miar pochodzą z wersji biblioteki dla języka \texttt{Python}, w wersji dla innych języków, np. \texttt{R} nazwy miar oraz ich znaczenie są różne} 
@@ -447,10 +447,10 @@ Po pierwsze, pozwala na weryfikację, tego czy modele działają zgodnie z nasz�
 Odwrotna sytuacja (brak wiedzy na temat pożądanego zachowania) pozwala na wyciągnięcie wniosków na podstawie sposobu działania algorytmu co wzbogaca intuicję i zrozumienie analizowanych danych.
 Po trzecie, jest to jeden ze sposobów na zrozumienie działania algorytmów, w przypadku których w przeciwieństwie do drzew decyzyjnych czy regresji liniowej nie istnieją proste metryki pozwalające na oszacowanie wpływu poszczególnych zmiennych na predykcję. W przypadku sieci neuronowych często jest to dużym wyzwaniem.
 
-Na Rys. \ref{fig:pdp-sv} i \ref{fig:pdp-constit} przedstawiono wykresy zależności cząstkowej dla wybranych zmiennych. Przy wyborze zmiennych posiłkowano się wartościami miar istotności cech z sekcji \ref{subsec:feat-imp}, kierowano się także wartością ilustracyjną dla omawianych zagadnień.
-Skala osi pionowej jest inna dla każdego wykresu.
-Poniżej każdego wykresu przedstawiono rozkłady prawdopodobieństwa analizowanej zmiennej dla dżetów \textit{b} oraz dżetów tła.
-Warto zaznaczyć na wstępie, że najbardziej istotne są obszary wykresów w okolicach maksimum rozkładów prawdopodobieństwa zmiennych.
+Na Rys. \ref{fig:pdp-sv} i \ref{fig:pdp-constit} przedstawiono wykresy zależności cząstkowych dla wybranych zmiennych. Przy wyborze zmiennych posiłkowano się wartościami miar istotności cech z sekcji \ref{subsec:feat-imp}, kierowano się także wartością ilustracyjną dla omawianych zagadnień.
+Skala osi pionowej jest inna dla każdej zmiennej, im większy zakres, tym większy bezpośredni wpływ tej zmiennej na predykcje, tym istotniejsza jest ta zmienna.
+Poniżej każdego wykresu przedstawiono znormalizowane rozkłady prawdopodobieństwa wartości analizowanej zmiennej dla dżetów \textit{b} oraz dżetów tła.
+Warto zaznaczyć na wstępie, że najbardziej istotne są obszary wykresów w okolicach maksimów rozkładów prawdopodobieństwa zmiennych.
 
 \vspace{1em}
 Wykresy na Rys. \ref{fig:pdp-sv} a) i b) oraz \ref{fig:pdp-constit} a), b) i c) pokazują, że znane podstawowe cechy dżetów \textit{b} pozwalające odróżniać je od tła, tj. duże wartości $L_{xy}$ wtórych wierzchołków oraz duże wartości bezwzględne parametrów zderzenia cząstek ($IP_D$, $IP_Z$) są intensywnie wykorzystywane przez wszystkie algorytmy. Także wartości przy jakich najsilniej zmieniają się predykcje modeli znajdują odzwierciedlenie w rozkładach poniżej.
@@ -463,7 +463,8 @@ Przyczyną takiego zachowania może być specyficzny sposób trenowania drzew de
 
 Wykresy takie jak te na Rys. \ref{fig:pdp-sv} c) i f) lub \ref{fig:pdp-constit} c), d) i f) pokazują, że predykcje algorytmów mogą wykazywać nie tylko ilościowe, ale także jakościowe różnice w reakcji na wariacje wartości jednej zmiennej.
 
-Wreszcie wykresy przedstawione na Rys. Rys. \ref{fig:pdp-sv} e) oraz Rys. \ref{fig:pdp-constit} e) pokazują, że nawet w przypadku zmiennych intensywnie wykorzystywane przy podziałach drzewa (o czym świadczy Tab. \ref{tab:feat_imp_most_sv_constit}) zmiana wyłącznie ich wartości ma często znikomy wpływ na predykcje całego modelu. Są to zmienne, których rozkłady dla sygnału i tła prawie się nie różnią. Ich wpływ na predykcje algorytmu ujawnia się dopiero w kombinacji z innymi zmiennymi. Wykorzystanie tych zmiennych jest dużo trudniejsze dla ludzi i między innymi na tym polega przewaga podejścia analizy wielowymiarowej i uczenia maszynowego.
+Wreszcie wykresy przedstawione na Rys. Rys. \ref{fig:pdp-sv} e) oraz Rys. \ref{fig:pdp-constit} e) pokazują, że nawet w przypadku zmiennych intensywnie wykorzystywane przy podziałach drzewa (o czym świadczy Tab. \ref{tab:feat_imp_most_sv_constit}) zmiana wyłącznie ich wartości ma często znikomy wpływ na predykcje całego modelu. Są to zmienne, których rozkłady dla sygnału i tła prawie się nie różnią. Ich wpływ na predykcje algorytmu ujawnia się dopiero w kombinacji z innymi zmiennymi.
+Wykorzystanie tych zmiennych jest dużo trudniejsze dla ludzi i między innymi na tym polega przewaga podejścia analizy wielowymiarowej i uczenia maszynowego.
 Wykresy te sygnalizują jednocześnie ograniczenie metody wykresów zależności cząstkowych, która jak każda metoda wizualna nie radzi sobie z przestrzeniami zmiennych o większej niż 3-4 liczbie wymiarów.
 
 \newcommand{\newWidth}{0.45\textwidth}
