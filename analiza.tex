@@ -64,14 +64,14 @@ Dla tych wykresów otrzymano zdecydowaną dominację \textit{ROC AUC} -- wybór 
 
 W następnych podrozdziałach przedstawione zostały wyniki uzyskane dla poszczególnych modeli. Jako model rozumiana jest para: algorytm (wraz z jego hiperparametrami) oraz zestaw danych użyty do jego trenowania. Oznaczenia używane w prezentacji wyników zebrane zostały w Dodatku \ref{sec:app:skroty}. 
 
-Każdy przedstawiony wynik jest rezultatem uśrednienia pięciu powtórzeń wykonania treningu -- randomizacji podlega podział zbioru danych na dane treningowe, walidacyjne i testowe, losowa jest także inicjalizacja wag połączeń w przypadku sieci neuronowych.
+Każdy przedstawiony wynik jest rezultatem uśrednienia pięciu powtórzeń procedury, na którą składa się: losowy podział zbioru danych na dane treningowe, walidacyjne i testowe oraz uczenie algorytmu (randomizacji podlega także inicjalizacja wag połączeń w przypadku sieci neuronowych).
 
 Na Rys. \ref{fig:ROC_SV}, \ref{fig:ROC_constit}, \ref{fig:ROC_merged} przedstawiono odmianę krzywej ROC -- wykresy przedstawiające zależności wydajności identyfikacji dżetów \textit{b} z niepewnościami (na osi poziomej) dla danego prawdopodobieństwa błędnej klasyfikacji dżetów tła (na osi pionowej). 
 
 Trzy krzywe na każdym wykresie odpowiadają separacji dżetów \textit{b} od dżetów: lekkich, \textit{c} oraz mieszanej próbki złożonej w 90\% z dżetów lekkich i w 10\% z dżetów powabnych.
-Cztery wykresy na każdym rysunku odpowiadają trzem użytym algorytmom (sieci neuronowe typu \textit{FC} (na górze po lewej), konwolucyjne sieci neuronowe (na górze po prawej), wzmacniane drzewa decyzyjne (na dole po lewej) oraz porównanie wszystkich trzech (na dole po prawej) -- tylko średnie wartości. 
+Cztery wykresy na każdym rysunku odpowiadają trzem użytym algorytmom: sieciom neuronowym typu \textit{FC} (na górze po lewej), konwolucyjnym sieciom neuronowych (na górze po prawej) i wzmacnianym drzewom decyzyjnym (na dole po lewej) oraz porównaniu wszystkich trzech (na dole po prawej). Porównane zostały tylko krzywe odpowiadające separacji dżetów \textit{b} od mieszanego tła (bez niepewności).
 
-Jeśli nie zaznaczono inaczej, prezentowane wyniki dotyczą separacji dżetów \textit{b} od mieszanego tła (90\% dżetów lekkich + 10\% \textit{c})
+Jeśli nie zaznaczono inaczej, prezentowane wyniki dotyczą separacji dżetów \textit{b} od mieszanego tła (90\% dżetów lekkich + 10\% \textit{c}).
 
 W Tab. \ref{tab:wyniki-modeli} przedstawiono podsumowanie wyników.
 
@@ -234,7 +234,7 @@ Nie obserwuje się natomiast istotnie większych korelacji między modelami wyko
 \end{figure}
 
 \FloatBarrier
-\subsection{Analiza istotności cech}
+\subsection{Analiza istotności cech w \textit{BDT}}
 
 Jedną z zalet drzew decyzyjnych jest możliwość dokładnego prześledzenia procesu decyzyjnego poprzedzającego klasyfikację danego przypadku, co pozwala na lepsze zrozumienie działania modelu. Cecha ta zanika w przypadku stosowania klasyfikatora złożonego z dużej ilości drzew, jak \textit{BDT} jednak nadal istnieją dosyć proste sposoby na zrozumienie, które cechy miały największy wpływ na predykcję.
 
@@ -250,7 +250,7 @@ Zmienna binarna wykorzystana już w jednym podziale drzewa, nie może zostać u�
 
 W Tab. \ref{tab:feat_imp_most_sv_constit} przedstawiono wartości miar istotności zmiennych dla 15 najważniejszych cech (wg \textit{total\_gain}) dla modeli \textit{SV-BDT} oraz \textit{constit-BDT}. 
 Z kolei w Tab. \ref{tab:feat_imp_by_name} przedstawiono wartości tych miar pogrupowane wg wielkości fizycznych.
-W każdym przypadku wartości każdej miary zostały znormalizowane do 100 (dla wszystkich elementów, nie tylko tych przedstawionych w tabelach).
+Wartości każdej miary zostały znormalizowane do 100 (dla wszystkich elementów, nie tylko tych przedstawionych w tabelach). System oznaczeń opisany jest w Dodatku \ref{sec:app:skroty}.
 
 \newlength{\everyNthRowSpace}
 \setlength{\everyNthRowSpace}{8pt}
@@ -402,6 +402,12 @@ Kolumny nie sumują się do 100, ze względu na pominięcie zmiennych występuj�
 \end{table}
 
 
+Zdecydowanie najważniejszymi zmiennymi okazały się: $L_{xy}$ w przypadku wtórnych wierzchołków oraz $IP_D$ w przypadku cząstek składowych dżetu, czyli zmienne związane z długim czasem życia pięknych hadronów. 
+Wyraźna jest także tendencja, że im wyższa pozycja elementu na liście, tym istotniejsze są jego właściwości (najistotniejsze są elementy nr 0), co potwierdza 
+
+% wszystkie zmienne w miarę często uzywane
+% wyzsze imp SV niz constit w merged tłumaczy to wyzsze corr SV-merged niz constit-merge
+
 
 %XXX Co warte podkreślenia: spora stabilność -- odchylenia std sporadycznie ponad 10\%, za wyjątkiem zmiennych SV przy treningu tylko na SV: wtedy 10-20\% a nawet więcej
 %
@@ -444,3 +450,35 @@ Kolumny nie sumują się do 100, ze względu na pominięcie zmiennych występuj�
 % TODO
 % plot: ROC - all models - lt = features(SV/constit/merged), color=algo(BDT/FC/Conv)
 % tab_most - zdecydowanie osobno trening_osobno i trening_razem
+
+
+\newcommand{\newWidth}{0.45\textwidth}
+\begin{figure}[ht]
+	\centering
+    \begin{subfigure}[b]{\newWidth}
+	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{test_plot.png}
+	\caption{}
+	\end{subfigure}
+    \begin{subfigure}[b]{\newWidth}
+	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{test_plot.png}
+	\caption{}
+	\end{subfigure}
+    \begin{subfigure}[b]{\newWidth}
+	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{test_plot.png}
+	\caption{}
+	\end{subfigure}
+    \begin{subfigure}[b]{\newWidth}
+	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{test_plot.png}
+	\caption{}
+	\end{subfigure}
+    \begin{subfigure}[b]{\newWidth}
+	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{test_plot.png}
+	\caption{}
+	\end{subfigure}
+    \begin{subfigure}[b]{\newWidth}
+	\includegraphics[trim={0.5cm 0 0.5cm 1.0cm},clip,width=\textwidth]{test_plot.png}
+	\caption{}
+	\end{subfigure}
+	\caption{Zależności}
+	\label{fig:test}
+\end{figure}
