@@ -434,19 +434,18 @@ Wartości w lewej części odpowiadają modelom \textit{SV-BDT} i \textit{consti
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
 \FloatBarrier
 \subsection{Analiza wpływu zmiennych na predykcje modeli}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Dalszą analizę wpływu poszczególnych zmiennych przeprowadzono przy użyciu wykresów zależności cząstkowej \angterm{partial dependence plots}. Ze względu na wysoki koszt obliczeniowy tej metody, przedstawione wyniki wyjątkowo nie były powtarzane i uśredniane.
+Dalszą analizę wpływu poszczególnych zmiennych przeprowadzono przy użyciu wykresów zależności cząstkowych \angterm{partial dependence plots}. Ze względu na wysoki koszt obliczeniowy tej metody, przedstawione wyniki wyjątkowo nie są uśrednieniem kilka powtórzeń całej procedury.
 
-Jest to metoda polegająca na sprawdzeniu zachowania się predykcji już wytrenowanego modelu na skutek zmiany wartości wybranej zmiennej. W tym celu przeprowadzane są predykcje na normalnym zbiorze danych, ze zmienioną jedną kolumną, zawierającą wartości analizowanej zmiennej. Wszystkie wartości w tej kolumnie ustawiane są na jedną wartość, która jest stopniowo zmieniana od minimum do maksimum wartości przyjmowanych przez daną zmienną, za każdym razem przeprowadzana jest predykcja. Współrzędnymi punktów na wykresie zależności cząstkowej są: kolejne wartości ustawiane w analizowanej kolumnie (oś pozioma) i średnia wartość predykcji modelu (oś pionowa). Im wyższe wartości tej drugiej tym większa część przykładów zostałaby zaliczona przez algorytm do klasy pozytywnej (uznana za dżet \textit{b}).
+Metoda wykresów zależności cząstkowych to metoda polegająca na sprawdzeniu zachowania się predykcji już wytrenowanego modelu na skutek zmiany wartości wybranej zmiennej. W tym celu przeprowadzane są predykcje na normalnym zbiorze danych, ze zmienioną jedną kolumną, zawierającą wartości analizowanej zmiennej. Wszystkie wartości w tej kolumnie ustawiane są na tę samą wartość, która jest stopniowo zmieniana od minimum do maksimum wartości przyjmowanych przez daną zmienną, za każdym razem przeprowadzana jest predykcja. Współrzędnymi punktów na wykresie zależności cząstkowej są: kolejne wartości ustawiane w analizowanej kolumnie (oś pozioma) i średnia wartość predykcji modelu (oś pionowa). Im wyższe wartości tej drugiej tym większa część przykładów zostałaby zaliczona przez algorytm do klasy pozytywnej (uznana za dżet \textit{b}).
 
 Taka analiza służy kilku celom. 
 Po pierwsze, pozwala na weryfikację, tego czy modele działają zgodnie z naszą wiedzą, w przypadkach gdy wiadomo jak powinien zachować się algorytm. 
 Odwrotna sytuacja (brak wiedzy na temat pożądanego zachowania) pozwala na wyciągnięcie wniosków na podstawie sposobu działania algorytmu co wzbogaca intuicję i zrozumienie analizowanych danych.
-Po trzecie, jest to jeden ze sposobów na zrozumienie działania algorytmów, w przypadku których w przeciwieństwie do drzew decyzyjnych czy regresji liniowej nie istnieją proste metryki pozwalające na oszacować wpływu poszczególnych zmiennych na predykcję. W przypadku sieci neuronowych często jest to dużym wyzwaniem.
+Po trzecie, jest to jeden ze sposobów na zrozumienie działania algorytmów, w przypadku których w przeciwieństwie do drzew decyzyjnych czy regresji liniowej nie istnieją proste metryki pozwalające na oszacowanie wpływu poszczególnych zmiennych na predykcję. W przypadku sieci neuronowych często jest to dużym wyzwaniem.
 
 Na Rys. \ref{fig:pdp-sv} i \ref{fig:pdp-constit} przedstawiono wykresy zależności cząstkowej dla wybranych zmiennych. Przy wyborze zmiennych posiłkowano się wartościami miar istotności cech z sekcji \ref{subsec:feat-imp}, kierowano się także wartością ilustracyjną dla omawianych zagadnień.
 Skala osi pionowej jest inna dla każdego wykresu.
@@ -465,7 +464,7 @@ Przyczyną takiego zachowania może być specyficzny sposób trenowania drzew de
 Wykresy takie jak te na Rys. \ref{fig:pdp-sv} c) i f) lub \ref{fig:pdp-constit} c), d) i f) pokazują, że predykcje algorytmów mogą wykazywać nie tylko ilościowe, ale także jakościowe różnice w reakcji na wariacje wartości jednej zmiennej.
 
 Wreszcie wykresy przedstawione na Rys. Rys. \ref{fig:pdp-sv} e) oraz Rys. \ref{fig:pdp-constit} e) pokazują, że nawet w przypadku zmiennych intensywnie wykorzystywane przy podziałach drzewa (o czym świadczy Tab. \ref{tab:feat_imp_most_sv_constit}) zmiana wyłącznie ich wartości ma często znikomy wpływ na predykcje całego modelu. Są to zmienne, których rozkłady dla sygnału i tła prawie się nie różnią. Ich wpływ na predykcje algorytmu ujawnia się dopiero w kombinacji z innymi zmiennymi. Wykorzystanie tych zmiennych jest dużo trudniejsze dla ludzi i między innymi na tym polega przewaga podejścia analizy wielowymiarowej i uczenia maszynowego.
-Wykresy te pokazują jednocześnie ograniczenie metody wykresów zależności cząstkowych, która jak każda metoda wizualna nie radzi sobie z przestrzeniami zmiennych o większej niż 3-4 liczbie wymiarów.
+Wykresy te sygnalizują jednocześnie ograniczenie metody wykresów zależności cząstkowych, która jak każda metoda wizualna nie radzi sobie z przestrzeniami zmiennych o większej niż 3-4 liczbie wymiarów.
 
 \newcommand{\newWidth}{0.45\textwidth}
 \begin{figure}[ht]
