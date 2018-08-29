@@ -32,7 +32,9 @@ Z tych dwóch błędów, drugi jest bardziej kosztowny, gdyż błędna klasyfika
 \end{figure}
 
 Na Rys. \ref{fig:all-metrics-vs-bEff_perc75} przedstawiono te same wykresy, ale tym razem wybrano tylko 25\% najlepszych wartości dla każdej metryki -- te punkty są bardziej znaczące, gdyż ostatecznie modele z eksperymentów dających najlepsze wyniki będą używane.
-Dla tych wykresów otrzymano zdecydowaną dominację \textit{ROC AUC} -- wybór modeli dających najwyższe pole pod powierzchnią krzywej ROC zapewnia jednocześnie otrzymanie wysokich wartości wydajności identyfikacji dżetów \textit{b} dla wybranych punktów pracy.
+Dla tych wykresów otrzymano zdecydowaną dominację \textit{ROC AUC} -- wybór modeli dających najwyższe pole pod powierzchnią krzywej ROC zapewnia jednocześnie otrzymanie wysokich wartości wydajności identyfikacji dżetów \textit{b} dla wybranych punktów pracy. 
+
+Pole pod powierzchnią krzywej \textit{ROC} zostało wybrane jako główna metryka używana w procesie dobierania parametrów modeli oraz przy prezentacji wyników.
 
 \begin{figure}[h]
 	\centering
@@ -169,6 +171,7 @@ W porównaniu do poprzednich zbiorów danych wszystkie algorytmy poprawiły swoj
 	\label{fig:ROC_merged}
 \end{figure}
 
+\clearpage
 \FloatBarrier
 \subsubsection{Podsumowanie}
 \label{subsubsec:wyniki-modeli-podsum}
@@ -212,6 +215,7 @@ model                 & \textit{ROC AUC}  & \multicolumn{3}{c}{dla prawd. błęd
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \FloatBarrier
 \subsection{Korelacje predykcji modeli}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -233,8 +237,12 @@ Nie obserwuje się natomiast istotnie większych korelacji między modelami wyko
 	\label{fig:models_corr}
 \end{figure}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \FloatBarrier
 \subsection{Analiza istotności cech w \textit{BDT}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Jedną z zalet drzew decyzyjnych jest możliwość dokładnego prześledzenia procesu decyzyjnego poprzedzającego klasyfikację danego przypadku, co pozwala na lepsze zrozumienie działania modelu. Cecha ta zanika w przypadku stosowania klasyfikatora złożonego z dużej ilości drzew, jak \textit{BDT} jednak nadal istnieją dosyć proste sposoby na zrozumienie, które cechy miały największy wpływ na predykcję.
 
@@ -244,13 +252,27 @@ Wykorzystano trzy miary istotności zmiennych zaimplementowane w bibliotece \tex
 \textit{total\_gain} jest sumą po spadkach funkcji straty uzyskiwanych dzięki podziałom wykorzystującym daną zmienną, natomiast
 \textit{total\_cover} to suma liczb przykładów trenujących, na które miały wpływ podziały wykorzystujące daną zmienną.
 
-Zasadniczo najważniejszą miarą jest \textit{total\_gain}, gdyż uwzględnia ona zarówno częstość wykorzystania danej zmiennej (\textit{weigth}) jak i średni zysk w postaci spadku funkcji straty uzyskiwany w poszczególnych podziałach. 
+Zasadniczo najważniejszą miarą jest \textit{total\_gain}, gdyż uwzględnia ona zarówno częstość wykorzystania danej zmiennej (\textit{weight}) jak i średni zysk w postaci spadku funkcji straty uzyskiwany w poszczególnych podziałach. 
 Zmienna binarna wykorzystana już w jednym podziale drzewa, nie może zostać użyta ponownie w żadnej gałęzi będącej kontynuacją danego podziału, stąd zmienne binarne zwykle osiągają mniejsze wartości miary \textit{weight}.
 \textit{total\_cover} jest z kolei związane z głębokościami drzewa na jakiej wykorzystywana była zmienna -- pierwszy podział w danym drzewie wpływa zawsze na wszystkie przykłady trenujące, natomiast kolejne -- na stopniowo coraz mniejszy ułamek. Zatem niskie wartości \textit{total\_cover} sugerują, że dana zmienna wykorzystywana była raczej na dużych głębokościach (na już mocno podzielonym drzewie).
 
+
+
+
+\vspace{1em}
 W Tab. \ref{tab:feat_imp_most_sv_constit} przedstawiono wartości miar istotności zmiennych dla 15 najważniejszych cech (wg \textit{total\_gain}) dla modeli \textit{SV-BDT} oraz \textit{constit-BDT}. 
 Z kolei w Tab. \ref{tab:feat_imp_by_name} przedstawiono wartości tych miar pogrupowane wg wielkości fizycznych.
-Wartości każdej miary zostały znormalizowane do 100 (dla wszystkich elementów, nie tylko tych przedstawionych w tabelach). System oznaczeń opisany jest w Dodatku \ref{sec:app:skroty}.
+Wartości każdej miary zostały unormowane do 100 (suma dla wszystkich elementów, nie tylko tych przedstawionych w tabelach jest równa 100). System oznaczeń opisany jest w Dodatku \ref{sec:app:skroty}.
+
+Zdecydowanie najważniejszymi zmiennymi okazały się: $L_{xy}$ w przypadku wtórnych wierzchołków oraz $IP_D$ w przypadku cząstek składowych dżetu, czyli zmienne związane z długim czasem życia pięknych hadronów. 
+Wyraźna jest także tendencja, że im wyższa pozycja elementu na liście, tym istotniejsze są jego właściwości (najistotniejsze są elementy nr 0).
+
+O ile miary \textit{total\_gain} i \textit{total\_cover} są dosyć silnie skorelowane (co widać w obu tabelach) to \textit{weight}, czyli częstość ich użycia wydaje się być niezależna i przyjmować zbliżone wartości dla wszystkich zmiennych. 
+Okazuje się, że nie ma zmiennych, które byłyby wyraźnie rzadziej wykorzystywane od innych.
+ 
+Pojawiają się także niespodziewane wyniki, przykładowo zmienna $\sigma_{Lxy}$ pojawia się częściej niż $L_{xy}$, której niepewność opisuje, co jest zaskakujące tym bardziej, że jest $\sigma_{Lxy}$ tylko jednym z trzech rodzajów zmiennych związanych z jakością wtórnego wierzchołka ($\sigma_{Lxy}$, $\sigma_{vertex}$ i $\chi^2/Ndf$).
+
+Wyniki uzyskane dla modelu \textit{merged-BDT} (prawa strona Tab. \ref{tab:feat_imp_by_name}) pokazują, że przy trenowaniu na pełnym zestawie danych zmienne ze zbioru \textit{SV} są bardziej znaczące niż te ze zbioru \textit{constit}, co jest zgodne z odnotowaną wyższą korelacją modeli \textit{merged-X} z modelami \textit{SV-X} niż z modelami \textit{constit-X}.
 
 \newlength{\everyNthRowSpace}
 \setlength{\everyNthRowSpace}{8pt}
@@ -373,6 +395,8 @@ $\phi$ - C0   &         2.31 &             0.98 &              1.27 \\
 %\end{table}
 
 
+%\FloatBarrier
+
 \begin{table}[ht]
 \centering
 \begin{tabular}{l|rrr|rrr}
@@ -397,16 +421,15 @@ $\eta$              &     21.7 &          7.3 &           6.4 &   13.0 &        
 \end{tabular}
 \caption{Tabela zawierająca wartości miar istotności cech, posumowane według rodzaju zmiennej (sumy po wszystkich wtórnych wierzchołkach / wszystkich cząstkach). 
 Wartości w lewej części odpowiadają modelom \textit{SV-BDT} i \textit{constit-BDT} natomiast z prawej -- \textit{merged-BDT}.
-Kolumny nie sumują się do 100, ze względu na pominięcie zmiennych występujących jeden raz dla każdego dżetu, tj. $N_{SV}$ i  $N_{Constit}$ oraz zmiennych na poziomie dżetu.}
+%Kolumny nie sumują się do 100, ze względu na pominięcie zmiennych występujących jeden raz dla każdego dżetu, tj. $N_{SV}$ i  $N_{Constit}$ oraz zmiennych na poziomie dżetu.
+}
 \label{tab:feat_imp_by_name}
 \end{table}
 
 
-Zdecydowanie najważniejszymi zmiennymi okazały się: $L_{xy}$ w przypadku wtórnych wierzchołków oraz $IP_D$ w przypadku cząstek składowych dżetu, czyli zmienne związane z długim czasem życia pięknych hadronów. 
-Wyraźna jest także tendencja, że im wyższa pozycja elementu na liście, tym istotniejsze są jego właściwości (najistotniejsze są elementy nr 0), co potwierdza 
 
-% wszystkie zmienne w miarę często uzywane
-% wyzsze imp SV niz constit w merged tłumaczy to wyzsze corr SV-merged niz constit-merge
+
+
 
 
 %XXX Co warte podkreślenia: spora stabilność -- odchylenia std sporadycznie ponad 10\%, za wyjątkiem zmiennych SV przy treningu tylko na SV: wtedy 10-20\% a nawet więcej
