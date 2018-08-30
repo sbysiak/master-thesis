@@ -1,0 +1,26 @@
+\section{Podsumowanie i wnioski}
+\label{sec:podsumowanie}
+
+W pracy przeanalizowano możliwości użycia algorytmów uczenia maszynowego w problemie identyfikacji dżetów \textit{b}.
+Bazowano na danych z symulacji \textit{Monte Carlo} przeprowadzonych dla detektora ALICE.
+Sprawdzono działanie trzech rodzajów algorytmów: wzmacnianych drzew decyzyjnych, sieci neuronowych w pełni połączonych oraz konwolucyjnych.
+Procedurę uczenia przeprowadzono osobno na trzech zbiorach zmiennych, uzyskując tym samym $3\times3=9$ modeli. 
+
+Zaprezentowano wyniki poszczególnych modeli (w postaci krzywych \textit{ROC} oraz wydajności na identyfikację  dżetów \textit{b} w trzech punktach pracy) oraz obliczono korelacje między ich predykcjami.
+Sieci konwolucyjne oraz wzmacniane drzewa decyzyjne okazały się dawać lepsze wyniki od sieci w pełni połączonych.
+Dla najlepszych modeli uzyskano wartości $ROC AUC = 0.925(1)$.
+Dla prawdopodobieństwa błędnej klasyfikacji tła równego 1\% i 10\% uzyskano wydajności na identyfikację dżetów \textit{b} równe kolejno 50\% oraz 81\% .
+Wszystkie modele okazały się być dosyć silnie skorelowane, przy czym czynnikiem wzmacniającym korelacje okazało się użycie do treningu tych samych zmiennych, natomiast nie zaobserwowano wzmocnienia korelacji dla algorytmów tego samego rodzaju.
+
+W celu lepszego zrozumienia działania modeli przeprowadzono analizę wpływu poszczególnych zmiennych na ich predykcje. W tym celu wykorzystano miary istotności zmiennych dostępne dla drzew decyzyjnych oraz wykresy zależności cząstkowych dla wszystkich trzech algorytmów.
+Analiza pokazuje (tylko dla drzew decyzyjnych), że wszystkie używane wielkości okazały się mieć niepomijalny wpływ na predykcje.
+Ponadto wszystkie modele działają zgodnie z podstawową wiedzą nt. właściwości dżetów \textit{b}, tzn. zmienne wykorzystywane w klasycznych metodach cięć (takie jak odsunięcie wtórnego wierzchołka $L_{xy}$ czy odległości śladów od pierwotnego wierzchołka $IP_{D,Z}$) mają największy wpływ na predykcje algorytmów. 
+
+Istnieje kilka sposobów na potencjalną poprawę uzyskanych wyników. 
+Pierwszym z nich mogłoby być wykorzystanie dodatkowych wielkości, związanych z półleptonowym kanałem rozpadu ciężkich hadronów jak np. pęd poprzeczny leptonu względem osi dżetu lub z wewnętrzną strukturą dżetów, jak np. tzw. \textit{pull} \cite{Gallicchio:2010sw}. 
+Kolejnym mogłoby być użycie innych algorytmów lub architektur sieci, co jednak ma w mojej ocenie niewielki potencjał.
+Istotniejsze mogłoby okazać się użycie większej ilości danych, co niemal na pewno poprawiłoby wyniki głębokich sieci neuronowych.
+
+%Kolejnym etapem pracy powinna być próba użycia modeli na danych eksperymentalnych, co wiąże się z szeregiem nowych trudności, głównie związanych z brakiem możliwości bezpośredniej 
+%Ważniejsze jednak od osiągania coraz bardziej wyśrubowanych wyników
+
