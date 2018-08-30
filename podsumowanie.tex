@@ -13,12 +13,12 @@ Dla prawdopodobieństwa błędnej klasyfikacji tła równego 1\% i 10\% uzyskano
 Predykcje wszystkich modeli okazały się być dosyć silnie skorelowane, przy czym czynnikiem wzmacniającym korelacje okazało się użycie do treningu tych samych zmiennych, natomiast nie zaobserwowano wzmocnienia korelacji dla algorytmów tego samego rodzaju.
 
 W celu lepszego zrozumienia działania modeli przeprowadzono analizę wpływu poszczególnych zmiennych na ich predykcje. W tym celu wykorzystano miary istotności zmiennych dostępne dla drzew decyzyjnych oraz wykresy zależności cząstkowych dla wszystkich trzech algorytmów.
-Analiza pokazuje (tylko dla drzew decyzyjnych), że wszystkie używane wielkości okazały się mieć niepomijalny wpływ na predykcje.
-Ponadto wszystkie modele działają zgodnie z podstawową wiedzą nt. właściwości dżetów \textit{b}, tzn. zmienne wykorzystywane w klasycznych metodach cięć (takie jak odsunięcie wtórnego wierzchołka $L_{xy}$ czy odległości śladów od pierwotnego wierzchołka $IP_{D,Z}$) mają największy wpływ na predykcje algorytmów. 
+Analiza pokazuje (tylko dla drzew decyzyjnych), że wszystkie używane wielkości okazały się mieć niepomijalny wpływ na predykcje (\textit{total\_gain} > 6\%).
+Ponadto wszystkie modele działają zgodnie z podstawową wiedzą nt. właściwości dżetów \textit{b}, tzn. zmienne wykorzystywane w klasycznych metodach cięć (takie jak odległość wtórnego wierzchołka $L_{xy}$ czy odległości śladów od pierwotnego wierzchołka $IP_{D,Z}$) mają największy wpływ na predykcje algorytmów. 
 
 Istnieje kilka sposobów na potencjalną poprawę uzyskanych wyników. 
 Pierwszym z nich mogłoby być wykorzystanie dodatkowych wielkości, związanych z półleptonowym kanałem rozpadu ciężkich hadronów jak np. pęd poprzeczny leptonu względem osi dżetu lub z wewnętrzną strukturą dżetów, jak np. tzw. \textit{pull} \cite{Gallicchio:2010sw}. 
-Kolejnym mogłoby być użycie innych algorytmów lub architektur sieci neuronowych, co jednak mojej ocenie ma niewielki niewielki potencjał bez zmiany w danych treningowych.
+Kolejnym mogłoby być użycie innych algorytmów lub architektur sieci neuronowych, co jednak mojej ocenie ma niewielki potencjał bez zmiany w danych treningowych.
 Istotniejsze mogłoby okazać się użycie większej ilości danych, co niemal na pewno poprawiłoby wyniki głębokich sieci neuronowych, które znane są ze świetnego skalowania się w obszarze ogromnych zbiorów danych.
 
 Kolejnym etapem pracy powinna być próba użycia modeli na danych eksperymentalnych. Wiąże się to z szeregiem nowych trudności, głównie związanych z brakiem możliwości bezpośredniej oceny wyników uzyskiwanych przez algorytm, jest jednak niezbędne do wyjścia poza obszar czysto akademickich rozważań.

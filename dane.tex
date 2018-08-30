@@ -14,12 +14,13 @@ Do analizy wybrano dżety o $p_T$ większym niż 15 GeV i mieszczące się w ca�
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.5\textwidth]{sv-ip-def.png}
-	\caption{Rysunek ilustrujący znaczenie używanych wielkości: $L_{xy}$ oraz parametru zderzenia~$IP$. \imgsrc{\cite{sv-def-d0exp}}.}
+	\caption{Rysunek ilustrujący znaczenie używanych wielkości: $L_{xy}$ oraz $IP$. \imgsrc{\cite{sv-def-d0exp}}.}
 	\label{fig:sv-ip-def}
 \end{figure}
 
-Dla każdego dżetu obliczony został szereg wielkości, które można podzielić na zmienne charakteryzujące dżet oraz opisujące wtórne wierzchołki lub cząstki tworzące dżet. 
-Za potencjalne wtórne wierzchołki uznaje się wszystkie kombinacje trzech cząstek spełniających pewne dosyć luźne kryteria jak $p_T > 0.15$ GeV (rozważane są wyłącznie trzy-cząstkowe wtórne wierzchołki), stąd ich liczba może być dużo większa od liczby cząstek tworzących dżet.
+Dla każdego dżetu obliczony został szereg wielkości, które można podzielić na zmienne charakteryzujące dżet, opisujące wtórne wierzchołki lub cząstki tworzące dżet. 
+Za potencjalne wtórne wierzchołki uznaje się kombinacje trzech cząstek spełniających pewne dosyć luźne kryteria jak $p_T > 0.15$ GeV (rozważane są wyłącznie trzy-cząstkowe wtórne wierzchołki), stąd ich liczba może być dużo większa od liczby cząstek tworzących dżet.
+
 
 
 Lista używanych zmiennych:
@@ -29,7 +30,7 @@ Lista używanych zmiennych:
 		\item $\eta_{jet}$, $\phi_{jet}$ -- pseudopospieszność i kąt azymutalny osi dżetu
 		\item $p_{T,\;jet}$ -- pęd poprzeczny dżetu
 		\item $M_{jet} = \sqrt{ \left(\sum_i E_i\right)^2  -  \left(\sum_i \vec{p_i}\right)^2 }$ -- masa dżetu, gdzie $E_i$ i $p_i$ to energia i pęd kolejnych cząstek tworzących dżet
-		\item $A_{jet}$ -- powierzchnia dżetu wyliczana przez algorytm \textit{anti-kt} w płaszczyźnie ($\eta$, $\phi$). Do powierzchni dżetu zaliczany jest każdy element powierzchni, w którym dodanie cząstki o nieskończenie małym pędzie poprzecznym sprawi, że zostanie ona zaliczona do tego dżetu \cite{Cacciari:2007fd}
+		\item $A_{jet}$ -- powierzchnia dżetu wyliczana przez algorytm \textit{kt} w płaszczyźnie ($\eta$, $\phi$). Do powierzchni dżetu zaliczany jest każdy element powierzchni, w którym dodanie cząstki o nieskończenie małym pędzie poprzecznym sprawi, że zostanie ona zaliczona do tego dżetu \cite{Cacciari:2007fd}
 		\item $\rho_{\;bckg}$ -- gęstość tła w danym zdarzeniu
 	\end{itemize}
 	
@@ -37,15 +38,15 @@ Lista używanych zmiennych:
 	\begin{itemize}	
 		\item $\eta$, $\phi$ -- pseudopospieszność i kąt azymutalny cząstki względem osi dżetu
 		\item $p_T$ -- pęd poprzeczny cząstki
-		\item $IP_D$ -- rzut na kierunek poprzeczny wektora parametru zderzenia
-		\item $IP_Z$ -- rzut na oś $z$ wektora parametru zderzenia
+		\item $IP_D$ -- rzut na kierunek poprzeczny wektora $IP$, tj. odległości najbliższego zbliżenia
+		\item $IP_Z$ -- rzut na oś $z$ wektora $IP$
 		\item $N_{Constit}$ -- liczba cząstek tworzących dżet
 	\end{itemize}	
 	
 	
 	\item Zmienne opisujące wtórne wierzchołki:
 	\begin{itemize}	
-		\item $L_{xy}$ -- odległość między pierwotnym a wtórnym wierzchołkiem \angterm{decay length}
+		\item $L_{xy}$ -- odległość między pierwotnym a wtórnym wierzchołkiem \angterm{decay length} w płaszczyźnie $x-y$
 		\item $\sigma_{Lxy}$ -- niepewność wyznaczenia $L_{xy}$
 		\item $\sigma_{vertex} = \sqrt{d_1^2 + d_2^2 + d_3^2}$ -- rozrzut śladów \angterm{tracks} wokół wtórnego wierzchołka, gdzie $d_i$ to to najmniejsza odległość pomiędzy śladem \textit{i}-tej cząstki a wtórnym wierzchołkiem
 		%gdzie $d_i$ to odległość najbliższego zbliżenia śladu do wtórnego wierzchołka (DCA) % https://arxiv.org/pdf/1511.04380.pdf (str. 92)
@@ -56,9 +57,8 @@ Lista używanych zmiennych:
 	\end{itemize}
 \end{itemize}
 
-
 Dżety różnią się liczbą cząstek je tworzących oraz liczbą wtórnych wierzchołków. Większość algorytmów uczenia maszynowego wymaga natomiast dostarczenia danych w postaci tabelarycznej (macierzowej), ze stałą liczbą kolumn (wiersze stanowią kolejne dżety). Aby spełnić to wymaganie konieczne jest przyjęcie pewnej ustalonej liczby wtórnych wierzchołków oraz cząstek tworzących dżet -- w przypadku gdy dżet ma więcej elementów tego typu są one odrzucane, natomiast puste pola są wypełniane zerami w przypadku gdy ma ich mniej. 
-Po przeanalizowaniu rozkładów liczby wtórnych wierzchołków i cząstek tworzących dżet (Rys. \ref{fig:nsv_nconstit_distr}) oraz wstępnym sprawdzeniu jak dodawanie kolejnych elementów wpływa na otrzymywane wyniki (na podstawie wzmacnianych drzew decyzyjnych ze względu na wspomnianą w \ref{subsec:dyskusja-2algo} szybkość i stabilność) ustalono liczbę cząstek tworzących dżet równą 15 a wtórnych wierzchołków równą 20.
+Po przeanalizowaniu rozkładów liczby wtórnych wierzchołków i cząstek tworzących dżet (Rys. \ref{fig:nsv_nconstit_distr}) oraz wstępnym sprawdzeniu jak dodawanie kolejnych elementów wpływa na otrzymywane wyniki (na podstawie wzmacnianych drzew decyzyjnych ze względu na wspomnianą w \ref{subsec:dyskusja-2algo} szybkość i stabilność) przyjęto liczbę cząstek tworzących dżet równą 15 a liczbę wtórnych wierzchołków równą 20.
 
 \begin{figure}[ht]
 	\centering
@@ -69,11 +69,13 @@ Po przeanalizowaniu rozkładów liczby wtórnych wierzchołków i cząstek tworz
 \end{figure}
 
 Istotnym zagadnieniem jest także kolejność w jakiej ułożone będą zmienne. 
-Dla sieci konwolucyjnych szukających lokalnych zależności dobrze jest pogrupować zmienne, tak aby obok siebie znajdowały się te same wielkości fizyczne, np. $L_{xy,1}, L_{xy,2}, L_{xy,3} \dots \sigma_{vertex,1}, \sigma_{vertex,2}, \sigma_{vertex,3} \dots$. 
+Dla sieci konwolucyjnych szukających lokalnych zależności dobrze jest pogrupować zmienne, tak aby obok siebie znajdowały się te same wielkości fizyczne, np. $L_{xy,1}, L_{xy,2}, L_{xy,3} \dots \sigma_{vertex,1}, \sigma_{vertex,2}, \sigma_{vertex,3} \dots$ -- tak też zrobiono.
 Dla sieci w pełni połączonych oraz drzew decyzyjnych kolejność zmiennych nie ma znaczenia, ale ważne jest aby położenie zmiennych było ustalone dla kolejnych wierzchołków lub cząstek tzn. żeby $L_{xy}$ i $\sigma_{Lxy}$ danego wtórnego wierzchołka były w tych samych miejscach, tak aby możliwe było szukanie zależności między nimi.
 
-Następną kwestią jest wybór wielkości decydującej o kolejności ułożenia elementów, tj. która cząstka będzie cząstką nr 1 a która nr 5. Losowe ułożenie elementów sprawiłoby, że bezpośrednie porównywanie wielkości w danych kolumnach (co ma miejsce bezpośrednio w drzewach decyzyjnych a pośrednio w sieciach neuronowych) straciłoby sens. Z kolei dobry dobór tej kolejności pozwala na łatwe odtworzenie przez algorytm uczenia maszynowego motywowanych fizycznie algorytmów omówionych w sekcji \ref{subsubsec:przeglad-algo}. Przykładowo cięcie na wartość $IP$ drugiej lub trzeciej cząstki (gdy są one posortowane wg malejących wartości $IP$) jest istotą algorytmu nazywanego \textit{Track Counting -- TC} stosowanego w CMS i ALICE.
-Kolejność w jakiej ułożone będą elementy, wpływa także na to, które z nich będą odrzucone w przypadku gdy dżet zawiera więcej niż 15 cząstek i 20 wierzchołków. 
+Następną kwestią jest wybór wielkości decydującej o kolejności ułożenia elementów, tj. która cząstka będzie cząstką nr 1 a która nr 5. Losowe ułożenie elementów sprawiłoby, że bezpośrednie porównywanie wartości w danej kolumnach (co ma miejsce bezpośrednio w drzewach decyzyjnych a pośrednio w sieciach neuronowych) straciłoby sens. Z kolei dobry dobór tej kolejności pozwala na łatwe odtworzenie przez algorytm uczenia maszynowego motywowanych fizycznie algorytmów omówionych w sekcji \ref{subsubsec:przeglad-algo}. Przykładowo cięcie na wartość $IP$ drugiej lub trzeciej cząstki (gdy są one posortowane wg malejących wartości $IP$) jest istotą algorytmu nazywanego \textit{Track Counting -- TC} stosowanego w CMS i ALICE.
+Kolejność w jakiej ułożone będą elementy, wpływa także na to, które z nich będą odrzucone w przypadku gdy dżet zawiera więcej niż 15 cząstek lub 20 wierzchołków. 
 Ponownie posiłkowano się testami z użyciem drzew decyzyjnych. Ostatecznie wtórne wierzchołki ułożono według malejącego $L_{xy}$ a cząstki -- malejącego $p_T$.
 
+Zbiór danych użytych w analizie liczył 46 000 dżetów, z ponad 20 tysięcy stanowiły dżety \textit{b} (trening przeprowadzano przy zrównoważonej liczbie przykładów dla sygnału i tła).
+Z tego zbioru zbudowano trzy zestawy danych (każdy zawiera wszystkie 46 tys. wierszy, różnią się kolumnami): \textit{SV}, który zawierał tylko zmienne związane z wtórnymi wierzchołkami, \textit{constit} - zmienne opisujące cząstki tworzące dżet \angterm{constituents} oraz \textit{merged} - wszystkie zmienne.
 %Ostatecznie liczba zmiennych użytych do trenowania algorytmów uczenia maszynowego była równa: 
