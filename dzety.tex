@@ -2,9 +2,11 @@
 \label{subsec:dzet-def}
 
 Przedstawiona powyżej definicja dżetu nie jest precyzyjna z punktu widzenia pracy eksperymentalnej. W detektorze obserwuje się tylko cząstki w stanie końcowym, nie jest zatem możliwe przyporządkowanie cząstki do dżetu według jej pochodzenia. W związku z tym, konieczne jest użycie algorytmu klasteryzującego, dostającego na wejściu tylko obserwowalne eksperymentalnie cząstki. 
-To jakie dżety zostaną zaobserwowane w danym zdarzeniu zależy od użytego algorytmu. Oznacza to, że precyzyjną definicję dżetu stanowi algorytm klasteryzujący wraz z zestawem parametrów. Obecnie najpowszechniej stosowanym algorytmem jest algorytm \textit{anti-kt} \cite{Cacciari:2008gp}.
+To jakie dżety zostaną zaobserwowane w danym zdarzeniu zależy od użytego algorytmu. Oznacza to, że precyzyjną definicję dżetu stanowi algorytm klasteryzujący wraz z zestawem parametrów. 
 
-
+Obecnie najpowszechniej stosowanym algorytmem jest algorytm \textit{anti-kt} \cite{Cacciari:2008gp}.
+Jest to algorytm iteracyjny, który łączy kolejno pary cząstek na najmniejszej wartości wielkości \\ $d_{ij}=\mathrm{min}(1/k_{t,i}^2, 1/k_{t,j}) \frac{\Delta_{ij}^2}{R^2}$, gdzie $\Delta_{ij} = (\eta_i - \eta_j)^2 + (\phi_i - \phi_j)$, natomiast $k_{t,i},\;\eta_i,\;\phi_i$ to kolejno pęd poprzeczny, \textit{pseudopospieszność} \angterm{pseudorapidity} \footnote{$\eta = -\ln[\tg(\frac{\theta}{2})]$, gdzie $\theta$ jest kątem między wektorem pędu cząstki a osią wiązki} i kąt azymutalny $i$-tej cząstki. $R$ jest parametrem określającym rozmiar dżetu i zwykle przyjmuje wartości 0.2, \underline{0.4} lub 0.7.
+Tak określona miara, według której łączone są cząstki sprawia, że w pierwszej kolejności łączone są cząstki z najbliższego otoczenia i koncentrują się one wokół do tzw. twardych cząstki (tj. tych o dużym $k_t$).
 
 %Jak zostało to już wcześniej zasygnalizowane, w eksperymencie nie ma się bezpośredniego dostępu do informacji na temat partonów, dlatego również klasyfikowanie (nazywane także identyfikacją) dżetów może odbywać się wyłącznie na podstawie cząstek mierzonych w detektorze -- zwykle obecności hadronu zawierającego odpowiedni kwark w zadanej odległości od osi dżetu (przykładowo obecność hadronu \textit{B} oznacza, że dżet będzie zaklasyfikowany jako dżet \textit{b}).
 
@@ -50,7 +52,7 @@ Do wyboru punktu pracy, zamiast jednowymiarowego rozkładu predykcji używany je
 
 \subsection{Eksperyment ALICE}
 
-Eksperyment ALICE \cite{Aamodt:2008zz}, \cite{Abelev:2014ffa} jest jednym z czterech największych eksperymentów na LHC. Jest on dedykowany zderzeniom ciężkich jonów (w LHC są to jony ołowiu PbPb), ale mierzone są także mniejsze systemy, tj. proton-proton pp (głównie jako referencję dla pomiarów PbPb) oraz proton-ołów p+Pb, które dostarczają także okazji do badania asymetrycznych zderzeń. Cechą charakterystyczną pomiarów ciężkojonowych jest ich znacznie większa niż w przypadku zderzeń pp krotność, tj. liczba cząstek wyprodukowana w pojedynczym zderzeniu. W przypadku zderzeń PbPb może powstawać nawet do 8000 naładowanych cząstek na jednostkę pseudopospieszności $\eta$ \angterm{pseudorapidity} \footnote{$\eta = -\ln[\tg(\frac{\theta}{2})]$, gdzie $\theta$ jest kątem między wektorem pędu cząstki a osią wiązki}. Detektor ALICE został zoptymalizowany do mierzeniach takich przypadków, jak również pod kątem rekonstrukcji i identyfikacji cząstek o szerokim zakresie pędów (100 MeV/$c$ -- 100 GeV/$c$).
+Eksperyment ALICE \cite{Aamodt:2008zz}, \cite{Abelev:2014ffa} jest jednym z czterech największych eksperymentów na LHC. Jest on dedykowany zderzeniom ciężkich jonów (w LHC są to jony ołowiu PbPb), ale mierzone są także mniejsze systemy, tj. proton-proton pp (głównie jako referencję dla pomiarów PbPb) oraz proton-ołów p+Pb, które dostarczają także okazji do badania asymetrycznych zderzeń. Cechą charakterystyczną pomiarów ciężkojonowych jest ich znacznie większa niż w przypadku zderzeń pp krotność, tj. liczba cząstek wyprodukowana w pojedynczym zderzeniu. W przypadku zderzeń PbPb może powstawać nawet do 8000 naładowanych cząstek na jednostkę pseudopospieszności $\eta$. Detektor ALICE został zoptymalizowany do mierzeniach takich przypadków, jak również pod kątem rekonstrukcji i identyfikacji cząstek o szerokim zakresie pędów (100 MeV/$c$ -- 100 GeV/$c$).
 
 
 \begin{figure}[h]
