@@ -4,7 +4,7 @@
 %p-p, 13 TeV - Pythia8 - JJ events anchored to LHC16i, ALIROOT-7268
 
 Dane użyte w analizie pochodzą z symulacji Monte Carlo zderzeń proton-proton przy energii w układzie środka masy równej $\sqrt{s} = 13$ TeV dostępnych na serwerach eksperymentu ALICE.
-Są to pełne symulacje detektora ALICE, wykorzystujące generator zderzeń \texttt{Pythia8} \cite{Sjostrand:2007gs} (\textit{tune: Pythia8Jets\_Monash2013} \cite{Skands:2014pea}) oraz pakiet \texttt{Geant3} \cite{Brun:1994aa} do transportu cząstek przez materiał detektora.
+Są to pełne symulacje detektora ALICE, wykorzystujące generator zderzeń \texttt{Pythia8} \cite{Sjostrand:2007gs} (wersja: \textit{Monash2013} \cite{Skands:2014pea}) oraz pakiet \texttt{Geant3} \cite{Brun:1994aa} do transportu cząstek przez materiał detektora. Korzystano ze specjalnych symulacji w tzw. \textit{binach $p_T$}, które zapewniają lepszą statystykę dla wysokich pędów.
 
 Do rekonstrukcji dżetów wykorzystany został algorytm \textit{anti-kt} z parametrem $R = 0.4$ zaimplementowany w pakiecie \texttt{FASTJET} \cite{Cacciari:2011ma}. Dżetów poszukiwano wyłącznie wśród cząstek naładowanych \angterm{charged jets} ze względu na słabe pokrycie przestrzeni fazowej przez kalorymetry w eksperymencie ALICE.
 %Symulacje prowadzone były w wąskich binach $p_T$, które zostały połączone.
@@ -14,26 +14,26 @@ Do analizy wybrano dżety o $p_T$ większym niż 15 GeV i mieszczące się w ca�
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.5\textwidth]{sv-ip-def.png}
-	\caption{Rysunek ilustrujący znaczenie używanych wielkości: $L_{xy}$ oraz parametru zderzenia $IP$. \imgsrc{\cite{sv-def-d0exp}}.}
+	\caption{Rysunek ilustrujący znaczenie używanych wielkości: $L_{xy}$ oraz parametru zderzenia~$IP$. \imgsrc{\cite{sv-def-d0exp}}.}
 	\label{fig:sv-ip-def}
 \end{figure}
 
-Dla każdego dżetu obliczony został szereg wielkości, które można podzielić na zmienne na poziomie dżetu, związane z wtórnymi wierzchołkami oraz cząstkami tworzącymi dżet. 
+Dla każdego dżetu obliczony został szereg wielkości, które można podzielić na zmienne charakteryzujące dżet oraz opisujące wtórne wierzchołki lub cząstki tworzące dżet. 
 Za potencjalne wtórne wierzchołki uznaje się wszystkie kombinacje trzech cząstek spełniających pewne dosyć luźne kryteria jak $p_T > 0.15$ GeV (rozważane są wyłącznie trzy-cząstkowe wtórne wierzchołki), stąd ich liczba może być dużo większa od liczby cząstek tworzących dżet.
 
 
 Lista używanych zmiennych:
 \begin{itemize}
-	\item Zmienne na poziomie dżetu:
+	\item Zmienne charakteryzujące dżet:
 	\begin{itemize}	
 		\item $\eta_{jet}$, $\phi_{jet}$ -- pseudopospieszność i kąt azymutalny osi dżetu
 		\item $p_{T,\;jet}$ -- pęd poprzeczny dżetu
-		\item $M_{jet}$ -- masa dżetu [\#REF]
-		\item $A_{jet}$ -- powierzchnia dżetu -- liczona w płaszczyźnie ($\eta$, $\phi$),   do powierzchni dżetu zaliczany jest element w powierzchni w którym dodanie cząstki o nieskończenie małym pędzie poprzecznym sprawi, że zostanie ona zaliczona do tego dżetu \cite{Cacciari:2007fd}
+		\item $M_{jet} = \sqrt{ \left(\sum_i E_i\right)^2  -  \left(\sum_i \vec{p_i}\right)^2 }$ -- masa dżetu, gdzie $E_i$ i $p_i$ to energia i pęd kolejnych cząstek tworzących dżet
+		\item $A_{jet}$ -- powierzchnia dżetu wyliczana przez algorytm \textit{anti-kt} w płaszczyźnie ($\eta$, $\phi$). Do powierzchni dżetu zaliczany jest każdy element powierzchni, w którym dodanie cząstki o nieskończenie małym pędzie poprzecznym sprawi, że zostanie ona zaliczona do tego dżetu \cite{Cacciari:2007fd}
 		\item $\rho_{\;bckg}$ -- gęstość tła w danym zdarzeniu
 	\end{itemize}
 	
-	\item Zmienne opisujące cząstki tworzące dżet:
+	\item Zmienne opisujące cząstki tworzące dżet (składniki dżetu):
 	\begin{itemize}	
 		\item $\eta$, $\phi$ -- pseudopospieszność i kąt azymutalny cząstki względem osi dżetu
 		\item $p_T$ -- pęd poprzeczny cząstki
@@ -47,9 +47,10 @@ Lista używanych zmiennych:
 	\begin{itemize}	
 		\item $L_{xy}$ -- odległość między pierwotnym a wtórnym wierzchołkiem \angterm{decay length}
 		\item $\sigma_{Lxy}$ -- niepewność wyznaczenia $L_{xy}$
-		\item $\sigma_{vertex} = \sqrt{d_1^2 + d_2^2 + d_3^2}$ -- rozrzut śladów \angterm{tracks} wokół wtórnego wierzchołka, gdzie $d_i$ to odległość najbliższego zbliżenia śladu do wtórnego wierzchołka (DCA) % https://arxiv.org/pdf/1511.04380.pdf (str. 92)
+		\item $\sigma_{vertex} = \sqrt{d_1^2 + d_2^2 + d_3^2}$ -- rozrzut śladów \angterm{tracks} wokół wtórnego wierzchołka, gdzie $d_i$ to to najmniejsza odległość pomiędzy śladem \textit{i}-tej cząstki a wtórnym wierzchołkiem
+		%gdzie $d_i$ to odległość najbliższego zbliżenia śladu do wtórnego wierzchołka (DCA) % https://arxiv.org/pdf/1511.04380.pdf (str. 92)
 		\item $M_{inv} = \sqrt{(E_1 + E_2 + E_3)^2 - (\vec{p_1} + \vec{p_2} + \vec{p_3})^2}$ -- masa niezmiennicza wierzchołka, gdzie $E_i, p_i$ to energia i pęd $i$-tej cząstki tworzącej wierzchołek
-		\item $\chi^2/Ndf$  dopasowania wtórnego wierzchołka
+		\item $\chi^2/Ndf$ -- jakość dopasowania wtórnego wierzchołka
 		\item $N_{SV}$ -- liczba wtórych wierzchołków
 
 	\end{itemize}
@@ -63,13 +64,13 @@ Po przeanalizowaniu rozkładów liczby wtórnych wierzchołków i cząstek tworz
 	\centering
 	\includegraphics[trim={0.6cm 0cm 0.2cm 0cm},clip,width=0.49\textwidth]{hist-nconstit-cut.png}
 	\includegraphics[trim={0.6cm 0cm 0.2cm 0cm},clip,width=0.49\textwidth]{hist-nsv-cut.png}
-	\caption{Rozkłady liczby cząstek tworzących dżet i liczby wtórnych wierzchołków (część) wraz wartościami cięć.}
+	\caption{Rozkłady liczby cząstek tworzących dżet i liczby wtórnych wierzchołków (pokazana jest tylko część, rozkład sięga $N_{SV} = 200$) wraz wartościami cięć.}
 	\label{fig:nsv_nconstit_distr}
 \end{figure}
 
 Istotnym zagadnieniem jest także kolejność w jakiej ułożone będą zmienne. 
-Dla sieci konwolucyjnych szukających lokalnych zależności rozsądne jest ułożenie obok siebie tych samych zmiennych, np. $L_{xy,1}, L_{xy,2}, L_{xy,3} \dots \sigma_{vertex,1}, \sigma_{vertex,2}, \sigma_{vertex,3} \dots$. 
-Dla sieci w pełni połączonych oraz drzew decyzyjnych kolejność zmiennych nie ma znaczenia, ale ważne jest aby ich położenie było stałe, np. aby $L_{xy}$ i $\sigma_{Lxy}$ danego wtórnego wierzchołka były w tych samych miejscach, tak aby możliwe było szukanie zależności między nimi.
+Dla sieci konwolucyjnych szukających lokalnych zależności dobrze jest pogrupować zmienne, tak aby obok siebie znajdowały się te same wielkości fizyczne, np. $L_{xy,1}, L_{xy,2}, L_{xy,3} \dots \sigma_{vertex,1}, \sigma_{vertex,2}, \sigma_{vertex,3} \dots$. 
+Dla sieci w pełni połączonych oraz drzew decyzyjnych kolejność zmiennych nie ma znaczenia, ale ważne jest aby położenie zmiennych było ustalone dla kolejnych wierzchołków lub cząstek tzn. żeby $L_{xy}$ i $\sigma_{Lxy}$ danego wtórnego wierzchołka były w tych samych miejscach, tak aby możliwe było szukanie zależności między nimi.
 
 Następną kwestią jest wybór wielkości decydującej o kolejności ułożenia elementów, tj. która cząstka będzie cząstką nr 1 a która nr 5. Losowe ułożenie elementów sprawiłoby, że bezpośrednie porównywanie wielkości w danych kolumnach (co ma miejsce bezpośrednio w drzewach decyzyjnych a pośrednio w sieciach neuronowych) straciłoby sens. Z kolei dobry dobór tej kolejności pozwala na łatwe odtworzenie przez algorytm uczenia maszynowego motywowanych fizycznie algorytmów omówionych w sekcji \ref{subsubsec:przeglad-algo}. Przykładowo cięcie na wartość $IP$ drugiej lub trzeciej cząstki (gdy są one posortowane wg malejących wartości $IP$) jest istotą algorytmu nazywanego \textit{Track Counting -- TC} stosowanego w CMS i ALICE.
 Kolejność w jakiej ułożone będą elementy, wpływa także na to, które z nich będą odrzucone w przypadku gdy dżet zawiera więcej niż 15 cząstek i 20 wierzchołków. 

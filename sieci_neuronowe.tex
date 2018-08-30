@@ -18,7 +18,7 @@ Trenowanie jest prostsze w przypadku zastosowania wielu warstw, które odpowiada
 \subsubsection*{Sieci konwolucyjne}
 Jednym ze sposobów na ograniczenie liczby trenowanych parametrów jest użycie konwolucyjnych sieci neuronowych \cite{krizhevsky2012imagenet} (bardziej poprawną choć rzadko używaną nazwą w języku polskim jest sieć splotowa). Są one inspirowane połączeniami w korze wzrokowej zwierząt i wywodzą się z badań w obszarze widzenia komputerowego, gdzie liczby parametrów są szczególnie duże (wektor wejściowy ma wymiar równy liczbie pikseli w obrazie), na takim przykładzie również najłatwiej zrozumieć ich działanie.
 
-Sieci konwolucyjne różnią się od sieci typu \textit{FC} tym, że część wag połączeń między warstwami jest dzielona. Występuje w nich nowy rodzaj warstwy, nazywany warstwą konwolucyjną. Każda jednostka w warstwie konwolucyjnej (filtr) ma pewną stałą (niewielką) liczbę wag. Połączenie z dużym  wejściem realizowane jest przez powielanie tych samych wag w połączeniach z kolejnymi fragmentami wektora wejściowego (por. Rys. \ref{fig:convolution}). Rezultatem działania filtra na macierz jest wynik operacji splotu. Liczba parametrów przypadająca na każdy filtr jest równa jego rozmiarowi i nie zależy od wielkości wektora wejściowego. 
+Sieci konwolucyjne różnią się od sieci typu \textit{FC} tym, że część wag połączeń między warstwami jest dzielona. Występuje w nich nowy rodzaj warstwy, nazywany warstwą konwolucyjną. Każda jednostka w warstwie konwolucyjnej (filtr) ma pewną stałą (niewielką) liczbę wag. Połączenie z dużym  wejściem realizowane jest przez powielanie tych samych wag w połączeniach z kolejnymi fragmentami wektora wejściowego (Rys. \ref{fig:convolution}). Rezultatem działania filtra na macierz jest wynik operacji splotu. Liczba parametrów przypadająca na każdy filtr jest równa jego rozmiarowi i nie zależy od wielkości wektora wejściowego. 
 
 \begin{figure}[ht]
 	\centering
@@ -78,9 +78,19 @@ W przypadku gdy zamiast wejścia dwuwymiarowego (jak np. obraz czarno-biały), m
 %  \end{center}
 %\end{wrapfigure}
 
-Oprócz warstw konwolucyjnych, w sieciach tego typu stosowane są także tzw. warstwy typu \textit{max-pooling}. Zasada jej działania jest bardzo prosta: wykonuje funkcję \textit{maksimum} na zadanym fragmencie obrazu (por. Rys. \ref{fig:max-pool}). Ich rolą jest zmniejszanie rozmiaru przekazywanej w sieci informacji.
+Oprócz warstw konwolucyjnych, w sieciach tego typu stosowane są także tzw. warstwy typu \textit{max-pooling}. Zasada jej działania jest bardzo prosta: wykonuje funkcję \textit{maksimum} na zadanym fragmencie obrazu (Rys. \ref{fig:max-pool}). Ich rolą jest zmniejszanie rozmiaru przekazywanej w sieci informacji.
 
-Typowa architektura stosowana w przypadku sieci konwolucyjnych jest następująca: najpierw warstwy konwolucyjne (pomiędzy nimi czasem warstwy typu \textit{max-pool}), następnie wszystkie filtry są rozwijane i składane w długi jednowymiarowy wektor, który przekazywany jest do warstw typu \textit{FC}. W przypadku problemu klasyfikacji, na końcu znajduje się jeszcze warstwa typu \textit{softmax} normalizująca wyjście z sieci do jedynki (por. Rys. \ref{fig:cnn-arch}). 
+Typowa architektura stosowana w przypadku sieci konwolucyjnych jest następująca: najpierw warstwy konwolucyjne (pomiędzy nimi czasem warstwy typu \textit{max-pool}), następnie wszystkie filtry są rozwijane i składane w długi jednowymiarowy wektor, który przekazywany jest do warstw typu \textit{FC}. W przypadku problemu klasyfikacji, na końcu znajduje się jeszcze warstwa typu \textit{softmax} normalizująca wyjście z sieci do jedynki (Rys. \ref{fig:cnn-arch}). 
+
+\begin{wrapfigure}[10]{r}{0.3\textwidth}
+  \begin{center}
+  	\vspace{-1em}
+	\includegraphics[width=0.2\textwidth]{translation-inv-non-face.png}
+	\caption{\imgsrc{\cite{tan17lkj}}.}
+   	\label{fig:translation-inv-nonface}
+  \end{center}
+\end{wrapfigure}
+
 
 \begin{figure}[ht]
 	\centering
@@ -92,15 +102,6 @@ Typowa architektura stosowana w przypadku sieci konwolucyjnych jest następując
 
 
 
-\begin{wrapfigure}[10]{r}{0.3\textwidth}
-  \begin{center}
-  	\vspace{-1em}
-	\includegraphics[width=0.2\textwidth]{translation-inv-non-face.png}
-	\caption{\imgsrc{\cite{tan17lkj}}.}
-   	\label{fig:translation-inv-nonface}
-  \end{center}
-\end{wrapfigure}
-
 Sieci konwolucyjne posiadają dwie właściwości odróżniające je od \textit{MLP}:
 \begin{itemize}
 	\item niezmienniczość względem przesunięcia \angterm{translation invariance} -- głównie za sprawą dzielenia wag oraz obecności warstw typu \textit{max-pool}, położenie danej cechy na obrazie jest niemal bez znaczenia (obraz po prawej stronie byłby rozpoznany jako twarz)
@@ -111,7 +112,7 @@ Sieci konwolucyjne posiadają dwie właściwości odróżniające je od \textit{
 
 Parametry sieci, których wartości są określane przez projektanta sieci, takie jak liczba warstw ukrytych są nazywane hiperparametrami (dla odróżnienia od parametrów - wag połączeń).
 
-Testowane były trzy architektury: sieci w pełni połączone, sieci konwolucyjne oraz sieć złożona z dwóch gałęzi, osobnych dla wtórnych wierzchołków i cząstek tworzących dżet (por. Rozdz. \ref{sec:dane}) przedstawione schematycznie na Rys. \ref{fig:nets-params}.
+Testowane były trzy architektury: sieci w pełni połączone, sieci konwolucyjne oraz sieć złożona z dwóch gałęzi, osobnych dla wtórnych wierzchołków i cząstek tworzących dżet (Rozdz. \ref{sec:dane}) przedstawione schematycznie na Rys. \ref{fig:nets-params}.
 Do trenowania sieci wykorzystano wysokopoziomową bibliotekę \texttt{Keras} \cite{chollet15} korzystającą z silnika obliczeniowego zaimplementowanego w \texttt{TensorFlow} \cite{tensorflow15}.
 
 \begin{figure}[ht]
@@ -131,7 +132,7 @@ Zestaw hiperparametrów definiujący działanie sieci w pełni połączonej:
 	\item parametr szybkości uczenia i jego modyfikacje w trakcie uczenia
 	\item liczba przykładów trenujących przetwarzanych w jednym kroku uczenia \angterm{batch\_size} -- im większy tym szybsze jest trenowanie sieci (dzięki wydajnym operacjom macierzowym), natomiast może się to odbywać kosztem precyzji
 	\item liczba epok uczenia -- ile razy będzie pokazywany sieci każdy przykład
-	\item opcjonalnie: warunki stopu \angterm{early stopping} w razie osiągnięcia \textit{plateau} (wysycenia procesu uczenia)
+	\item opcjonalnie: warunki stopu \angterm{early stopping}, czyli przerwanie procesu uczenia mające na celu uniknięcie przetrenowania sieci, w momencie gdy błąd popełniany na zbiorze walidacyjnym przestaje maleć
 	\item opcjonalnie: regularyzacja przy pomocy różnych technik (zwykle konieczna)
 \end{itemize}
 

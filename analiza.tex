@@ -6,11 +6,13 @@
 % RACZEJ TABELKA
 %\textit{Do zdefiniowania metryk użyte będą skróty angielskich terminów TP, TN, FP, FN, oznaczające kolejno liczbę poprawnie zaklasyfikowanych przykładów pozytywnych, liczbę poprawnie zaklasyfikowanych przykładów negatywnych, liczbę błędnie zaklasyfikowanych przykładów negatywnych (zaklasyfikowanych jako pozytywne) i liczbę błędnie zaklasyfikowanych przykładów pozytywnych (zaklasyfikowanych jako negatywne)}
 
-Bardzo ważnym elementem w trenowaniu algorytmów uczenia maszynowego jest dobór odpowiedniej metryki -- klasycznym złym przykładem jest używanie dokładności \angterm{accuracy} do oceniania klasyfikacji binarnej w przypadku dużego niezrównoważenia klas -- algorytm przewidujący zawsze klasę większościową może osiągnąć dużą wartość dokładności będąc jednocześnie bardzo słabym modelem.
+Bardzo ważnym elementem w trenowaniu algorytmów uczenia maszynowego jest dobór odpowiedniej metryki. 
+Kilka najczęściej używanych metryk wymieniono w Tab. \ref{tab:metryki}. 
+Klasycznym złym przykładem jest używanie dokładności \angterm{accuracy} do oceniania klasyfikacji binarnej w przypadku dużego niezrównoważenia klas -- algorytm przewidujący zawsze klasę większościową może osiągnąć dużą wartość dokładności będąc jednocześnie bardzo słabym modelem.
 
-Kilka najczęściej używanych metryk wymieniono w Tab. \ref{tab:metryki}. Używanie i porównywanie kilku miar efektywności jest często niepraktyczne dlatego dobrze jest wybrać jedną metrykę. Przy jej wyborze należy kierować się potencjalnymi zastosowaniami modelu. W tym przypadku są to analizy fizyczne, które mogą mieć różne wymagania dotyczące czystości i liczebności otrzymywanych próbek, a co za tym idzie, preferować inne punkty pracy zdefiniowane jako pary liczb: wydajność poprawnej klasyfikacji dżetów \textit{b} \angterm{tagging efficiency = true positive rate = recall}, i ułamek niepoprawnie zaklasyfikowanych przypadków tła \angterm{mistagging rate = false positive rate}. 
+Używanie i porównywanie kilku miar efektywności jest często niepraktyczne dlatego dobrze jest wybrać jedną metrykę. Przy jej wyborze należy kierować się potencjalnymi zastosowaniami modelu. W tym przypadku są to analizy fizyczne, które mogą mieć różne wymagania dotyczące czystości i liczebności otrzymywanych próbek, a co za tym idzie, preferować inne punkty pracy zdefiniowane jako pary liczb: wydajność poprawnej klasyfikacji dżetów \textit{b} \angterm{tagging efficiency = true positive rate = recall}, i ułamek niepoprawnie zaklasyfikowanych przypadków tła \angterm{mistagging rate = false positive rate}. 
 
-Naturalnym wyborem wydaje się pole pod powierzchnią krzywej ROC \angterm{ROC Area Under Curve -- ROC AUC} \cite{bradley1997use}. Potencjalną przeszkodą może być zakres rozsądnych wartości prawdopodobieństwa błędnej klasyfikacji przypadków tła: dżety \textit{b} stanowią tylko kilka procent liczby wszystkich dżetów, zatem z punktu widzenia analizy dopuszczalne będą punkty pracy zapewniające wydajność identyfikacji dżetów \textit{b} ok. 10 -- 100 razy większą niż częstość niepoprawnego zaklasyfikowania przypadków tła. Oznacza to, że zdecydowana większość punktów pracy znajdujących się na krzywej ROC jest nie do zaakceptowania -- interesujące są tylko te o najniższych częstościach błędnej klasyfikacji.
+Naturalnym wyborem wydaje się pole pod powierzchnią krzywej \textit{ROC} \angterm{ROC Area Under Curve -- ROC AUC} \cite{bradley1997use}. Potencjalną przeszkodą może być zakres rozsądnych wartości prawdopodobieństwa błędnej klasyfikacji przypadków tła: dżety \textit{b} stanowią tylko kilka procent liczby wszystkich dżetów, zatem z punktu widzenia analizy dopuszczalne będą punkty pracy zapewniające wydajność identyfikacji dżetów \textit{b} ok. 10 -- 100 razy większą niż częstość niepoprawnego zaklasyfikowania przypadków tła. Oznacza to, że zdecydowana większość punktów pracy znajdujących się na krzywej \textit{ROC} jest nie do zaakceptowania -- interesujące są tylko te o najniższych częstościach błędnej klasyfikacji.
 %[\#REF, znaleźć liczby]
 %https://books.google.pl/books?id=_FkGCwAAQBAJ&pg=
 %PA133&lpg=PA133&dq=b+jets+gluon+abundance&source=bl&ots=
@@ -19,8 +21,11 @@ Naturalnym wyborem wydaje się pole pod powierzchnią krzywej ROC \angterm{ROC A
 %b%20jets%20gluon%20abundance&f=false]
 
 Aby ilościowo porównywać różne algorytmy wprowadzone zostaną trzy punkty pracy: o prawdopodobieństwie błędnej klasyfikacji tła równej 0.1\%, 1\% oraz 10\%.
-Na Rys. \ref{fig:all-metrics-vs-bEff} przedstawione zostały zależności poszczególnych metryk od wydajności identyfikacji dżetów \textit{b} w tych trzech punktach pracy. Każdy punkt odpowiada jednemu eksperymentowi (dla dowolnego algorytmu) przeprowadzonemu w trakcie przygotowywania analizy. Daje to pogląd, na to która metryka zapewni jednocześnie wysokie wartości wydajności na identyfikację dżetów \textit{b} w wybranych punktach pracy. 
-Najwyższe korelacje występują dla punktu pracy o najwyższym prawdopodobieństwie błędnej klasyfikacji tła -- jak będzie to pokazane później wyniki dla tego punktu pracy są najbardziej stabilne. Spośród analizowanych metryk najwyższe wartości współczynnika Pearsona otrzymano dla pola pod powierzchnią krzywej ROC, dosyć wysokie również dla dokładności i precyzji. Widać, że wartości czułości są najsłabiej skorelowane z wydajnością identyfikacji dżetów \textit{b} -- jest zrozumiałe, że są one dużo niższe niż dla precyzji: wartości czułości maleją gdy błędnie klasyfikowane są dżety \textit{b} stanowiące sygnał, podczas gdy wartości precyzji maleją, gdy błędnie klasyfikowane są przypadki tła. 
+Na Rys. \ref{fig:all-metrics-vs-bEff} przedstawione zostały zależności poszczególnych metryk od wydajności identyfikacji dżetów \textit{b} w tych trzech punktach pracy. Każdy punkt odpowiada jednemu eksperymentowi (dla dowolnego algorytmu) przeprowadzonemu w trakcie przygotowywania analizy. 
+Daje to pogląd, na to wartościami której metryki należy się kierować przy wyborze algorytmu i hiperparametrów, aby zapewnić sobie jednocześnie wysokie wartości wydajności na identyfikację dżetów \textit{b} w wybranych punktach pracy.
+Najwyższe korelacje występują dla punktu pracy o najwyższym prawdopodobieństwie błędnej klasyfikacji tła -- jak będzie to pokazane później wyniki dla tego punktu pracy są najbardziej stabilne. 
+Spośród analizowanych metryk najwyższe wartości współczynnika Pearsona otrzymano dla pola pod powierzchnią krzywej \textit{ROC}, dosyć wysokie również dla dokładności i precyzji. 
+Widać, że wartości czułości są najsłabiej skorelowane z wydajnością identyfikacji dżetów \textit{b}. Jest rzeczą zrozumiałą, że są korelacja jest słabsza niż dla precyzji, ponieważ wartości czułości maleją za każdym razem gdy błędnie klasyfikowane są dżety \textit{b} stanowiące sygnał, podczas gdy wartości precyzji maleją, gdy błędnie klasyfikowane są przypadki tła. 
 Z tych dwóch błędów, drugi jest bardziej kosztowny, gdyż błędna klasyfikacja nawet niewielkiej części tła znacznie pogarsza czystość otrzymywanej próbki.
 
 
@@ -31,8 +36,8 @@ Z tych dwóch błędów, drugi jest bardziej kosztowny, gdyż błędna klasyfika
 	\label{fig:all-metrics-vs-bEff}
 \end{figure}
 
-Na Rys. \ref{fig:all-metrics-vs-bEff_perc75} przedstawiono te same wykresy, ale tym razem wybrano tylko 25\% najlepszych wartości dla każdej metryki -- te punkty są bardziej znaczące, gdyż ostatecznie modele z eksperymentów dających najlepsze wyniki będą używane.
-Dla tych wykresów otrzymano zdecydowaną dominację \textit{ROC AUC} -- wybór modeli dających najwyższe pole pod powierzchnią krzywej ROC zapewnia jednocześnie otrzymanie wysokich wartości wydajności identyfikacji dżetów \textit{b} dla wybranych punktów pracy. 
+Na Rys. \ref{fig:all-metrics-vs-bEff_perc75} przedstawiono te same wielkości co na Rys. \ref{fig:all-metrics-vs-bEff}, ale tym razem wybrano tylko 25\% najwyższych (najlepszych) wartości dla każdej metryki -- te punkty są bardziej znaczące, gdyż ostatecznie modele z eksperymentów dających najlepsze wyniki będą używane.
+Dla takiej selekcji otrzymano zdecydowaną dominację \textit{ROC AUC} -- wybór modeli dających najwyższe pole pod powierzchnią krzywej \textit{ROC} zapewnia jednocześnie otrzymanie wysokich wartości wydajności identyfikacji dżetów \textit{b} dla wybranych punktów pracy. 
 
 Pole pod powierzchnią krzywej \textit{ROC} zostało wybrane jako główna metryka używana w procesie dobierania parametrów modeli oraz przy prezentacji wyników.
 
@@ -68,20 +73,18 @@ W następnych podrozdziałach przedstawione zostały wyniki uzyskane dla poszcze
 
 Każdy przedstawiony wynik jest rezultatem uśrednienia pięciu powtórzeń procedury, na którą składa się: losowy podział zbioru danych na dane treningowe, walidacyjne i testowe oraz uczenie algorytmu (randomizacji podlega także inicjalizacja wag połączeń w przypadku sieci neuronowych).
 
-Na Rys. \ref{fig:ROC_SV}, \ref{fig:ROC_constit}, \ref{fig:ROC_merged} przedstawiono odmianę krzywej ROC -- wykresy przedstawiające zależności wydajności identyfikacji dżetów \textit{b} z niepewnościami (na osi poziomej) dla danego prawdopodobieństwa błędnej klasyfikacji dżetów tła (na osi pionowej). 
+Na Rys. \ref{fig:ROC_SV}, \ref{fig:ROC_constit}, \ref{fig:ROC_merged} przedstawiono odmianę krzywej \textit{ROC} -- wykresy przedstawiające zależności wydajności identyfikacji dżetów \textit{b} z niepewnościami (na osi poziomej) dla danego prawdopodobieństwa błędnej klasyfikacji dżetów tła (na osi pionowej). 
 
 Trzy krzywe na każdym wykresie odpowiadają separacji dżetów \textit{b} od dżetów: lekkich, \textit{c} oraz mieszanej próbki złożonej w 90\% z dżetów lekkich i w 10\% z dżetów powabnych.
 Cztery wykresy na każdym rysunku odpowiadają trzem użytym algorytmom: sieciom neuronowym typu \textit{FC} (na górze po lewej), konwolucyjnym sieciom neuronowych (na górze po prawej) i wzmacnianym drzewom decyzyjnym (na dole po lewej) oraz porównaniu wszystkich trzech (na dole po prawej). Porównane zostały tylko krzywe odpowiadające separacji dżetów \textit{b} od mieszanego tła (bez niepewności).
 
 Jeśli nie zaznaczono inaczej, prezentowane wyniki dotyczą separacji dżetów \textit{b} od mieszanego tła (90\% dżetów lekkich + 10\% \textit{c}).
 
-W Tab. \ref{tab:wyniki-modeli} przedstawiono podsumowanie wyników.
-
 \clearpage
 \FloatBarrier
 \subsubsection{Wyniki dla zmiennych związanych z wtórnymi wierzchołkami}
 
-Na Rys. \ref{fig:ROC_SV} przedstawiono rezultaty uzyskane przy trenowaniu na zbiorze danych \textit{SV}. Uzyskano bardzo zbliżone wyniki dla wszystkich trzech algorytmów, sieci konwolucyjne były nieznacznie skuteczniejsze przy wydajnościach na identyfikację dżetów \textit{b} poniżej 70\% -- dla tych samych prawdopodobieństw błędnej klasyfikacji tła uzyskiwały wydajności identyfikacji lepsze o ok. 5\%.
+Na Rys. \ref{fig:ROC_SV} przedstawiono rezultaty uzyskane przy trenowaniu na zbiorze danych \textit{SV}. Uzyskano bardzo zbliżone wyniki dla wszystkich trzech algorytmów, sieci konwolucyjne były nieznacznie lepsze od pozostałych przy wydajnościach na identyfikację dżetów \textit{b} poniżej 70\%. Dla tych samych prawdopodobieństw błędnej klasyfikacji tła uzyskiwały wydajności identyfikacji lepsze o ok. 5\%.
 
 \begin{figure}[ht]
 	\centering
@@ -143,7 +146,7 @@ Na Rys. \ref{fig:ROC_constit} przedstawiono rezultaty uzyskane przy trenowaniu n
 \subsubsection{Wyniki dla wszystkich zmiennych}
 
 Na Rys. \ref{fig:ROC_merged} przedstawiono rezultaty uzyskane przy trenowaniu na zbiorze danych \textit{merged}.
-Ponownie krzywe ROC wzmacnianych drzew decyzyjnych i sieci konwolucyjnych prawie się nie różnią, natomiast dla sieci w pełni połączonych krzywa jest przesunięta o ok. 0.1 \#\#\# w stronę niższych wydajności.
+Ponownie krzywe \textit{ROC} wzmacnianych drzew decyzyjnych i sieci konwolucyjnych prawie się nie różnią, natomiast dla sieci w pełni połączonych krzywa jest przesunięta o ok. 10\% w stronę niższych wydajności.
 
 W porównaniu do poprzednich zbiorów danych wszystkie algorytmy poprawiły swoje predykcje, najmniej \textit{FC}, którego zdolności separacyjne są prawie takie same jak w przypadku \textit{SV} (trochę lepsza separacja \textit{b} od \textit{c}).
 
@@ -173,18 +176,18 @@ W porównaniu do poprzednich zbiorów danych wszystkie algorytmy poprawiły swoj
 
 \clearpage
 \FloatBarrier
-\subsubsection{Podsumowanie}
+\subsubsection{Podsumowanie - wyniki poszczególnych modeli}
 \label{subsubsec:wyniki-modeli-podsum}
 
 Uzyskane wartości \textit{ROC AUC} oraz wydajności identyfikacji dżetów \textit{b} dla trzech punktów pracy zebrano w Tab. \ref{tab:wyniki-modeli}.
 
-Tak jak było to widać na Rys. \ref{fig:all-metrics-vs-bEff_perc75}, z \textit{ROC AUC} najbardziej skorelowane są wydajności dla punktu pracy o najwyższych wydajnościach. Wynika to z faktu, że pierwsze dwa punkty pracy leżą na samym początku krzywej ROC (dają niewielki wkład do pola pod krzywą).
+Tak jak było to widać na Rys. \ref{fig:all-metrics-vs-bEff_perc75}, wartości \textit{ROC AUC} są najbardziej czułe na wartości wydajności osiągane dla punktu pracy o najwyższych wydajnościach. Wynika to z faktu, że pierwsze dwa punkty pracy leżą na samym początku krzywej \textit{ROC} (dają niewielki wkład do pola pod krzywą).
 
 Algorytm wytrenowany na połączonym zbiorze danych daje trochę lepsze wyniki niż trenowany na zbiorach \textit{SV} i \textit{constit}, co jest oczywiście oczekiwane. Można było natomiast spodziewać się większej poprawy, co pokazuje, że predykcje algorytmów trenowanych na \textit{SV} oraz \textit{constit} muszą być skorelowane (przy założeniu, że model trenowany na dwóch połączonych zbiorach danych daje wyniki niegorsze niż trywialne połączenie dwóch modeli trenowanych na osobnych zbiorach danych).
 
 W każdym przypadku najgorsze wyniki uzyskano dla sieci w pełni połączonych.
 Z tabeli wynika, że duże znaczenie mają zarówno użyty algorytm jak i zestaw danych.
-Wysokie podobieństwo wyników uzyskiwanych dla \textit{BDT} oraz \textit{Conv} pozwala przypuszczać, że uzyskiwane przez nie poziom błędu jest zbliżony do minimum osiągalnego przy tych zestawach danych (błędu \textit{bayesowskiego}).
+Podobne wyniki uzyskiwane dla \textit{BDT} oraz \textit{Conv} pozwalają przypuszczać, że uzyskiwane przez nie poziom błędu jest zbliżony do minimum osiągalnego przy tych zestawach danych (błędu \textit{bayesowskiego}).
 
 
 
@@ -227,13 +230,13 @@ Pierwszy wniosek płynący z wykresu korelacji to fakt, że wszystkie modele są
 Najmniejszymi korelacjami z innymi wyróżnia się model \textit{constit-FC}, który dawał zdecydowanie najsłabsze wyniki.
 
 Widać wyraźny wzrost korelacji w przypadku modeli trenowanych na tych samych zbiorach danych (szczególnie dla modeli trenowanych na zmiennych związanych z wtórnymi wierzchołkami). 
-Modele trenowane na połączonym zbiorze danych są nieco silniej skorelowane z modelami \textit{SV-X} niż \textit{constit-X}
+Modele trenowane na połączonym zbiorze danych są nieco silniej skorelowane z modelami \textit{SV-X} niż \textit{constit-X}.
 Nie obserwuje się natomiast istotnie większych korelacji między modelami wykorzystującymi ten sam algorytm.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{models_correlation.png}
-	\caption{Średnie współczynniki korelacji Pearsona pomiędzy predykcjami poszczególnych modeli. Odchylenia standardowe wynosiły 0.001 -- 0.009.}
+	\caption{Średnie współczynniki korelacji Pearsona pomiędzy predykcjami poszczególnych modeli. Odchylenia standardowe nie zostały pokazane na wykresie, ich wartości wynoszą 0.001 -- 0.009.}
 	\label{fig:models_corr}
 \end{figure}
 
@@ -245,13 +248,16 @@ Nie obserwuje się natomiast istotnie większych korelacji między modelami wyko
 \label{subsec:feat-imp}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Jedną z zalet drzew decyzyjnych jest możliwość dokładnego prześledzenia procesu decyzyjnego poprzedzającego klasyfikację danego przypadku, co pozwala na lepsze zrozumienie działania modelu. Cecha ta zanika w przypadku stosowania klasyfikatora złożonego z dużej liczby drzew jak \textit{BDT}, jednak nadal istnieją dosyć proste sposoby na zrozumienie, które cechy miały największy wpływ na predykcję.
+Jedną z zalet drzew decyzyjnych jest możliwość dokładnego prześledzenia procesu decyzyjnego poprzedzającego klasyfikację danego przypadku, co pozwala na lepsze zrozumienie działania modelu. Nie jest to możliwe dla klasyfikatora złożonego z dużej liczby drzew jak \textit{BDT}, jednak nadal istnieją dosyć proste sposoby na zrozumienie, które cechy miały największy wpływ na predykcję.
 
 Wykorzystano trzy miary istotności zmiennych zaimplementowane w bibliotece \texttt{XGBoost}: 
 \footnote{nazwy miar pochodzą z wersji biblioteki dla języka \texttt{Python}, w wersji dla innych języków, np. \texttt{R} nazwy miar oraz ich znaczenie są różne} 
-\textit{weight} informuje ile razy dana zmienna została wykorzystana w podziałach drzew.  
-\textit{total\_gain} jest sumą po spadkach funkcji straty uzyskiwanych dzięki podziałom wykorzystującym daną zmienną, natomiast
-\textit{total\_cover} to suma liczb przykładów trenujących, na które miały wpływ podziały wykorzystujące daną zmienną.
+\begin{itemize}
+\item \textit{weight} informuje ile razy dana zmienna została wykorzystana w podziałach drzew.  
+\item \textit{total\_gain} jest sumą po spadkach funkcji straty uzyskiwanych dzięki podziałom wykorzystującym daną zmienną
+\item \textit{total\_cover} to suma liczb przykładów trenujących, na które miały wpływ podziały wykorzystujące daną zmienną.
+\end{itemize}
+
 
 Zasadniczo najważniejszą miarą jest \textit{total\_gain}, gdyż uwzględnia ona zarówno częstość wykorzystania danej zmiennej (\textit{weight}) jak i średni zysk w postaci spadku funkcji straty uzyskiwany w poszczególnych podziałach. 
 Zmienna binarna wykorzystana już w jednym podziale drzewa, nie może zostać użyta ponownie w żadnej gałęzi będącej kontynuacją danego podziału, stąd zmienne binarne zwykle osiągają mniejsze wartości miary \textit{weight}.
@@ -265,15 +271,15 @@ W Tab. \ref{tab:feat_imp_most_sv_constit} przedstawiono wartości miar istotnoś
 Z kolei w Tab. \ref{tab:feat_imp_by_name} przedstawiono wartości tych miar pogrupowane wg wielkości fizycznych.
 Wartości każdej miary zostały unormowane do 100 (suma dla wszystkich elementów, nie tylko tych przedstawionych w tabelach jest równa 100). System oznaczeń opisany jest w Dodatku \ref{sec:app:skroty}.
 
-Zdecydowanie najważniejszymi zmiennymi okazały się: $L_{xy}$ w przypadku wtórnych wierzchołków oraz $IP_D$ w przypadku cząstek składowych dżetu, czyli zmienne związane z długim czasem życia pięknych hadronów. 
+Zdecydowanie najważniejszymi zmiennymi okazały się: $L_{xy}$ w przypadku wtórnych wierzchołków oraz $IP_D$ w przypadku cząstek składowych dżetu, czyli zmienne, które zależą od czasu życia hadronów. 
 Wyraźna jest także tendencja, że im wyższa pozycja elementu na liście, tym istotniejsze są jego właściwości (najistotniejsze są elementy nr 0).
 
 O ile miary \textit{total\_gain} i \textit{total\_cover} są dosyć silnie skorelowane (co widać w obu tabelach) to \textit{weight}, czyli częstość ich użycia wydaje się być niezależna i przyjmować zbliżone wartości dla wszystkich zmiennych. 
 Okazuje się, że nie ma zmiennych, które byłyby wyraźnie rzadziej wykorzystywane od innych.
  
-Pojawiają się także niespodziewane wyniki, przykładowo zmienna $\sigma_{Lxy}$ pojawia się częściej niż $L_{xy}$, której niepewność opisuje, co jest zaskakujące tym bardziej, że jest $\sigma_{Lxy}$ tylko jednym z trzech rodzajów zmiennych związanych z jakością wtórnego wierzchołka ($\sigma_{Lxy}$, $\sigma_{vertex}$ i $\chi^2/Ndf$).
+Pojawiają się także niespodziewane wyniki, przykładowo zmienna $\sigma_{Lxy}$ pojawia się częściej niż $L_{xy}$, której niepewność opisuje, co jest zaskakujące tym bardziej, że $\sigma_{Lxy}$ jest tylko jednym z trzech rodzajów zmiennych związanych z jakością wtórnego wierzchołka ($\sigma_{Lxy}$, $\sigma_{vertex}$ i $\chi^2/Ndf$).
 
-Wyniki uzyskane dla modelu \textit{merged-BDT} (prawa strona Tab. \ref{tab:feat_imp_by_name}) pokazują, że przy trenowaniu na pełnym zestawie danych zmienne ze zbioru \textit{SV} są bardziej znaczące niż te ze zbioru \textit{constit}, co jest zgodne z odnotowaną wyższą korelacją modeli \textit{merged-X} z modelami \textit{SV-X} niż z modelami \textit{constit-X}.
+Wyniki uzyskane dla modelu \textit{merged-BDT} (prawa strona Tab. \ref{tab:feat_imp_by_name}) pokazują, że przy trenowaniu na pełnym zestawie danych zmienne ze zbioru \textit{SV} są bardziej znaczące niż te ze zbioru \textit{constit}, co jest zgodne z odnotowaną silniejszą korelacją modeli \textit{merged-X} z modelami \textit{SV-X} niż z modelami \textit{constit-X}.
 
 \newlength{\everyNthRowSpace}
 \setlength{\everyNthRowSpace}{8pt}
@@ -443,9 +449,9 @@ Dalszą analizę wpływu poszczególnych zmiennych przeprowadzono przy użyciu w
 Metoda wykresów zależności cząstkowych to metoda polegająca na sprawdzeniu zachowania się predykcji już wytrenowanego modelu na skutek zmiany wartości wybranej zmiennej. W tym celu przeprowadzane są predykcje na normalnym zbiorze danych, ze zmienioną jedną kolumną, zawierającą wartości analizowanej zmiennej. Wszystkie wartości w tej kolumnie ustawiane są na tę samą wartość, która jest stopniowo zmieniana od minimum do maksimum wartości przyjmowanych przez daną zmienną, za każdym razem przeprowadzana jest predykcja. Współrzędnymi punktów na wykresie zależności cząstkowej są: kolejne wartości ustawiane w analizowanej kolumnie (oś pozioma) i średnia wartość predykcji modelu (oś pionowa). Im wyższe wartości tej drugiej tym większa część przykładów zostałaby zaliczona przez algorytm do klasy pozytywnej (uznana za dżet \textit{b}).
 
 Taka analiza służy kilku celom. 
-Po pierwsze, pozwala na weryfikację, tego czy modele działają zgodnie z naszą wiedzą, w przypadkach gdy wiadomo jak powinien zachować się algorytm. 
-Odwrotna sytuacja (brak wiedzy na temat pożądanego zachowania) pozwala na wyciągnięcie wniosków na podstawie sposobu działania algorytmu co wzbogaca intuicję i zrozumienie analizowanych danych.
-Po trzecie, jest to jeden ze sposobów na zrozumienie działania algorytmów, w przypadku których w przeciwieństwie do drzew decyzyjnych czy regresji liniowej nie istnieją proste metryki pozwalające na oszacowanie wpływu poszczególnych zmiennych na predykcję. W przypadku sieci neuronowych często jest to dużym wyzwaniem.
+Po pierwsze, pozwala na weryfikację, czy modele działają zgodnie z naszą wiedzą, w przypadkach gdy wiadomo jak powinien zachować się algorytm. 
+Po drugie, w przypadku braku wiedzy na temat pożądanego zachowania pozwala na wyciągnięcie wniosków na podstawie sposobu działania algorytmu co wzbogaca intuicję i zrozumienie analizowanych danych.
+Po trzecie, jest to jeden ze sposobów na zrozumienie działania algorytmów, innych niż drzewa decyzyjne czy regresja liniowa, w których nie istnieją proste metryki pozwalające oszacować wpływ poszczególnych zmiennych na predykcję. W przypadku sieci neuronowych często jest to dużym wyzwaniem.
 
 Na Rys. \ref{fig:pdp-sv} i \ref{fig:pdp-constit} przedstawiono wykresy zależności cząstkowych dla wybranych zmiennych. Przy wyborze zmiennych posiłkowano się wartościami miar istotności cech z sekcji \ref{subsec:feat-imp}, kierowano się także wartością ilustracyjną dla omawianych zagadnień.
 Skala osi pionowej jest inna dla każdej zmiennej, im większy zakres, tym większy bezpośredni wpływ tej zmiennej na predykcje, tym istotniejsza jest ta zmienna.
@@ -459,15 +465,15 @@ Analiza tych pięciu wykresów pozwala na zaobserwowanie ciekawych różnic mię
 Pierwsza z nich: zależności cząstkowe wydają się mieć mniejszą amplitudę w przypadku \textit{BDT} niż w przypadku sieci neuronowych. Może wynikać to z kształtu funkcji -- w przypadku \textit{BDT} jest to złożenie kilku funkcji schodkowych, podczas gdy sieci neuronowe dają bardziej gładkie zależności. Efektem tego jest inne zachowanie w obszarze ekstrapolacji (obszary gdzie rozkłady prawdopodobieństwa mają niską gęstość). Drzewa decyzyjne nie mają potrzeby dalszych podziałów np. w zakresie $L_{xy} - SV0 > 0.3$ lub $|IP_D| > 5$ dlatego ich predykcje są w tych zakresach niemal stałe. Z kolei w przypadku sieci neuronowych, z powodu braku wystarczającej liczby przykładów o takich wartościach zmiennych, wykres jest w przybliżeniu ekstrapolacją zachowania z zagęszczonego zakresu, co jest bardzo wyraźnie w przypadku sieci w pełni połączonych. 
 
 Druga obserwacja to to asymetria w predykcji \textit{BDT} na wykresie $IP_Z - C1$. Pomimo wyjątkowo symetrycznego rozłożenia wartości tej zmiennej wokół zera, predykcje \textit{BDT} są wyraźnie przesunięte, z minimum zlokalizowanym wokół wartości -1.
-Przyczyną takiego zachowania może być specyficzny sposób trenowania drzew decyzyjnych, które w przypadku takiego rozkładu nie mogą podzielić przestrzeni fazowej na 3 części w jednym kroku, co byłoby najbardziej korzystne, ale zmuszone są do dwóch kolejnych podziałów, np. wzdłuż wartości -2 i 2, z czego pierwszy podział musi niejako złamać symetrię rozkładu.
+Przyczyną takiego zachowania może być specyficzny sposób trenowania drzew decyzyjnych, które w przypadku takiego rozkładu nie mogą podzielić przestrzeni fazowej na 3 części w jednym kroku, co byłoby najbardziej korzystne, ale zmuszone są do dwóch kolejnych podziałów, np. wzdłuż wartości -2 i 2, z czego pierwszy podział musi niejako złamać symetrię rozkładu. Konieczność wykonania dwóch podziałów, z których pierwszy nie zapewnia dobrej separacji klas może być przyczyną, dla której $L_{xy}$ było chętniej wykorzystywane przez model \textit{merged-BDT} (Tab. \ref{tab:feat_imp_by_name}) -- w przypadku tej zmiennej dobrą separację klas daje już pierwszy podział.
 
 Wykresy takie jak te na Rys. \ref{fig:pdp-sv} c) i f) lub \ref{fig:pdp-constit} c), d) i f) pokazują, że predykcje algorytmów mogą wykazywać nie tylko ilościowe, ale także jakościowe różnice w reakcji na wariacje wartości jednej zmiennej.
 
-Wreszcie wykresy przedstawione na Rys. Rys. \ref{fig:pdp-sv} e) oraz Rys. \ref{fig:pdp-constit} e) pokazują, że nawet w przypadku zmiennych intensywnie wykorzystywane przy podziałach drzewa (o czym świadczy Tab. \ref{tab:feat_imp_most_sv_constit}) zmiana wyłącznie ich wartości ma często znikomy wpływ na predykcje całego modelu. Są to zmienne, których rozkłady dla sygnału i tła prawie się nie różnią. Ich wpływ na predykcje algorytmu ujawnia się dopiero w kombinacji z innymi zmiennymi.
+Wreszcie wykresy przedstawione na Rys. \ref{fig:pdp-sv} e) oraz Rys. \ref{fig:pdp-constit} e) pokazują, że nawet w przypadku zmiennych intensywnie wykorzystywanych przy podziałach drzewa (o czym świadczy Tab. \ref{tab:feat_imp_most_sv_constit}) zmiana wyłącznie ich wartości ma często znikomy wpływ na predykcje całego modelu. Są to zmienne, których rozkłady dla sygnału i tła prawie się nie różnią. Ich wpływ na predykcje algorytmu ujawnia się dopiero w kombinacji z innymi zmiennymi.
 Wykorzystanie tych zmiennych jest dużo trudniejsze dla ludzi i między innymi na tym polega przewaga podejścia analizy wielowymiarowej i uczenia maszynowego.
-Wykresy te sygnalizują jednocześnie ograniczenie metody wykresów zależności cząstkowych, która jak każda metoda wizualna nie radzi sobie z przestrzeniami zmiennych o większej niż 3-4 liczbie wymiarów.
+Wykresy te sygnalizują jednocześnie ograniczenie metody zależności cząstkowych, która jak każda metoda graficzna nie radzi sobie z przestrzeniami zmiennych o liczbie wymiarów większej niż 3-4.
 
-\newcommand{\newWidth}{0.45\textwidth}
+\newcommand{\newWidth}{0.43\textwidth}
 \begin{figure}[ht]
 	\centering
     \begin{subfigure}[b]{\newWidth}
@@ -553,8 +559,8 @@ Wykresy te sygnalizują jednocześnie ograniczenie metody wykresów zależności
 %|  |
 %|  |    AUC=0.99
 %| /
-%|/________________1_____\
-%0                       /
+%|/______________________\
+%0                  1    /
 
 
 
