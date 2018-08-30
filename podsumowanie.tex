@@ -9,8 +9,8 @@ Procedurę uczenia przeprowadzono osobno na trzech zbiorach zmiennych, uzyskują
 Zaprezentowano wyniki poszczególnych modeli (w postaci krzywych \textit{ROC} oraz wydajności na identyfikację  dżetów \textit{b} w trzech punktach pracy) oraz obliczono korelacje między ich predykcjami.
 Sieci konwolucyjne oraz wzmacniane drzewa decyzyjne okazały się dawać lepsze wyniki od sieci w pełni połączonych.
 Dla najlepszych modeli uzyskano wartości $ROC AUC = 0.925(1)$.
-Dla prawdopodobieństwa błędnej klasyfikacji tła równego 1\% i 10\% uzyskano wydajności na identyfikację dżetów \textit{b} równe kolejno 50\% oraz 81\% .
-Wszystkie modele okazały się być dosyć silnie skorelowane, przy czym czynnikiem wzmacniającym korelacje okazało się użycie do treningu tych samych zmiennych, natomiast nie zaobserwowano wzmocnienia korelacji dla algorytmów tego samego rodzaju.
+Dla prawdopodobieństwa błędnej klasyfikacji tła równego 1\% i 10\% uzyskano wydajności na identyfikację dżetów \textit{b} na poziomie kolejno 50\% oraz 81\% .
+Predykcje wszystkich modeli okazały się być dosyć silnie skorelowane, przy czym czynnikiem wzmacniającym korelacje okazało się użycie do treningu tych samych zmiennych, natomiast nie zaobserwowano wzmocnienia korelacji dla algorytmów tego samego rodzaju.
 
 W celu lepszego zrozumienia działania modeli przeprowadzono analizę wpływu poszczególnych zmiennych na ich predykcje. W tym celu wykorzystano miary istotności zmiennych dostępne dla drzew decyzyjnych oraz wykresy zależności cząstkowych dla wszystkich trzech algorytmów.
 Analiza pokazuje (tylko dla drzew decyzyjnych), że wszystkie używane wielkości okazały się mieć niepomijalny wpływ na predykcje.
@@ -18,9 +18,9 @@ Ponadto wszystkie modele działają zgodnie z podstawową wiedzą nt. właściwo
 
 Istnieje kilka sposobów na potencjalną poprawę uzyskanych wyników. 
 Pierwszym z nich mogłoby być wykorzystanie dodatkowych wielkości, związanych z półleptonowym kanałem rozpadu ciężkich hadronów jak np. pęd poprzeczny leptonu względem osi dżetu lub z wewnętrzną strukturą dżetów, jak np. tzw. \textit{pull} \cite{Gallicchio:2010sw}. 
-Kolejnym mogłoby być użycie innych algorytmów lub architektur sieci, co jednak ma w mojej ocenie niewielki potencjał.
-Istotniejsze mogłoby okazać się użycie większej ilości danych, co niemal na pewno poprawiłoby wyniki głębokich sieci neuronowych.
+Kolejnym mogłoby być użycie innych algorytmów lub architektur sieci neuronowych, co jednak mojej ocenie ma niewielki niewielki potencjał bez zmiany w danych treningowych.
+Istotniejsze mogłoby okazać się użycie większej ilości danych, co niemal na pewno poprawiłoby wyniki głębokich sieci neuronowych, które znane są ze świetnego skalowania się w obszarze ogromnych zbiorów danych.
 
-%Kolejnym etapem pracy powinna być próba użycia modeli na danych eksperymentalnych, co wiąże się z szeregiem nowych trudności, głównie związanych z brakiem możliwości bezpośredniej 
-%Ważniejsze jednak od osiągania coraz bardziej wyśrubowanych wyników
+Kolejnym etapem pracy powinna być próba użycia modeli na danych eksperymentalnych. Wiąże się to z szeregiem nowych trudności, głównie związanych z brakiem możliwości bezpośredniej oceny wyników uzyskiwanych przez algorytm, jest jednak niezbędne do wyjścia poza obszar czysto akademickich rozważań.
+Innym kierunkiem rozwoju byłoby przeprowadzenie podobnej analizy dla dużo trudniejszych danych ze zderzeń ciężkich jonów.
 
