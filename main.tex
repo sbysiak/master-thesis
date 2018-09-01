@@ -33,9 +33,11 @@
 \usepackage{booktabs} % for pandas
 \usepackage{multicol}
 \usepackage{pbox}
-\usepackage[titletoc,toc,title]{appendix}
 \usepackage{array}
 \usepackage{tabularx}
+
+\geometry{hmargin={2cm, 2cm}, height=10.0in}
+\graphicspath{ {graphics/}, {graphics/plots/} }
 
 \newcommand{\angterm}[1] {
   (ang.~\textit{#1})}
@@ -50,24 +52,16 @@
 %\linenumbers
 
 
-
-\graphicspath{ {graphics/}, {graphics/plots/} }
-\geometry{hmargin={2cm, 2cm}, height=10.0in}
-
-
-
-
 \begin{document}
-%\renewcommand\thesection{XD \arabic{section}}
 
 % input{} / include{} - input nie daje \clearpage
 
-%\input{strona_tytulowa}
+\include{strona_tytulowa}
 
 \setcounter{tocdepth}{2}
 \tableofcontents
-
 \clearpage
+
 \input{qgp} 
 \input{dzety}
 %\input{b-tagging}
