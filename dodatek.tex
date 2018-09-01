@@ -43,7 +43,7 @@ Wykres ten w przypadku klasyfikatora losowego jest prostą łączącą punkty o 
 Pole pod tą krzywą \angterm{ROC Area Under Curve -- ROC AUC} jest kolejną metryką, bardzo często wykorzystywaną w praktyce, gdyż łączy w sobie wszystkie możliwe punkty pracy, jest także odporne na niezrównoważenie klas. Pole pod krzywą \textit{ROC} przyjmuje wartość 0.5 dla klasyfikatora losowego oraz 1 dla idealnego.
 
 W literaturze dot. klasyfikacji dżetów wyniki zwykle przedstawia się z użyciem dwóch powszechnie znanych metryk, ale o zmienionych nazwach:
-\textit{True Positive Rate}, nazywanej \textit{b jet tagging efficiency} -- wydajności na identyfikację dżetów \textit{b} oraz \textit{False Positive Rate}, nazywanym \textit{mistagging rate}  -- prawdopodobieństwa błędnej klasyfikacji dżetów tła jako dżety \textit{b}.
+\textit{True Positive Rate}, nazywanej \textit{b jet tagging efficiency} -- wydajnością na identyfikację dżetów \textit{b} oraz \textit{False Positive Rate}, nazywanej \textit{mistagging rate}  -- prawdopodobieństwem błędnej klasyfikacji dżetów tła jako dżety \textit{b}.
 
 \clearpage
 \FloatBarrier
@@ -54,7 +54,7 @@ W pracy używane są następujące skróty i oznaczenia:
 	\item algorytmy: \\ \textit{FC} -- sieci neuronowe w pełni połączone,\\ \textit{Conv} - sieci neuronowe konwolucyjne,\\ \textit{BDT} - wzmacniane drzewa decyzyjne
 	\item zbiory danych: \\ \textit{SV} -- zestaw zawierający tylko zmienne związane z wtórnymi wierzchołkami,\\ \textit{constit} -- zestaw zawierający tylko zmienne związane z cząstkami tworzącymi dżet,\\ \textit{merged} -- zestaw zawierający wszystkie zmienne (tj. \textit{SV}+\textit{Constit}+zmienne charakteryzujące dżet jako całość)
 	\item modele (zestaw danych + algorytm) nazywane są wg wzoru: \\ (oznaczenie\_zbioru\_danych)-(oznaczenie\_algorytmu), \\np. \textit{SV-Conv} oznacza konwolucyjną sieć neuronową wytrenowaną na zmiennych związanych z wtórnymi wierzchołkami a \textit{merged-BDT} - wzmacniane drzewa decyzyjne, do treningu których użyte zostały wszystkie zmienne. Zapis \textit{merged-X} stanowi zbiorcze oznaczenie modeli \textit{merged-SV}, \textit{merged-Conv} i \textit{merged-BDT}.
-	\item poszczególne zmienne (kolumny w zbiorze danych) oznaczane są według wzoru: \\ (nazwa\_zmiennej) -- (numer\_obiektu), \\np. $\sigma_{Lxy} - SV2$ oznacza niepewność wyznaczenia $L_{xy}$ dla wtórnego wierzchołka nr 2, a $IP_Z - C5$ -- rzut odległości najbliższego zbliżenia cząstki na oś wiązki cząstki nr 5 -- numery na posortowanych listach (Rozdz. \ref{sec:dane}, gdzie znajdują się także opisy wielkości fizycznych).
+	\item poszczególne zmienne (kolumny w zbiorze danych) oznaczane są według wzoru: \\ (nazwa\_zmiennej) -- (numer\_obiektu), \\np. $\sigma_{Lxy} - SV2$ oznacza niepewność wyznaczenia $L_{xy}$ dla wtórnego wierzchołka nr 2, a $IP_Z\,-\,C5$ -- rzut odległości najbliższego zbliżenia cząstki nr 5 na oś wiązki -- numery na posortowanych listach (Rozdz. \ref{sec:dane}, gdzie znajdują się także opisy wielkości fizycznych).
 \end{itemize} 
 
 
